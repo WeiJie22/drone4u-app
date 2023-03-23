@@ -16,6 +16,7 @@ class D4uLoginScreen extends StatefulWidget {
 }
 
 class _D4uLoginScreenState extends State<D4uLoginScreen> {
+  bool _isObscure = true;
   @override
   Widget build(BuildContext context) {
     return D4uScaffold(
@@ -35,6 +36,20 @@ class _D4uLoginScreenState extends State<D4uLoginScreen> {
           ),
           D4uTextField(
             placeHolder: 'Password',
+            obscureText: _isObscure,
+            suffixIcon: IconButton(
+              splashRadius: 1,
+              icon: Icon(
+                _isObscure ? Icons.visibility_off : Icons.visibility,
+                color: d4uPrimaryColor,
+                size: 20,
+              ),
+              onPressed: () {
+                setState(() {
+                  _isObscure = !_isObscure;
+                });
+              },
+            ),
           ),
           D4uLoginSubText(
             text: 'Forget your password? ',

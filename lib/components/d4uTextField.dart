@@ -9,22 +9,38 @@ class D4uTextField extends StatefulWidget {
     this.borderRadius,
     this.padding = D4uPadding.containerCenter,
     this.keyboardType,
+    this.obscureText = false,
+    this.maxLines,
   }) : super(key: key);
 
   String? placeHolder;
-  Icon? suffixIcon;
+  IconButton? suffixIcon;
   double? borderRadius;
   EdgeInsets padding;
   Color? focusedBorderColor;
   TextInputType? keyboardType;
+  bool obscureText;
+  int? maxLines;
 
   @override
   State<D4uTextField> createState() => _D4uTextFieldState();
 }
 
 class _D4uTextFieldState extends State<D4uTextField> {
-  FocusNode focusNode = FocusNode();
+  late FocusNode focusNode;
   Color borderColor = d4uGray;
+
+  @override
+  void initState() {
+    focusNode = FocusNode();
+    super.initState();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    focusNode.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -43,10 +59,12 @@ class _D4uTextFieldState extends State<D4uTextField> {
           ],
         ),
         child: TextField(
+          obscureText: widget.obscureText,
           keyboardType: widget.keyboardType,
           cursorColor: Colors.black,
           cursorWidth: 1,
           focusNode: focusNode,
+          maxLines: widget.obscureText ? 1 : widget.maxLines,
           decoration: InputDecoration(
             labelText: widget.placeHolder,
             labelStyle: const TextStyle(color: d4uGray),

@@ -38,42 +38,44 @@ class D4uScaffold extends StatefulWidget {
 class _D4uScaffoldState extends State<D4uScaffold> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: d4uBackground,
-      bottomNavigationBar: widget.bottomNavigationBarWidget,
-      body: CustomScrollView(
-        slivers: [
-          widget.appBar ??
-              SliverAppBar(
-                title: D4uText(text: widget.appBarTitle),
-                backgroundColor: d4uBackground,
-                elevation: 0,
-                centerTitle: widget.centerAppBarTitle,
-                pinned: widget.pinAppBar,
-                leading: widget.showBackButton
-                    ? GestureDetector(
-                        onTap: widget.leadingOnTap ??
-                            () {
-                              Navigator.pop(context);
-                            },
-                        child: widget.appBarLeading ??
-                            const Icon(
-                              Icons.arrow_back_ios,
-                              size: 16,
-                              color: Colors.black,
-                            ),
-                      )
-                    : D4uSizedBox.shrink,
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: Scaffold(
+        backgroundColor: d4uBackground,
+        body: CustomScrollView(
+          slivers: [
+            widget.appBar ??
+                SliverAppBar(
+                  title: D4uText(text: widget.appBarTitle),
+                  backgroundColor: d4uBackground,
+                  elevation: 0,
+                  centerTitle: widget.centerAppBarTitle,
+                  pinned: widget.pinAppBar,
+                  leading: widget.showBackButton
+                      ? GestureDetector(
+                          onTap: widget.leadingOnTap ??
+                              () {
+                                Navigator.pop(context);
+                              },
+                          child: widget.appBarLeading ??
+                              const Icon(
+                                Icons.arrow_back_ios,
+                                size: 16,
+                                color: Colors.black,
+                              ),
+                        )
+                      : D4uSizedBox.shrink,
+                ),
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  D4uPageTitle(title: widget.pageTitle),
+                  widget.body!,
+                ],
               ),
-          SliverList(
-            delegate: SliverChildListDelegate(
-              [
-                D4uPageTitle(title: widget.pageTitle),
-                widget.body!,
-              ],
-            ),
-          )
-        ],
+            )
+          ],
+        ),
       ),
     );
   }
