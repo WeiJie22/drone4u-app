@@ -11,6 +11,7 @@ class D4uTextField extends StatefulWidget {
     this.keyboardType,
     this.obscureText = false,
     this.maxLines,
+    this.onChanged,
   }) : super(key: key);
 
   String? placeHolder;
@@ -21,6 +22,7 @@ class D4uTextField extends StatefulWidget {
   TextInputType? keyboardType;
   bool obscureText;
   int? maxLines;
+  Function? onChanged;
 
   @override
   State<D4uTextField> createState() => _D4uTextFieldState();
@@ -59,6 +61,7 @@ class _D4uTextFieldState extends State<D4uTextField> {
           ],
         ),
         child: TextField(
+          onChanged: ((value) => widget.onChanged!(value)),
           obscureText: widget.obscureText,
           keyboardType: widget.keyboardType,
           cursorColor: Colors.black,

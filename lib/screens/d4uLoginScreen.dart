@@ -1,11 +1,6 @@
-import 'package:drone4u/components/d4uDuoButton.dart';
-import 'package:drone4u/components/d4uScaffold.dart';
 import 'package:drone4u/components/d4uLoginSubText.dart';
 import 'package:drone4u/constant/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import '../components/d4uIndex.dart';
 
 class D4uLoginScreen extends StatefulWidget {
@@ -20,6 +15,7 @@ class _D4uLoginScreenState extends State<D4uLoginScreen> {
   @override
   Widget build(BuildContext context) {
     return D4uScaffold(
+      showBackButton: true,
       color: d4uBackground,
       bottomNavigationBarWidget: D4uBottomSocialMedia(
         text: "Or login with social account",
@@ -33,6 +29,7 @@ class _D4uLoginScreenState extends State<D4uLoginScreen> {
           ),
           D4uTextField(
             placeHolder: "Name",
+            onChanged: (val) => {print(val)},
           ),
           D4uTextField(
             placeHolder: 'Password',
