@@ -1,6 +1,7 @@
 import 'package:drone4u/components/d4uScaffold.dart';
 import 'package:drone4u/screens/d4uLoginScreen.dart';
 import 'package:drone4u/screens/d4uNavigationBar.dart';
+import 'package:drone4u/screens/d4uSignUpPage.dart';
 import 'package:flutter/material.dart';
 
 void main() {
@@ -14,7 +15,7 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      home: D4uLoginScreen(),
+      home: D4uSignUpPage(),
     );
   }
 }
