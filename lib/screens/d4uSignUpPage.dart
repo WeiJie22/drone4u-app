@@ -77,6 +77,7 @@ class _D4uSignUpPageState extends State<D4uSignUpPage> {
           D4uSingleButton(
             padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
             text: 'Sign Up',
+            onPressed: () => {},
           ),
         ],
       ),

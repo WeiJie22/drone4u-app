@@ -38,6 +38,7 @@ class _D4uForgotPassPageState extends State<D4uForgotPassPage> {
           D4uSingleButton(
             padding: const EdgeInsets.fromLTRB(16, 32, 16, 0),
             text: 'Send',
+            onPressed: () => {},
           ),
         ],
       ),

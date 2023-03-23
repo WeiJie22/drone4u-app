@@ -59,6 +59,9 @@ class _D4uLoginScreenState extends State<D4uLoginScreen> {
           D4uSingleButton(
             padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
             text: 'Login',
+            onPressed: () => {
+              Navigator.pushNamed(context, RouteName.naviagtionBar),
+            },
           ),
         ],
       ),
