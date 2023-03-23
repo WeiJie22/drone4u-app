@@ -19,7 +19,7 @@ class D4uSingleButton extends StatelessWidget {
     return Padding(
       padding: padding,
       child: ElevatedButton(
-        onPressed: () {},
+        onPressed: onPressed,
         style: ElevatedButton.styleFrom(
           shadowColor: d4uPrimaryColor,
           elevation: 2,

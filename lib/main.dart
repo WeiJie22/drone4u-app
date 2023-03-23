@@ -18,8 +18,8 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       routes: d4uRoutes(context),
-      initialRoute: '/signup',
-      home: D4uSignUpPage(),
+      initialRoute: '/',
+      home: const D4uSignUpPage(),
     );
   }
 }

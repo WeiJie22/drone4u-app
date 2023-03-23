@@ -17,6 +17,8 @@ class D4uScaffold extends StatefulWidget {
     this.showBackButton = false,
     this.pageTitle = '',
     this.bottomNavigationBarWidget,
+    this.flexibleSpaceWidget,
+    this.expandedHeight,
   }) : super(key: key);
 
   SliverAppBar? appBar;
@@ -30,6 +32,8 @@ class D4uScaffold extends StatefulWidget {
   bool showBackButton;
   String? pageTitle;
   Widget? bottomNavigationBarWidget;
+  Widget? flexibleSpaceWidget;
+  double? expandedHeight;
 
   @override
   State<D4uScaffold> createState() => _D4uScaffoldState();
@@ -52,6 +56,7 @@ class _D4uScaffoldState extends State<D4uScaffold> {
                   elevation: 0,
                   centerTitle: widget.centerAppBarTitle,
                   pinned: widget.pinAppBar,
+                  expandedHeight: widget.expandedHeight,
                   leading: widget.showBackButton
                       ? GestureDetector(
                           onTap: widget.leadingOnTap ??
@@ -66,6 +71,7 @@ class _D4uScaffoldState extends State<D4uScaffold> {
                               ),
                         )
                       : D4uSizedBox.shrink,
+                  flexibleSpace: widget.flexibleSpaceWidget,
                 ),
             SliverList(
               delegate: SliverChildListDelegate(

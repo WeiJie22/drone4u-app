@@ -1,7 +1,6 @@
 import 'package:drone4u/components/d4uLoginSubText.dart';
 import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/routes.dart';
-import 'package:drone4u/screens/d4uLoginScreen.dart';
 import 'package:flutter/material.dart';
 import '../components/d4uIndex.dart';
 
@@ -77,7 +76,7 @@ class _D4uSignUpPageState extends State<D4uSignUpPage> {
           ),
           D4uSingleButton(
             padding: const EdgeInsets.fromLTRB(16, 24, 16, 0),
-            text: 'Login',
+            text: 'Sign Up',
           ),
         ],
       ),
