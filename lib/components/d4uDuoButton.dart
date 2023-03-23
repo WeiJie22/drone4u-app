@@ -45,6 +45,7 @@ class D4uDuoButton extends StatelessWidget {
               child: D4uText(
                 text: secondaryText!.toUpperCase(),
                 color: d4uPrimaryColor,
+                fontWeight: FontWeight.bold,
               ),
             ),
           ),
@@ -64,6 +65,7 @@ class D4uDuoButton extends StatelessWidget {
               child: D4uText(
                 text: primaryText!.toUpperCase(),
                 color: d4uSecondaryColor,
+                fontWeight: FontWeight.bold,
               ),
             ),
           )

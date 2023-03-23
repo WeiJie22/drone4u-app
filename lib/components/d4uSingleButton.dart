@@ -28,6 +28,7 @@ class D4uSingleButton extends StatelessWidget {
         ),
         child: D4uText(
           text: text!.toUpperCase(),
+          fontWeight: FontWeight.bold,
           color: d4uSecondaryColor,
         ),
       ),
