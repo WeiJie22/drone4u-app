@@ -30,6 +30,7 @@ class _D4uLoginScreenState extends State<D4uLoginScreen> {
           ),
           D4uTextField(
             placeHolder: "Name",
+            onChanged: (val) => {print(val)},
           ),
           D4uTextField(
             placeHolder: 'Password',
