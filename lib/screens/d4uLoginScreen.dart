@@ -1,4 +1,5 @@
 import 'package:drone4u/components/d4uScaffold.dart';
+import 'package:drone4u/constant/constant.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
@@ -16,6 +17,7 @@ class _D4uLoginScreenState extends State<D4uLoginScreen> {
   @override
   Widget build(BuildContext context) {
     return D4uScaffold(
+      color: d4uBackground,
       pageTitle: 'Login',
       body: Column(
         children: [
