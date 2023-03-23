@@ -1,5 +1,6 @@
 import 'package:drone4u/components/d4uLoginSubText.dart';
 import 'package:drone4u/constant/constant.dart';
+import 'package:drone4u/constant/routes.dart';
 import 'package:drone4u/screens/d4uLoginScreen.dart';
 import 'package:flutter/material.dart';
 import '../components/d4uIndex.dart';
@@ -71,8 +72,7 @@ class _D4uSignUpPageState extends State<D4uSignUpPage> {
           D4uLoginSubText(
             text: 'Already have an account? ',
             onPressed: () => {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => D4uLoginScreen()))
+              Navigator.pushNamed(context, RouteName.loginPage),
             },
           ),
           D4uSingleButton(

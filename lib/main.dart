@@ -1,4 +1,5 @@
 import 'package:drone4u/components/d4uScaffold.dart';
+import 'package:drone4u/constant/routes.dart';
 import 'package:drone4u/screens/d4uLoginScreen.dart';
 import 'package:drone4u/screens/d4uNavigationBar.dart';
 import 'package:drone4u/screens/d4uSignUpPage.dart';
@@ -16,7 +17,9 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: D4uLoginScreen(),
+      routes: d4uRoutes(context),
+      initialRoute: '/signup',
+      home: D4uSignUpPage(),
     );
   }
 }

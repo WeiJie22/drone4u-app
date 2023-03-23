@@ -1,5 +1,6 @@
 import 'package:drone4u/components/d4uLoginSubText.dart';
 import 'package:drone4u/constant/constant.dart';
+import 'package:drone4u/constant/routes.dart';
 import 'package:drone4u/screens/d4uForgotPassPage.dart';
 import 'package:flutter/material.dart';
 import '../components/d4uIndex.dart';
@@ -52,8 +53,7 @@ class _D4uLoginScreenState extends State<D4uLoginScreen> {
           D4uLoginSubText(
             text: 'Forget your password? ',
             onPressed: () => {
-              Navigator.of(context).push(
-                  MaterialPageRoute(builder: (context) => D4uForgotPassPage()))
+              Navigator.pushNamed(context, RouteName.forgetPass),
             },
           ),
           D4uSingleButton(
