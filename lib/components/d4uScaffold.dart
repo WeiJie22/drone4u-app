@@ -42,6 +42,7 @@ class _D4uScaffoldState extends State<D4uScaffold> {
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
         backgroundColor: d4uBackground,
+        bottomNavigationBar: widget.bottomNavigationBarWidget,
         body: CustomScrollView(
           slivers: [
             widget.appBar ??
