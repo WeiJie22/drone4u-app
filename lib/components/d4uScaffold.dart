@@ -16,6 +16,7 @@ class D4uScaffold extends StatefulWidget {
     this.leadingOnTap,
     this.showBackButton = false,
     this.pageTitle = '',
+    this.bottomNavigationBarWidget,
   }) : super(key: key);
 
   SliverAppBar? appBar;
@@ -28,6 +29,7 @@ class D4uScaffold extends StatefulWidget {
   VoidCallback? leadingOnTap;
   bool showBackButton;
   String? pageTitle;
+  Widget? bottomNavigationBarWidget;
 
   @override
   State<D4uScaffold> createState() => _D4uScaffoldState();
@@ -38,6 +40,7 @@ class _D4uScaffoldState extends State<D4uScaffold> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: d4uBackground,
+      bottomNavigationBar: widget.bottomNavigationBarWidget,
       body: CustomScrollView(
         slivers: [
           widget.appBar ??
@@ -60,7 +63,7 @@ class _D4uScaffoldState extends State<D4uScaffold> {
                               color: Colors.black,
                             ),
                       )
-                    : d4uSizedBox.shrink,
+                    : D4uSizedBox.shrink,
               ),
           SliverList(
             delegate: SliverChildListDelegate(

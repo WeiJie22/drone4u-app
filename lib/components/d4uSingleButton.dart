@@ -21,7 +21,8 @@ class D4uSingleButton extends StatelessWidget {
       child: ElevatedButton(
         onPressed: () {},
         style: ElevatedButton.styleFrom(
-          elevation: 0,
+          shadowColor: d4uPrimaryColor,
+          elevation: 2,
           shape: const StadiumBorder(),
           minimumSize: const Size.fromHeight(48),
           backgroundColor: d4uPrimaryColor,

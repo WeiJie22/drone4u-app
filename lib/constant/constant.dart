@@ -14,12 +14,14 @@ class D4uPadding {
   static const v8 = EdgeInsets.symmetric(vertical: 8);
   static const a8 = EdgeInsets.all(8);
 
+  static const a24 = EdgeInsets.all(24);
+
   static const containerCenter = EdgeInsets.fromLTRB(16, 8, 16, 8);
   static const containerCenter2 = EdgeInsets.fromLTRB(8, 4, 8, 4);
   static const containerCenter3 = EdgeInsets.fromLTRB(16, 0, 16, 8);
   static const containerCenter4 = EdgeInsets.fromLTRB(16, 8, 16, 0);
 }
 
-class d4uSizedBox {
+class D4uSizedBox {
   static const shrink = SizedBox.shrink();
 }
