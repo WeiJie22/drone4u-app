@@ -8,6 +8,7 @@ class D4uText extends StatelessWidget {
     this.fontWeight,
     this.overflow,
     this.color = Colors.black,
+    this.padding = EdgeInsets.zero,
   }) : super(key: key);
 
   String? text;
@@ -15,16 +16,20 @@ class D4uText extends StatelessWidget {
   FontWeight? fontWeight;
   TextOverflow? overflow;
   Color? color;
+  EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
-    return Text(
-      text!,
-      style: TextStyle(
-        color: color,
-        fontSize: fontSize,
-        fontWeight: fontWeight,
-        overflow: overflow,
+    return Padding(
+      padding: padding,
+      child: Text(
+        text!,
+        style: TextStyle(
+          color: color,
+          fontSize: fontSize,
+          fontWeight: fontWeight,
+          overflow: overflow,
+        ),
       ),
     );
   }
