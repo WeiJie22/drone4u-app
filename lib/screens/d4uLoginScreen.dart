@@ -1,3 +1,4 @@
+import 'package:drone4u/components/d4uDuoButton.dart';
 import 'package:drone4u/components/d4uScaffold.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -24,6 +25,9 @@ class _D4uLoginScreenState extends State<D4uLoginScreen> {
           ),
           D4uTextField(
             placeHolder: 'Password',
+          ),
+          D4uSingleButton(
+            text: 'Login',
           ),
         ],
       ),
