@@ -1,9 +1,12 @@
 import 'package:drone4u/constant/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 
 class D4uTextField extends StatefulWidget {
   D4uTextField({
     Key? key,
+    @required this.name,
     this.placeHolder,
     this.suffixIcon,
     this.borderRadius,
@@ -12,6 +15,7 @@ class D4uTextField extends StatefulWidget {
     this.obscureText = false,
     this.maxLines,
     this.onChanged,
+    this.validator,
   }) : super(key: key);
 
   String? placeHolder;
@@ -23,7 +27,8 @@ class D4uTextField extends StatefulWidget {
   bool obscureText;
   int? maxLines;
   Function? onChanged;
-
+  String? name;
+  String? Function(String?)? validator;
   @override
   State<D4uTextField> createState() => _D4uTextFieldState();
 }
@@ -60,13 +65,15 @@ class _D4uTextFieldState extends State<D4uTextField> {
             ),
           ],
         ),
-        child: TextField(
+        child: FormBuilderTextField(
+          name: widget.name ?? '',
           onChanged: ((value) => widget.onChanged!(value)),
           obscureText: widget.obscureText,
           keyboardType: widget.keyboardType,
           cursorColor: Colors.black,
           cursorWidth: 1,
           focusNode: focusNode,
+          validator: widget.validator,
           maxLines: widget.obscureText ? 1 : widget.maxLines,
           decoration: InputDecoration(
             labelText: widget.placeHolder,
