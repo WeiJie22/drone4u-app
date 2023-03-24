@@ -5,3 +5,5 @@ export 'd4uText.dart';
 export 'd4uSingleButton.dart';
 export 'd4uDuoButton.dart';
 export 'd4uBottomSocialMedia.dart';
+export 'd4uLabel.dart';
+export 'd4uProductCard.dart';

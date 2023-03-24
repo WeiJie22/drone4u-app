@@ -2,7 +2,6 @@ import 'package:drone4u/components/d4uLoginSubText.dart';
 import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/formConstant.dart';
 import 'package:drone4u/constant/routes.dart';
-import 'package:drone4u/screens/d4uForgotPassPage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
