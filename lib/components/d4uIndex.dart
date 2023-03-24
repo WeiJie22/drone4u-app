@@ -7,3 +7,5 @@ export 'd4uDuoButton.dart';
 export 'd4uBottomSocialMedia.dart';
 export 'd4uLabel.dart';
 export 'd4uProductCard.dart';
+export 'd4uHorizontalSection.dart';
+export 'd4uLoginSubText.dart';

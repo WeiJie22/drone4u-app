@@ -19,9 +19,13 @@ class D4uScaffold extends StatefulWidget {
     this.bottomNavigationBarWidget,
     this.flexibleSpaceWidget,
     this.expandedHeight,
+    this.appBarElevation,
+    this.floatAppBar = false,
+    this.snapAppBar = false,
+    this.scrollController,
   }) : super(key: key);
 
-  SliverAppBar? appBar;
+  Widget? appBar;
   Color? color;
   Widget? body;
   String? appBarTitle;
@@ -34,6 +38,10 @@ class D4uScaffold extends StatefulWidget {
   Widget? bottomNavigationBarWidget;
   Widget? flexibleSpaceWidget;
   double? expandedHeight;
+  double? appBarElevation;
+  bool snapAppBar;
+  bool floatAppBar;
+  ScrollController? scrollController;
 
   @override
   State<D4uScaffold> createState() => _D4uScaffoldState();
@@ -48,14 +56,17 @@ class _D4uScaffoldState extends State<D4uScaffold> {
         backgroundColor: d4uBackground,
         bottomNavigationBar: widget.bottomNavigationBarWidget,
         body: CustomScrollView(
+          controller: widget.scrollController,
           slivers: [
             widget.appBar ??
                 SliverAppBar(
                   title: D4uText(text: widget.appBarTitle),
                   backgroundColor: d4uBackground,
-                  elevation: 0,
+                  elevation: widget.appBarElevation,
                   centerTitle: widget.centerAppBarTitle,
                   pinned: widget.pinAppBar,
+                  floating: widget.floatAppBar,
+                  snap: widget.snapAppBar,
                   expandedHeight: widget.expandedHeight,
                   leading: widget.showBackButton
                       ? GestureDetector(
@@ -76,7 +87,9 @@ class _D4uScaffoldState extends State<D4uScaffold> {
             SliverList(
               delegate: SliverChildListDelegate(
                 [
-                  D4uPageTitle(title: widget.pageTitle),
+                  widget.pageTitle == ""
+                      ? D4uSizedBox.shrink
+                      : D4uPageTitle(title: widget.pageTitle),
                   widget.body!,
                 ],
               ),
