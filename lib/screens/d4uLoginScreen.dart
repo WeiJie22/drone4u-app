@@ -44,7 +44,10 @@ class _D4uLoginScreenState extends State<D4uLoginScreen> {
             D4uTextField(
               name: LoginFormConstant.email,
               placeHolder: "Email",
-              validator: FormBuilderValidators.required(),
+              validator: FormBuilderValidators.compose([
+                FormBuilderValidators.required(),
+                FormBuilderValidators.email(),
+              ]),
             ),
             D4uTextField(
               name: LoginFormConstant.password,

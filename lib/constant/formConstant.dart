@@ -9,3 +9,11 @@ class LoginFormConstant {
   static const String email = 'email';
   static const String password = 'password';
 }
+
+class ForgetPassConstant {
+  static const String email = 'email';
+}
+
+class CatalogFilterConstant {
+  static const String filter = 'filter';
+}

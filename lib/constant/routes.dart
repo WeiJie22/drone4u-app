@@ -1,3 +1,4 @@
+import 'package:drone4u/screens/d4uCatalogFilterPage.dart';
 import 'package:drone4u/screens/d4uForgotPassPage.dart';
 import 'package:drone4u/screens/d4uLoginScreen.dart';
 import 'package:drone4u/screens/d4uNavigationBar.dart';
@@ -8,6 +9,7 @@ class RouteName {
   static const loginPage = '/login';
   static const forgetPass = '/forgetPass';
   static const naviagtionBar = '/naviagtionBar';
+  static const catalogFilterPage = '/catalogFilterPage';
 }
 
 d4uRoutes(context) => {
@@ -15,4 +17,5 @@ d4uRoutes(context) => {
       RouteName.loginPage: (context) => D4uLoginScreen(),
       RouteName.forgetPass: (context) => D4uForgotPassPage(),
       RouteName.naviagtionBar: (context) => D4uNavigationBar(),
+      RouteName.catalogFilterPage: (context) => D4uatalogFilterPage(),
     };

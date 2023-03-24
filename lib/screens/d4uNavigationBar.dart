@@ -1,4 +1,6 @@
 import 'package:drone4u/constant/constant.dart';
+import 'package:drone4u/constant/homePageContant.dart';
+import 'package:drone4u/utils/scrollUtils.dart';
 import 'package:flutter/material.dart';
 import '../components/d4uIndex.dart';
 
@@ -9,17 +11,44 @@ class D4uNavigationBar extends StatefulWidget {
   State<D4uNavigationBar> createState() => _D4uNavigationBarState();
 }
 
-class _D4uNavigationBarState extends State<D4uNavigationBar> {
-  bool _isFavourite = false;
+class _D4uNavigationBarState extends State<D4uNavigationBar>
+    with TickerProviderStateMixin {
+  late ScrollController _scrollController;
+
+  double expandedHeight = 160;
+
+  @override
+  void initState() {
+    super.initState();
+
+    _scrollController = ScrollController()..addListener(() => setState(() {}));
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _scrollController.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
     return D4uScaffold(
       color: d4uBackground,
-      expandedHeight: 160,
+      showBackButton: true,
+      centerAppBarTitle: true,
+      pinAppBar: true,
+      expandedHeight: expandedHeight,
+      appBarElevation: 0,
+      scrollController: _scrollController,
       flexibleSpaceWidget: FlexibleSpaceBar(
-        title: const Text('Drone4U'),
-        titlePadding: D4uPadding.a24,
+        collapseMode: CollapseMode.parallax,
+        title: D4uText(
+          text: 'Drone4U',
+        ),
+        titlePadding: EdgeInsets.symmetric(
+          vertical: 16.0,
+          horizontal: horizontalTitlePadding(_scrollController, expandedHeight),
+        ),
         background: Image.asset(
           'assets/mainPageImage.jpg',
           fit: BoxFit.cover,
@@ -42,41 +71,23 @@ class _D4uNavigationBarState extends State<D4uNavigationBar> {
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Row(
-            children: [
-              D4uProductCard(
-                sellerName: 'roger',
-                productName: 'catan',
-                originalPrice: 100,
-                discountPrice: 80,
-                isDiscount: true,
-                reviewCount: '(20)',
-                imagePath: 'assets/mainPageImage.jpg',
-                productRating: 4.5,
-                showLabel: true,
-                labelText: '-20%',
-                isFavourite: _isFavourite,
-                onPressedFavorite: () {
-                  setState(() {
-                    _isFavourite = !_isFavourite;
-                  });
-                },
-              ),
-              D4uProductCard(
-                sellerName: 'roger',
-                productName: 'catan',
-                originalPrice: 100,
-                discountPrice: 80,
-                isDiscount: true,
-                reviewCount: '(20)',
-                imagePath: 'assets/mainPageImage.jpg',
-                productRating: 4.5,
-                showLabel: true,
-                labelText: '-20%',
-                isFavourite: false,
-                onPressedFavorite: () {},
-              ),
-            ],
+          D4uHorizontalSection(
+            sectionTitle: 'Sales',
+            sectionSubtitle: 'Best deals',
+            viewAllOnTap: () {},
+            servicesList: salesProductCards,
+          ),
+          D4uHorizontalSection(
+            sectionTitle: 'Sales',
+            sectionSubtitle: 'Best deals',
+            viewAllOnTap: () {},
+            servicesList: salesProductCards,
+          ),
+          D4uHorizontalSection(
+            sectionTitle: 'Sales',
+            sectionSubtitle: 'Best deals',
+            viewAllOnTap: () {},
+            servicesList: salesProductCards,
           )
         ],
       ),

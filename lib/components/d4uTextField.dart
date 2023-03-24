@@ -13,7 +13,7 @@ class D4uTextField extends StatefulWidget {
     this.padding = D4uPadding.containerCenter,
     this.keyboardType,
     this.obscureText = false,
-    this.maxLines,
+    this.maxLines = 1,
     this.onChanged,
     this.validator,
   }) : super(key: key);
@@ -55,8 +55,6 @@ class _D4uTextFieldState extends State<D4uTextField> {
       padding: widget.padding,
       child: Container(
         decoration: BoxDecoration(
-          color: Colors.white,
-          borderRadius: BorderRadius.circular(5.0),
           boxShadow: [
             BoxShadow(
               offset: const Offset(0, 0),
@@ -76,14 +74,24 @@ class _D4uTextFieldState extends State<D4uTextField> {
           validator: widget.validator,
           maxLines: widget.obscureText ? 1 : widget.maxLines,
           decoration: InputDecoration(
+            errorBorder: const OutlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(12)),
+              borderSide: BorderSide(
+                color: Colors.red,
+              ),
+            ),
+            focusedErrorBorder: const UnderlineInputBorder(
+              borderRadius: BorderRadius.all(Radius.circular(12)),
+              borderSide: BorderSide.none,
+            ),
             labelText: widget.placeHolder,
             labelStyle: const TextStyle(color: d4uGray),
             enabledBorder: UnderlineInputBorder(
-              borderSide: const BorderSide(color: d4uSecondaryColor),
+              borderSide: BorderSide.none,
               borderRadius: BorderRadius.circular(12.0),
             ),
             focusedBorder: UnderlineInputBorder(
-              borderSide: const BorderSide(color: d4uSecondaryColor),
+              borderSide: BorderSide.none,
               borderRadius: BorderRadius.circular(12.0),
             ),
             fillColor: d4uSecondaryColor,

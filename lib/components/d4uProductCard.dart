@@ -3,7 +3,7 @@ import 'package:drone4u/components/d4uIndex.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-class D4uProductCard extends StatelessWidget {
+class D4uProductCard extends StatefulWidget {
   D4uProductCard({
     Key? key,
     this.productName = '',
@@ -46,6 +46,13 @@ class D4uProductCard extends StatelessWidget {
   VoidCallback? onPressedFavorite;
 
   @override
+  State<D4uProductCard> createState() => _D4uProductCardState();
+}
+
+class _D4uProductCardState extends State<D4uProductCard> {
+  bool _favourite = false;
+
+  @override
   Widget build(BuildContext context) {
     return SizedBox(
       height: 250,
@@ -53,7 +60,7 @@ class D4uProductCard extends StatelessWidget {
       child: Stack(
         children: [
           GestureDetector(
-            onTap: onPressedProduct,
+            onTap: widget.onPressedProduct,
             child: Padding(
               padding: EdgeInsets.fromLTRB(16, 8, 0, 0),
               child: Column(
@@ -65,8 +72,8 @@ class D4uProductCard extends StatelessWidget {
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
                         child: Image.asset(
-                          imagePath,
-                          alignment: imageAlignment,
+                          widget.imagePath,
+                          alignment: widget.imageAlignment,
                           fit: BoxFit.cover,
                         ),
                       ),
@@ -76,7 +83,7 @@ class D4uProductCard extends StatelessWidget {
                       child: Row(
                         children: [
                           RatingBarIndicator(
-                            rating: productRating,
+                            rating: widget.productRating,
                             itemCount: 5,
                             itemSize: 12,
                             physics: const BouncingScrollPhysics(),
@@ -86,7 +93,7 @@ class D4uProductCard extends StatelessWidget {
                             ),
                           ),
                           D4uText(
-                            text: reviewCount!,
+                            text: widget.reviewCount!,
                             fontSize: 10,
                             color: d4uGray,
                           ),
@@ -94,24 +101,25 @@ class D4uProductCard extends StatelessWidget {
                       ),
                     ),
                     D4uText(
-                      text: sellerName!.toCapitalized(),
+                      text: widget.sellerName!.toCapitalized(),
                       fontSize: 12,
                       color: d4uGray,
                     ),
                     D4uText(
-                      text: productName!.toCapitalized(),
+                      text: widget.productName!.toCapitalized(),
                       fontWeight: FontWeight.bold,
                       fontSize: 16,
-                      color: color,
+                      color: widget.color,
                     ),
                     const SizedBox(
                       height: 2,
                     ),
-                    isDiscount
+                    widget.isDiscount
                         ? Row(
                             children: [
                               D4uText(
-                                text: 'RM${originalPrice?.toStringAsFixed(2)}',
+                                text:
+                                    'RM${widget.originalPrice?.toStringAsFixed(2)}',
                                 textDecoration: TextDecoration.lineThrough,
                                 fontWeight: FontWeight.normal,
                                 color: d4uGray,
@@ -124,7 +132,7 @@ class D4uProductCard extends StatelessWidget {
                                   maxLines: 1,
                                   overflow: TextOverflow.ellipsis,
                                   text:
-                                      'RM${discountPrice?.toStringAsFixed(2)}',
+                                      'RM${widget.discountPrice?.toStringAsFixed(2)}',
                                   fontWeight: FontWeight.normal,
                                   color: d4uPrimaryColor,
                                 ),
@@ -132,9 +140,9 @@ class D4uProductCard extends StatelessWidget {
                             ],
                           )
                         : D4uText(
-                            text: 'RM $originalPrice',
+                            text: 'RM ${widget.originalPrice}',
                             fontWeight: FontWeight.normal,
-                            color: color,
+                            color: widget.color,
                           ),
                   ]),
             ),
@@ -143,13 +151,18 @@ class D4uProductCard extends StatelessWidget {
             bottom: 60,
             right: -6,
             child: ElevatedButton(
-              onPressed: onPressedFavorite,
+              onPressed: widget.onPressedFavorite ??
+                  () {
+                    setState(() {
+                      _favourite = !_favourite;
+                    });
+                  },
               style: ElevatedButton.styleFrom(
                 shape: const CircleBorder(),
                 backgroundColor: d4uSecondaryColor, // <-- Button color
                 foregroundColor: d4uBackground, // <-- Splash color
               ),
-              child: isFavourite
+              child: widget.isFavourite
                   ? const Icon(
                       Icons.favorite,
                       color: d4uPrimaryColor,
@@ -165,8 +178,9 @@ class D4uProductCard extends StatelessWidget {
           Positioned(
             top: 14,
             left: 8,
-            child:
-                showLabel ? D4uLabel(labelText: labelText ?? '') : Container(),
+            child: widget.showLabel
+                ? D4uLabel(labelText: widget.labelText ?? '')
+                : Container(),
           )
         ],
       ),
