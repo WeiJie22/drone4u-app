@@ -49,8 +49,8 @@ class _D4uNavigationBarState extends State<D4uNavigationBar> {
       ),
       body: Column(
         mainAxisAlignment: MainAxisAlignment.spaceAround,
-        children: [
-          const SizedBox(
+        children: const [
+          SizedBox(
             height: 50,
           ),
         ],
