@@ -1,5 +1,6 @@
 import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/homePageContant.dart';
+import 'package:drone4u/screens/d4uMainPage.dart';
 import 'package:drone4u/utils/scrollUtils.dart';
 import 'package:flutter/material.dart';
 import '../components/d4uIndex.dart';
@@ -34,7 +35,6 @@ class _D4uNavigationBarState extends State<D4uNavigationBar>
   Widget build(BuildContext context) {
     return D4uScaffold(
       color: d4uBackground,
-      showBackButton: true,
       centerAppBarTitle: true,
       pinAppBar: true,
       expandedHeight: expandedHeight,
@@ -50,47 +50,56 @@ class _D4uNavigationBarState extends State<D4uNavigationBar>
           horizontal: horizontalTitlePadding(_scrollController, expandedHeight),
         ),
         background: Image.asset(
-          'assets/mainPageImage.jpg',
+          'assets/d4uDrone_white.jpg',
           fit: BoxFit.cover,
         ),
       ),
       bottomNavigationBarWidget: BottomNavigationBar(
+        backgroundColor: d4uSecondaryColor,
+        showUnselectedLabels: true,
+        selectedLabelStyle:
+            const TextStyle(color: d4uPrimaryColor, fontSize: 16),
+        unselectedLabelStyle:
+            const TextStyle(color: d4uPrimaryColor, fontSize: 16),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: Icon(Icons.home),
+            icon: Icon(
+              Icons.home,
+              color: d4uPrimaryColor,
+            ),
             label: 'Home',
-            backgroundColor: Colors.red,
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.settings),
-            label: 'Settings',
-            backgroundColor: Colors.pink,
+            icon: Icon(
+              Icons.shopping_cart,
+              color: d4uPrimaryColor,
+            ),
+            label: 'Shop',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.shopping_bag,
+              color: d4uPrimaryColor,
+            ),
+            label: 'Orders',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.favorite,
+              color: d4uPrimaryColor,
+            ),
+            label: 'Favorites',
+          ),
+          BottomNavigationBarItem(
+            icon: Icon(
+              Icons.manage_accounts,
+              color: d4uPrimaryColor,
+            ),
+            label: 'Profile',
           ),
         ],
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          D4uHorizontalSection(
-            sectionTitle: 'Sales',
-            sectionSubtitle: 'Best deals',
-            viewAllOnTap: () {},
-            servicesList: salesProductCards,
-          ),
-          D4uHorizontalSection(
-            sectionTitle: 'Sales',
-            sectionSubtitle: 'Best deals',
-            viewAllOnTap: () {},
-            servicesList: salesProductCards,
-          ),
-          D4uHorizontalSection(
-            sectionTitle: 'Sales',
-            sectionSubtitle: 'Best deals',
-            viewAllOnTap: () {},
-            servicesList: salesProductCards,
-          )
-        ],
-      ),
+      body: const D4uMainPage(),
     );
   }
 }

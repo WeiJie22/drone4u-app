@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 
 double horizontalTitlePadding(
     ScrollController scrollController, double expandedHeight) {
-  double kBasePadding = 24;
-  const kMultiplier = 1;
+  double kBasePadding = 16;
+  const kMultiplier = 0.5;
 
   if (scrollController.hasClients) {
     if (scrollController.offset < (expandedHeight / 2)) {

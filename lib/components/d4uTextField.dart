@@ -65,7 +65,7 @@ class _D4uTextFieldState extends State<D4uTextField> {
         ),
         child: FormBuilderTextField(
           name: widget.name ?? '',
-          onChanged: ((value) => widget.onChanged!(value)),
+          // onChanged: ((value) => widget.onChanged!(value)),
           obscureText: widget.obscureText,
           keyboardType: widget.keyboardType,
           cursorColor: Colors.black,
