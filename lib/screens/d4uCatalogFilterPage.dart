@@ -25,9 +25,7 @@ class D4uCatalogFilterPageState extends State<D4uatalogFilterPage> {
   Widget build(BuildContext context) {
     return D4uScaffold(
       appBarTitle: 'Filter',
-      centerAppBarTitle: true,
       showBackButton: true,
-      appBarElevation: 1,
       body: Column(
         children: [],
       ),

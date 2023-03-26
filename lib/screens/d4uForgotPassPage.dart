@@ -21,7 +21,6 @@ class _D4uForgotPassPageState extends State<D4uForgotPassPage> {
   Widget build(BuildContext context) {
     return D4uScaffold(
       showBackButton: true,
-      color: d4uBackground,
       pageTitle: 'Forgot password',
       body: FormBuilder(
         key: _formKey,
@@ -46,10 +45,7 @@ class _D4uForgotPassPageState extends State<D4uForgotPassPage> {
             D4uSingleButton(
               padding: const EdgeInsets.fromLTRB(16, 32, 16, 0),
               text: 'Send',
-              onPressed: () => {
-                if (_formKey.currentState?.saveAndValidate() ?? false)
-                  Navigator.pushNamed(context, RouteName.catalogFilterPage)
-              },
+              onPressed: () => {},
             ),
           ],
         ),

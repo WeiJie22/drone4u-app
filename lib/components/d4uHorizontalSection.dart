@@ -74,20 +74,7 @@ class _D4uHorizontalSectionState extends State<D4uHorizontalSection> {
               children:
                   widget.servicesList != null || widget.servicesList!.isNotEmpty
                       ? widget.servicesList!
-                          .map<D4uProductCard>(
-                            (service) => D4uProductCard(
-                              sellerName: 'roger',
-                              productName: 'catan',
-                              originalPrice: 100,
-                              discountPrice: 80,
-                              isDiscount: true,
-                              reviewCount: '(20)',
-                              imagePath: 'assets/mainPageImage.jpg',
-                              productRating: 4.5,
-                              showLabel: true,
-                              labelText: '-20%',
-                            ),
-                          )
+                          .map<D4uProductCard>((card) => card)
                           .toList()
                       : [],
             ),

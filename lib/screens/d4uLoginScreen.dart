@@ -27,7 +27,6 @@ class _D4uLoginScreenState extends State<D4uLoginScreen> {
   Widget build(BuildContext context) {
     return D4uScaffold(
       showBackButton: true,
-      color: d4uBackground,
       bottomNavigationBarWidget: D4uBottomSocialMedia(
         text: "Or login with social account",
       ),
@@ -44,17 +43,19 @@ class _D4uLoginScreenState extends State<D4uLoginScreen> {
             D4uTextField(
               name: LoginFormConstant.email,
               placeHolder: "Email",
-              validator: FormBuilderValidators.compose([
-                FormBuilderValidators.required(),
-                FormBuilderValidators.email(),
-              ]),
+              //TODO TO BE UNCOMMENTED AFTER TESTING
+              // validator: FormBuilderValidators.compose([
+              //   FormBuilderValidators.required(),
+              //   FormBuilderValidators.email(),
+              // ]),
             ),
             D4uTextField(
               name: LoginFormConstant.password,
               placeHolder: 'Password',
               obscureText: _isObscure,
               suffixIcon: visibilityIcon(),
-              validator: FormBuilderValidators.required(),
+              //TODO TO BE UNCOMMENTED AFTER TESTING
+              // validator: FormBuilderValidators.required(),
             ),
             D4uLoginSubText(
               text: 'Forget your password? ',

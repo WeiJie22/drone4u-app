@@ -30,7 +30,6 @@ class _D4uSignUpPageState extends State<D4uSignUpPage> {
   @override
   Widget build(BuildContext context) {
     return D4uScaffold(
-      color: d4uBackground,
       bottomNavigationBarWidget: D4uBottomSocialMedia(
         text: "Or sign up with social account",
       ),

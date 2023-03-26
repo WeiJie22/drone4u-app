@@ -1,15 +1,15 @@
+import 'package:drone4u/components/d4uIndex.dart';
 import 'package:drone4u/components/d4uPageTitle.dart';
+import 'package:drone4u/components/d4uSliverHeader.dart';
 import 'package:drone4u/components/d4uText.dart';
 import 'package:drone4u/constant/constant.dart';
 import 'package:flutter/material.dart';
+import 'package:sliver_header_delegate/sliver_header_delegate.dart';
 
 class D4uScaffold extends StatefulWidget {
   D4uScaffold({
     Key? key,
-    this.appBar,
-    this.color,
     @required this.body,
-    this.centerAppBarTitle = false,
     this.appBarTitle = '',
     this.appBarLeading,
     this.pinAppBar = false,
@@ -22,14 +22,14 @@ class D4uScaffold extends StatefulWidget {
     this.appBarElevation,
     this.floatAppBar = false,
     this.snapAppBar = false,
-    this.scrollController,
+    this.sliverPersistentHeader,
+    this.showSearchBar = false,
+    this.onFilterIconPressed,
+    this.showExpandedAppBar = false,
   }) : super(key: key);
 
-  Widget? appBar;
-  Color? color;
   Widget? body;
   String? appBarTitle;
-  bool centerAppBarTitle;
   Widget? appBarLeading;
   bool pinAppBar;
   VoidCallback? leadingOnTap;
@@ -42,6 +42,10 @@ class D4uScaffold extends StatefulWidget {
   bool snapAppBar;
   bool floatAppBar;
   ScrollController? scrollController;
+  Widget? sliverPersistentHeader;
+  bool showSearchBar;
+  VoidCallback? onFilterIconPressed;
+  bool showExpandedAppBar;
 
   @override
   State<D4uScaffold> createState() => _D4uScaffoldState();
@@ -55,48 +59,103 @@ class _D4uScaffoldState extends State<D4uScaffold> {
       child: Scaffold(
         backgroundColor: d4uBackground,
         bottomNavigationBar: widget.bottomNavigationBarWidget,
-        body: CustomScrollView(
-          controller: widget.scrollController,
-          slivers: [
-            widget.appBar ??
-                SliverAppBar(
-                  title: D4uText(text: widget.appBarTitle),
-                  backgroundColor: d4uBackground,
-                  elevation: widget.appBarElevation,
-                  centerTitle: widget.centerAppBarTitle,
-                  pinned: widget.pinAppBar,
-                  floating: widget.floatAppBar,
-                  snap: widget.snapAppBar,
-                  expandedHeight: widget.expandedHeight,
-                  leading: widget.showBackButton
-                      ? GestureDetector(
-                          onTap: widget.leadingOnTap ??
-                              () {
-                                Navigator.pop(context);
-                              },
-                          child: widget.appBarLeading ??
-                              const Icon(
-                                Icons.arrow_back_ios,
-                                size: 16,
-                                color: Colors.black,
-                              ),
-                        )
-                      : D4uSizedBox.shrink,
-                  flexibleSpace: widget.flexibleSpaceWidget,
+        body: SafeArea(
+          child: CustomScrollView(
+            controller: widget.scrollController,
+            slivers: [
+              !widget.showExpandedAppBar
+                  ? SliverAppBar(
+                      title: D4uText(text: widget.appBarTitle),
+                      backgroundColor: d4uBackground,
+                      elevation: widget.appBarElevation,
+                      centerTitle: true,
+                      pinned: widget.pinAppBar,
+                      floating: widget.floatAppBar,
+                      snap: widget.snapAppBar,
+                      leading: widget.showBackButton
+                          ? GestureDetector(
+                              onTap: widget.leadingOnTap ??
+                                  () {
+                                    Navigator.pop(context);
+                                  },
+                              child: widget.appBarLeading ??
+                                  const Icon(
+                                    Icons.arrow_back_ios,
+                                    size: 16,
+                                    color: Colors.black,
+                                  ),
+                            )
+                          : D4uSizedBox.shrink,
+                      flexibleSpace: widget.flexibleSpaceWidget,
+                    )
+                  : D4uSliverHeader(
+                      expandedHeight: widget.expandedHeight,
+                      showBackButton: widget.showBackButton,
+                      appBarTitle: widget.appBarTitle,
+                      appBarLeading: widget.appBarLeading,
+                      leadingOnTap: widget.leadingOnTap,
+                    ),
+              if (widget.showSearchBar)
+                SliverPersistentHeader(
+                  delegate: MyHeaderDelegate(onTap: widget.onFilterIconPressed),
+                  pinned: true,
                 ),
-            SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  widget.pageTitle == ""
-                      ? D4uSizedBox.shrink
-                      : D4uPageTitle(title: widget.pageTitle),
-                  widget.body!,
-                ],
-              ),
-            )
-          ],
+              SliverList(
+                delegate: SliverChildListDelegate(
+                  [
+                    widget.pageTitle == ""
+                        ? D4uSizedBox.shrink
+                        : D4uPageTitle(title: widget.pageTitle),
+                    widget.body!,
+                  ],
+                ),
+              )
+            ],
+          ),
         ),
       ),
     );
   }
+}
+
+class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
+  MyHeaderDelegate({this.onTap});
+
+  VoidCallback? onTap;
+
+  @override
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
+    return Container(
+      color: d4uBackground,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Expanded(
+            child: D4uTextField(
+              name: 'search',
+              placeHolder: 'Search',
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.only(right: 16),
+            child: GestureDetector(
+              onTap: onTap,
+              child: const Icon(Icons.sort),
+            ),
+          )
+        ],
+      ),
+    );
+  }
+
+  @override
+  double get maxExtent => 55;
+
+  @override
+  double get minExtent => 55;
+
+  @override
+  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
+      true;
 }

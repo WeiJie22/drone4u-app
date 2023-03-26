@@ -1,5 +1,6 @@
 import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/homePageContant.dart';
+import 'package:drone4u/constant/routes.dart';
 import 'package:drone4u/utils/scrollUtils.dart';
 import 'package:flutter/material.dart';
 import '../components/d4uIndex.dart';
@@ -13,47 +14,15 @@ class D4uNavigationBar extends StatefulWidget {
 
 class _D4uNavigationBarState extends State<D4uNavigationBar>
     with TickerProviderStateMixin {
-  late ScrollController _scrollController;
-
   double expandedHeight = 160;
-
-  @override
-  void initState() {
-    super.initState();
-
-    _scrollController = ScrollController()..addListener(() => setState(() {}));
-  }
-
-  @override
-  void dispose() {
-    super.dispose();
-    _scrollController.dispose();
-  }
 
   @override
   Widget build(BuildContext context) {
     return D4uScaffold(
-      color: d4uBackground,
-      showBackButton: true,
-      centerAppBarTitle: true,
       pinAppBar: true,
+      showExpandedAppBar: true,
       expandedHeight: expandedHeight,
-      appBarElevation: 0,
-      scrollController: _scrollController,
-      flexibleSpaceWidget: FlexibleSpaceBar(
-        collapseMode: CollapseMode.parallax,
-        title: D4uText(
-          text: 'Drone4U',
-        ),
-        titlePadding: EdgeInsets.symmetric(
-          vertical: 16.0,
-          horizontal: horizontalTitlePadding(_scrollController, expandedHeight),
-        ),
-        background: Image.asset(
-          'assets/mainPageImage.jpg',
-          fit: BoxFit.cover,
-        ),
-      ),
+      appBarTitle: 'Drone4U',
       bottomNavigationBarWidget: BottomNavigationBar(
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
@@ -74,7 +43,9 @@ class _D4uNavigationBarState extends State<D4uNavigationBar>
           D4uHorizontalSection(
             sectionTitle: 'Sales',
             sectionSubtitle: 'Best deals',
-            viewAllOnTap: () {},
+            viewAllOnTap: () {
+              Navigator.pushNamed(context, RouteName.catalogPage);
+            },
             servicesList: salesProductCards,
           ),
           D4uHorizontalSection(
