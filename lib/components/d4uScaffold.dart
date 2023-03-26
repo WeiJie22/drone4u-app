@@ -26,6 +26,7 @@ class D4uScaffold extends StatefulWidget {
     this.showSearchBar = false,
     this.onFilterIconPressed,
     this.showExpandedAppBar = false,
+    this.forceElevated = false,
   }) : super(key: key);
 
   Widget? body;
@@ -46,6 +47,7 @@ class D4uScaffold extends StatefulWidget {
   bool showSearchBar;
   VoidCallback? onFilterIconPressed;
   bool showExpandedAppBar;
+  bool forceElevated;
 
   @override
   State<D4uScaffold> createState() => _D4uScaffoldState();
@@ -68,6 +70,7 @@ class _D4uScaffoldState extends State<D4uScaffold> {
                       title: D4uText(text: widget.appBarTitle),
                       backgroundColor: d4uBackground,
                       elevation: widget.appBarElevation,
+                      forceElevated: widget.forceElevated,
                       centerTitle: true,
                       pinned: widget.pinAppBar,
                       floating: widget.floatAppBar,

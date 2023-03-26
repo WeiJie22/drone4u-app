@@ -14,7 +14,9 @@ class _D4uCatalogPageState extends State<D4uCatalogPage> {
   Widget build(BuildContext context) {
     return D4uScaffold(
       showBackButton: true,
+      forceElevated: true,
       showSearchBar: true,
+      appBarElevation: 0.5,
       appBarTitle: "All Services",
       onFilterIconPressed: () {
         Navigator.pushNamed(context, RouteName.catalogFilterPage);
