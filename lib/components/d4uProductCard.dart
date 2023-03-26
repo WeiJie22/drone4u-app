@@ -13,11 +13,18 @@ class D4uProductCard extends StatefulWidget {
     this.labelText = '',
     this.discountPrice = 0,
     this.originalPrice = 0,
+    this.height = 250,
+    this.width = 150,
+    this.imageHeight = 160,
+    this.imageWidth = 130,
     this.fontSize,
+    this.favPositionBottom = 60,
+    this.favPositionRight = -6,
     this.productRating = 0,
     this.showLabel = false,
     this.isFavourite = false,
     this.isDiscount = false,
+    this.showFavorite = true,
     this.fontWeight,
     this.overflow,
     this.imageAlignment = Alignment.bottomCenter,
@@ -33,11 +40,18 @@ class D4uProductCard extends StatefulWidget {
   String? labelText;
   double? discountPrice;
   double? originalPrice;
+  double? height;
+  double? width;
+  double? imageHeight;
+  double? imageWidth;
   double? fontSize;
+  double? favPositionBottom;
+  double? favPositionRight;
   double productRating;
   bool showLabel;
   bool isFavourite;
   bool isDiscount;
+  bool showFavorite;
   FontWeight? fontWeight;
   TextOverflow? overflow;
   Alignment imageAlignment;
@@ -55,20 +69,20 @@ class _D4uProductCardState extends State<D4uProductCard> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: 250,
-      width: 150,
+      height: widget.height,
+      width: widget.width,
       child: Stack(
         children: [
           GestureDetector(
             onTap: widget.onPressedProduct,
             child: Padding(
-              padding: EdgeInsets.fromLTRB(16, 8, 0, 0),
+              padding: const EdgeInsets.fromLTRB(16, 8, 0, 0),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     SizedBox(
-                      height: 160,
-                      width: 130,
+                      height: widget.imageHeight,
+                      width: widget.imageWidth,
                       child: ClipRRect(
                         borderRadius: BorderRadius.circular(8.0),
                         child: Image.asset(
@@ -147,34 +161,36 @@ class _D4uProductCardState extends State<D4uProductCard> {
                   ]),
             ),
           ),
-          Positioned(
-            bottom: 60,
-            right: -6,
-            child: ElevatedButton(
-              onPressed: widget.onPressedFavorite ??
-                  () {
-                    setState(() {
-                      _favourite = !_favourite;
-                    });
-                  },
-              style: ElevatedButton.styleFrom(
-                shape: const CircleBorder(),
-                backgroundColor: d4uSecondaryColor, // <-- Button color
-                foregroundColor: d4uBackground, // <-- Splash color
-              ),
-              child: widget.isFavourite
-                  ? const Icon(
-                      Icons.favorite,
-                      color: d4uPrimaryColor,
-                      size: 18,
-                    )
-                  : const Icon(
-                      Icons.favorite_outline,
-                      color: d4uGray,
-                      size: 18,
+          widget.showFavorite
+              ? Positioned(
+                  bottom: widget.favPositionBottom,
+                  right: widget.favPositionRight,
+                  child: ElevatedButton(
+                    onPressed: widget.onPressedFavorite ??
+                        () {
+                          setState(() {
+                            _favourite = !_favourite;
+                          });
+                        },
+                    style: ElevatedButton.styleFrom(
+                      shape: const CircleBorder(),
+                      backgroundColor: d4uSecondaryColor, // <-- Button color
+                      foregroundColor: d4uBackground, // <-- Splash color
                     ),
-            ),
-          ),
+                    child: widget.isFavourite
+                        ? const Icon(
+                            Icons.favorite,
+                            color: d4uPrimaryColor,
+                            size: 18,
+                          )
+                        : const Icon(
+                            Icons.favorite_outline,
+                            color: d4uGray,
+                            size: 18,
+                          ),
+                  ),
+                )
+              : Container(),
           Positioned(
             top: 14,
             left: 8,

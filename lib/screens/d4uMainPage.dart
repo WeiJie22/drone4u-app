@@ -13,30 +13,20 @@ class D4uMainPage extends StatefulWidget {
 class _D4uMainPageState extends State<D4uMainPage> {
   @override
   Widget build(BuildContext context) {
-    return Column(
-      crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        D4uHorizontalSection(
-          sectionTitle: 'Sales',
-          sectionSubtitle: 'Best deals',
-          viewAllOnTap: () {
-            Navigator.pushNamed(context, RouteName.catalogPage);
-          },
-          servicesList: salesProductCards,
-        ),
-        D4uHorizontalSection(
-          sectionTitle: 'Sales',
-          sectionSubtitle: 'Best deals',
-          viewAllOnTap: () {},
-          servicesList: salesProductCards,
-        ),
-        D4uHorizontalSection(
-          sectionTitle: 'Sales',
-          sectionSubtitle: 'Best deals',
-          viewAllOnTap: () {},
-          servicesList: salesProductCards,
-        )
-      ],
+    return D4uScaffold(
+      pinAppBar: true,
+      showExpandedAppBar: true,
+      appBarTitle: 'Drone4U',
+      body: Column(
+        children: [
+          D4uHorizontalSection(
+              servicesList: salesProductCards,
+              viewAllOnTap: () =>
+                  Navigator.pushNamed(context, RouteName.catalogPage)),
+          D4uHorizontalSection(servicesList: salesProductCards),
+          D4uHorizontalSection(servicesList: salesProductCards),
+        ],
+      ),
     );
   }
 }

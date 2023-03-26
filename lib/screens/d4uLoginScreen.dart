@@ -4,7 +4,6 @@ import 'package:drone4u/constant/formConstant.dart';
 import 'package:drone4u/constant/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
-import 'package:form_builder_validators/form_builder_validators.dart';
 import '../components/d4uIndex.dart';
 
 class D4uLoginScreen extends StatefulWidget {

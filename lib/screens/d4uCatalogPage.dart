@@ -28,6 +28,8 @@ class _D4uCatalogPageState extends State<D4uCatalogPage> {
         itemCount: 20,
         gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
           crossAxisCount: 2,
+          childAspectRatio:
+              150 / 220, // change Grid tile size by (child width / height)
         ),
         itemBuilder: (context, index) => D4uProductCard(
           sellerName: 'roger',
@@ -35,7 +37,12 @@ class _D4uCatalogPageState extends State<D4uCatalogPage> {
           originalPrice: 100,
           discountPrice: 80,
           isDiscount: true,
+          favPositionBottom: 80, // change fav pos
+          favPositionRight: 15,
           reviewCount: '(20)',
+          imageWidth:
+              160, // change image size (the height and width in parameter change the whole component size)
+          imageHeight: 180,
           imagePath: 'assets/mainPageImage.jpg',
           productRating: 4.5,
           showLabel: true,

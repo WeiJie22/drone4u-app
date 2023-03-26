@@ -61,60 +61,58 @@ class _D4uScaffoldState extends State<D4uScaffold> {
       child: Scaffold(
         backgroundColor: d4uBackground,
         bottomNavigationBar: widget.bottomNavigationBarWidget,
-        body: SafeArea(
-          child: CustomScrollView(
-            controller: widget.scrollController,
-            slivers: [
-              !widget.showExpandedAppBar
-                  ? SliverAppBar(
-                      title: D4uText(text: widget.appBarTitle),
-                      backgroundColor: d4uBackground,
-                      elevation: widget.appBarElevation,
-                      forceElevated: widget.forceElevated,
-                      centerTitle: true,
-                      pinned: widget.pinAppBar,
-                      floating: widget.floatAppBar,
-                      snap: widget.snapAppBar,
-                      leading: widget.showBackButton
-                          ? GestureDetector(
-                              onTap: widget.leadingOnTap ??
-                                  () {
-                                    Navigator.pop(context);
-                                  },
-                              child: widget.appBarLeading ??
-                                  const Icon(
-                                    Icons.arrow_back_ios,
-                                    size: 16,
-                                    color: Colors.black,
-                                  ),
-                            )
-                          : D4uSizedBox.shrink,
-                      flexibleSpace: widget.flexibleSpaceWidget,
-                    )
-                  : D4uSliverHeader(
-                      expandedHeight: widget.expandedHeight,
-                      showBackButton: widget.showBackButton,
-                      appBarTitle: widget.appBarTitle,
-                      appBarLeading: widget.appBarLeading,
-                      leadingOnTap: widget.leadingOnTap,
-                    ),
-              if (widget.showSearchBar)
-                SliverPersistentHeader(
-                  delegate: MyHeaderDelegate(onTap: widget.onFilterIconPressed),
-                  pinned: true,
-                ),
-              SliverList(
-                delegate: SliverChildListDelegate(
-                  [
-                    widget.pageTitle == ""
-                        ? D4uSizedBox.shrink
-                        : D4uPageTitle(title: widget.pageTitle),
-                    widget.body!,
-                  ],
-                ),
-              )
-            ],
-          ),
+        body: CustomScrollView(
+          controller: widget.scrollController,
+          slivers: [
+            !widget.showExpandedAppBar
+                ? SliverAppBar(
+                    title: D4uText(text: widget.appBarTitle),
+                    backgroundColor: d4uBackground,
+                    elevation: widget.appBarElevation,
+                    forceElevated: widget.forceElevated,
+                    centerTitle: true,
+                    pinned: widget.pinAppBar,
+                    floating: widget.floatAppBar,
+                    snap: widget.snapAppBar,
+                    leading: widget.showBackButton
+                        ? GestureDetector(
+                            onTap: widget.leadingOnTap ??
+                                () {
+                                  Navigator.pop(context);
+                                },
+                            child: widget.appBarLeading ??
+                                const Icon(
+                                  Icons.arrow_back_ios,
+                                  size: 16,
+                                  color: Colors.black,
+                                ),
+                          )
+                        : D4uSizedBox.shrink,
+                    flexibleSpace: widget.flexibleSpaceWidget,
+                  )
+                : D4uSliverHeader(
+                    expandedHeight: widget.expandedHeight,
+                    showBackButton: widget.showBackButton,
+                    appBarTitle: widget.appBarTitle,
+                    appBarLeading: widget.appBarLeading,
+                    leadingOnTap: widget.leadingOnTap,
+                  ),
+            if (widget.showSearchBar)
+              SliverPersistentHeader(
+                delegate: MyHeaderDelegate(onTap: widget.onFilterIconPressed),
+                pinned: true,
+              ),
+            SliverList(
+              delegate: SliverChildListDelegate(
+                [
+                  widget.pageTitle == ""
+                      ? D4uSizedBox.shrink
+                      : D4uPageTitle(title: widget.pageTitle),
+                  widget.body!,
+                ],
+              ),
+            )
+          ],
         ),
       ),
     );
