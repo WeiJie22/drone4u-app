@@ -20,11 +20,22 @@ class _D4uMainPageState extends State<D4uMainPage> {
       body: Column(
         children: [
           D4uHorizontalSection(
-              servicesList: salesProductCards,
-              viewAllOnTap: () =>
-                  Navigator.pushNamed(context, RouteName.catalogPage)),
-          D4uHorizontalSection(servicesList: salesProductCards),
-          D4uHorizontalSection(servicesList: salesProductCards),
+            sectionTitle: 'Sales',
+            sectionSubtitle: "Summer sales",
+            servicesList: salesProductCards,
+            viewAllOnTap: () =>
+                Navigator.pushNamed(context, RouteName.catalogPage),
+          ),
+          D4uHorizontalSection(
+            sectionTitle: 'Sales',
+            sectionSubtitle: "Summer sales",
+            servicesList: salesProductCards,
+          ),
+          D4uHorizontalSection(
+            sectionTitle: 'Sales',
+            sectionSubtitle: "Summer sales",
+            servicesList: salesProductCards,
+          ),
         ],
       ),
     );

@@ -2,7 +2,7 @@ import 'package:drone4u/components/d4uIndex.dart';
 import 'package:drone4u/constant/constant.dart';
 import 'package:flutter/material.dart';
 
-class D4uHorizontalSection extends StatefulWidget {
+class D4uHorizontalSection extends StatelessWidget {
   D4uHorizontalSection({
     Key? key,
     this.servicesList,
@@ -19,14 +19,9 @@ class D4uHorizontalSection extends StatefulWidget {
   EdgeInsets padding;
 
   @override
-  State<D4uHorizontalSection> createState() => _D4uHorizontalSectionState();
-}
-
-class _D4uHorizontalSectionState extends State<D4uHorizontalSection> {
-  @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: widget.padding,
+      padding: padding,
       child: Column(
         children: [
           Padding(
@@ -37,12 +32,12 @@ class _D4uHorizontalSectionState extends State<D4uHorizontalSection> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     D4uText(
-                      text: widget.sectionTitle,
+                      text: sectionTitle,
                       fontSize: 24,
                       fontWeight: FontWeight.bold,
                     ),
                     D4uText(
-                      text: widget.sectionSubtitle,
+                      text: sectionSubtitle,
                       fontSize: 12,
                       fontWeight: FontWeight.normal,
                       color: d4uGray,
@@ -51,7 +46,7 @@ class _D4uHorizontalSectionState extends State<D4uHorizontalSection> {
                 ),
                 const Spacer(),
                 GestureDetector(
-                  onTap: widget.viewAllOnTap,
+                  onTap: viewAllOnTap,
                   child: Row(
                     children: [
                       D4uText(
@@ -68,15 +63,15 @@ class _D4uHorizontalSectionState extends State<D4uHorizontalSection> {
               ],
             ),
           ),
+          const SizedBox(
+            height: 4,
+          ),
           SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Row(
-              children:
-                  widget.servicesList != null || widget.servicesList!.isNotEmpty
-                      ? widget.servicesList!
-                          .map<D4uProductCard>((card) => card)
-                          .toList()
-                      : [],
+              children: servicesList != null || servicesList!.isNotEmpty
+                  ? servicesList!.map<D4uProductCard>((card) => card).toList()
+                  : [],
             ),
           ),
         ],

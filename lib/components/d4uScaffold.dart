@@ -1,10 +1,6 @@
 import 'package:drone4u/components/d4uIndex.dart';
-import 'package:drone4u/components/d4uPageTitle.dart';
-import 'package:drone4u/components/d4uSliverHeader.dart';
-import 'package:drone4u/components/d4uText.dart';
 import 'package:drone4u/constant/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:sliver_header_delegate/sliver_header_delegate.dart';
 
 class D4uScaffold extends StatefulWidget {
   D4uScaffold({
@@ -65,30 +61,17 @@ class _D4uScaffoldState extends State<D4uScaffold> {
           controller: widget.scrollController,
           slivers: [
             !widget.showExpandedAppBar
-                ? SliverAppBar(
-                    title: D4uText(text: widget.appBarTitle),
-                    backgroundColor: d4uBackground,
-                    elevation: widget.appBarElevation,
+                ? D4uSliverAppBar(
+                    appBarElevation: widget.appBarElevation,
+                    appBarLeading: widget.appBarLeading,
+                    appBarTitle: widget.appBarTitle,
+                    flexibleSpaceWidget: widget.flexibleSpaceWidget,
+                    floatAppBar: widget.floatAppBar,
                     forceElevated: widget.forceElevated,
-                    centerTitle: true,
-                    pinned: widget.pinAppBar,
-                    floating: widget.floatAppBar,
-                    snap: widget.snapAppBar,
-                    leading: widget.showBackButton
-                        ? GestureDetector(
-                            onTap: widget.leadingOnTap ??
-                                () {
-                                  Navigator.pop(context);
-                                },
-                            child: widget.appBarLeading ??
-                                const Icon(
-                                  Icons.arrow_back_ios,
-                                  size: 16,
-                                  color: Colors.black,
-                                ),
-                          )
-                        : D4uSizedBox.shrink,
-                    flexibleSpace: widget.flexibleSpaceWidget,
+                    leadingOnTap: widget.leadingOnTap,
+                    pinAppBar: widget.pinAppBar,
+                    showBackButton: widget.showBackButton,
+                    snapAppBar: widget.snapAppBar,
                   )
                 : D4uSliverHeader(
                     expandedHeight: widget.expandedHeight,
@@ -134,6 +117,7 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
         children: [
           Expanded(
             child: D4uTextField(
+              hideLabelWhenFocused: true,
               name: 'search',
               placeHolder: 'Search',
             ),
@@ -151,10 +135,10 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
   }
 
   @override
-  double get maxExtent => 55;
+  double get maxExtent => 50;
 
   @override
-  double get minExtent => 55;
+  double get minExtent => 50;
 
   @override
   bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>

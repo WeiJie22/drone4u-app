@@ -14,16 +14,20 @@ class D4uServiceDetailPage extends StatefulWidget {
 class _D4uServiceDetailPageState extends State<D4uServiceDetailPage> {
   @override
   Widget build(BuildContext context) {
-    return D4uScaffold(
-      pinAppBar: true,
-      showBackButton: true,
-      appBarTitle: 'Detail Product',
-      body: Column(
-        children: [
-          D4uCarouselImageList(
-            carouselImageList: carouselImageConstant,
-          ),
-        ],
+    return Scaffold(
+      body: NestedScrollView(
+        headerSliverBuilder: (context, innerBoxIsScrolled) {
+          return [
+            D4uSliverAppBar(
+              appBarTitle: 'Service 1',
+            )
+          ];
+        },
+        body: Column(
+          children: [
+            D4uCarouselImageList(carouselImageList: carouselImageConstant),
+          ],
+        ),
       ),
     );
   }
