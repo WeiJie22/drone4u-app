@@ -3,6 +3,8 @@ import 'package:drone4u/components/d4uIndex.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
+import '../constant/routes.dart';
+
 class D4uProductCard extends StatefulWidget {
   D4uProductCard({
     Key? key,
@@ -74,9 +76,10 @@ class _D4uProductCardState extends State<D4uProductCard> {
       child: Stack(
         children: [
           GestureDetector(
-            onTap: widget.onPressedProduct,
+            onTap: () =>
+                Navigator.pushNamed(context, RouteName.servcieDetailPage),
             child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 0, 0),
+              padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
               child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
