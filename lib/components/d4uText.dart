@@ -8,6 +8,7 @@ class D4uText extends StatelessWidget {
     this.letterSpacing,
     this.height,
     this.maxLines,
+    this.softWrap,
     this.fontWeight,
     this.overflow,
     this.textDecoration,
@@ -20,6 +21,7 @@ class D4uText extends StatelessWidget {
   double? letterSpacing;
   double? height;
   int? maxLines;
+  bool? softWrap;
   FontWeight? fontWeight;
   TextOverflow? overflow;
   TextDecoration? textDecoration;
@@ -33,6 +35,7 @@ class D4uText extends StatelessWidget {
       child: Text(
         text!,
         maxLines: maxLines,
+        softWrap: softWrap,
         style: TextStyle(
           color: color,
           fontSize: fontSize,

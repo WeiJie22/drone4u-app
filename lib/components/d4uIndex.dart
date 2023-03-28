@@ -13,3 +13,5 @@ export 'd4uSliverHeader.dart';
 export 'd4uCarouselImageList.dart';
 export 'd4uSliverAppBar.dart';
 export 'd4uCircularButton.dart';
+export 'd4uReviewTitle.dart';
+export 'd4uReviewTile.dart';

@@ -8,7 +8,7 @@ class D4uServiceDetail extends StatelessWidget {
     this.productName = '',
     this.sellerName = '',
     this.sellerImage = '',
-    this.productDescription= '',
+    this.productDescription = '',
     this.price = 0,
     this.rating = 0,
     this.review = 0,
@@ -58,13 +58,11 @@ class D4uServiceDetail extends StatelessWidget {
                         color: d4uYellow,
                         size: 16,
                       ),
-                      Padding(
+                      D4uText(
+                        text: rating?.toStringAsFixed(1),
                         padding: const EdgeInsets.fromLTRB(4, 0, 12, 0),
-                        child: D4uText(
-                          text: rating?.toStringAsFixed(1),
-                          fontSize: 14,
-                          fontWeight: FontWeight.normal,
-                        ),
+                        fontSize: 14,
+                        fontWeight: FontWeight.normal,
                       ),
                       D4uText(
                         text: '${review?.toString()} Reviews',
