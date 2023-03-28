@@ -1,3 +1,4 @@
+import 'package:drone4u/components/d4uServiceDetail.dart';
 import 'package:drone4u/constant/carouselImageConstant.dart';
 import 'package:drone4u/components/d4uIndex.dart';
 import 'package:flutter/material.dart';
@@ -19,9 +20,13 @@ class _D4uServiceDetailPageState extends State<D4uServiceDetailPage> {
       showBackButton: true,
       appBarTitle: 'Detail Product',
       body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          D4uCarouselImageList(
-            carouselImageList: carouselImageConstant,
+          D4uServiceDetail(
+            productName: 'Drone 1',
+            price: 350,
+            rating: 4.6,
+            review: 86,
           ),
         ],
       ),
