@@ -1,4 +1,5 @@
 import 'package:drone4u/components/d4uIndex.dart';
+import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/routes.dart';
 import 'package:flutter/material.dart';
 
@@ -12,8 +13,10 @@ class D4uCatalogPage extends StatefulWidget {
 class _D4uCatalogPageState extends State<D4uCatalogPage> {
   @override
   Widget build(BuildContext context) {
+    double width = MediaQuery.of(context).size.width;
+
     return D4uScaffold(
-      showBackButton: true,
+      pinAppBar: true,
       forceElevated: true,
       showSearchBar: true,
       appBarElevation: 0.5,
@@ -21,32 +24,28 @@ class _D4uCatalogPageState extends State<D4uCatalogPage> {
       onFilterIconPressed: () {
         Navigator.pushNamed(context, RouteName.catalogFilterPage);
       },
-      body: GridView.builder(
-        shrinkWrap: true,
-        physics: const ScrollPhysics(),
-        scrollDirection: Axis.vertical,
-        itemCount: 20,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          childAspectRatio:
-              150 / 220, // change Grid tile size by (child width / height)
-        ),
-        itemBuilder: (context, index) => D4uProductCard(
-          sellerName: 'roger',
-          productName: 'catan',
-          originalPrice: 100,
-          discountPrice: 80,
-          isDiscount: true,
-          favPositionBottom: 80, // change fav pos
-          favPositionRight: 15,
-          reviewCount: '(20)',
-          imageWidth:
-              160, // change image size (the height and width in parameter change the whole component size)
-          imageHeight: 180,
-          imagePath: 'assets/mainPageImage.jpg',
-          productRating: 4.5,
-          showLabel: true,
-          labelText: '-20%',
+      body: Padding(
+        padding: const EdgeInsets.fromLTRB(0, 16, 16, 16),
+        child: Wrap(
+          alignment: WrapAlignment.spaceAround,
+          children: List.generate(
+            10,
+            (index) => D4uProductCard(
+              sellerName: 'roger',
+              productName: 'catan',
+              originalPrice: 100,
+              discountPrice: 80,
+              isDiscount: true,
+              reviewCount: '(20)',
+              imageWidth: 200,
+              imageHeight: 170,
+              width: width / 2 - 18,
+              imagePath: 'assets/mainPageImage.jpg',
+              productRating: 4.5,
+              showLabel: true,
+              labelText: '-20%',
+            ),
+          ),
         ),
       ),
     );

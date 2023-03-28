@@ -23,6 +23,7 @@ class D4uSliverHeader extends StatelessWidget {
     return SliverPersistentHeader(
       pinned: true,
       delegate: FlexibleHeaderDelegate(
+        collapsedElevation: 0.5,
         statusBarHeight: MediaQuery.of(context).padding.top,
         expandedHeight: expandedHeight ?? 160,
         leading: showBackButton
@@ -44,21 +45,43 @@ class D4uSliverHeader extends StatelessWidget {
             'assets/mainPageImage.jpg',
             fit: BoxFit.cover,
           ),
-          collapsedColor: d4uSecondaryColor,
+          collapsedColor: d4uPrimaryColor,
         ),
         children: [
           FlexibleTextItem(
             text: appBarTitle ?? '',
             padding: D4uPadding.a16,
-            expandedStyle: const TextStyle(
+            expandedStyle: TextStyle(
               fontWeight: FontWeight.bold,
               fontSize: 24,
+              color: getTextColor(Colors.blue),
             ),
             expandedAlignment: Alignment.bottomLeft,
             collapsedAlignment: Alignment.center,
+            collapsedStyle: const TextStyle(
+              fontWeight: FontWeight.bold,
+              color: d4uSecondaryColor,
+              fontSize: 18,
+            ),
           ),
         ],
       ),
     );
+  }
+
+  Color getTextColor(Color color) {
+    int d = 0;
+
+// Counting the perceptive luminance - human eye favors green color...
+    double luminance =
+        (0.299 * color.red + 0.587 * color.green + 0.114 * color.blue) / 255;
+
+    if (luminance > 0.5) {
+      d = 0; // bright colors - black font
+    } else {
+      d = 255; // dark colors - white font
+    }
+
+    return Color.fromARGB(color.alpha, d, d, d);
   }
 }

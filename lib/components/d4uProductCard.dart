@@ -1,11 +1,11 @@
+import 'package:drone4u/components/d4uCircularButton.dart';
 import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/components/d4uIndex.dart';
+import 'package:drone4u/constant/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
-import '../constant/routes.dart';
-
-class D4uProductCard extends StatefulWidget {
+class D4uProductCard extends StatelessWidget {
   D4uProductCard({
     Key? key,
     this.productName = '',
@@ -33,6 +33,7 @@ class D4uProductCard extends StatefulWidget {
     this.color = Colors.black,
     this.onPressedProduct,
     this.onPressedFavorite,
+    this.padding = const EdgeInsets.fromLTRB(16, 0, 0, 0),
   }) : super(key: key);
 
   String? productName;
@@ -60,147 +61,117 @@ class D4uProductCard extends StatefulWidget {
   Color? color;
   VoidCallback? onPressedProduct;
   VoidCallback? onPressedFavorite;
-
-  @override
-  State<D4uProductCard> createState() => _D4uProductCardState();
-}
-
-class _D4uProductCardState extends State<D4uProductCard> {
+  EdgeInsets padding;
   bool _favourite = false;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: widget.height,
-      width: widget.width,
+    return Container(
+      padding: padding,
+      height: height,
+      width: width,
       child: Stack(
         children: [
           GestureDetector(
             onTap: () =>
                 Navigator.pushNamed(context, RouteName.servcieDetailPage),
-            child: Padding(
-              padding: const EdgeInsets.fromLTRB(16, 0, 0, 0),
-              child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    SizedBox(
-                      height: widget.imageHeight,
-                      width: widget.imageWidth,
-                      child: ClipRRect(
-                        borderRadius: BorderRadius.circular(8.0),
-                        child: Image.asset(
-                          widget.imagePath,
-                          alignment: widget.imageAlignment,
-                          fit: BoxFit.cover,
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                SizedBox(
+                  height: imageHeight,
+                  width: imageWidth,
+                  child: ClipRRect(
+                    borderRadius: BorderRadius.circular(8.0),
+                    child: Image.asset(
+                      imagePath,
+                      alignment: imageAlignment,
+                      fit: BoxFit.cover,
+                    ),
+                  ),
+                ),
+                Padding(
+                  padding: D4uPadding.v4,
+                  child: Row(
+                    children: [
+                      RatingBarIndicator(
+                        rating: productRating,
+                        itemCount: 5,
+                        itemSize: 12,
+                        physics: const BouncingScrollPhysics(),
+                        itemBuilder: (context, _) => const Icon(
+                          Icons.star,
+                          color: d4uYellow,
                         ),
                       ),
-                    ),
-                    Padding(
-                      padding: D4uPadding.v4,
-                      child: Row(
+                      D4uText(
+                        text: reviewCount!,
+                        fontSize: 10,
+                        color: d4uGray,
+                      ),
+                    ],
+                  ),
+                ),
+                D4uText(
+                  text: sellerName!.toCapitalized(),
+                  fontSize: 12,
+                  color: d4uGray,
+                ),
+                D4uText(
+                  text: productName!.toCapitalized(),
+                  fontWeight: FontWeight.bold,
+                  fontSize: 16,
+                  color: color,
+                ),
+                const SizedBox(
+                  height: 2,
+                ),
+                isDiscount
+                    ? Row(
                         children: [
-                          RatingBarIndicator(
-                            rating: widget.productRating,
-                            itemCount: 5,
-                            itemSize: 12,
-                            physics: const BouncingScrollPhysics(),
-                            itemBuilder: (context, _) => const Icon(
-                              Icons.star,
-                              color: d4uYellow,
+                          D4uText(
+                            text: 'RM${originalPrice?.toStringAsFixed(2)}',
+                            textDecoration: TextDecoration.lineThrough,
+                            fontWeight: FontWeight.normal,
+                            color: d4uGray,
+                          ),
+                          const SizedBox(
+                            width: 3,
+                          ),
+                          Expanded(
+                            child: D4uText(
+                              maxLines: 1,
+                              overflow: TextOverflow.ellipsis,
+                              text: 'RM${discountPrice?.toStringAsFixed(2)}',
+                              fontWeight: FontWeight.normal,
+                              color: d4uPrimaryColor,
                             ),
                           ),
-                          D4uText(
-                            text: widget.reviewCount!,
-                            fontSize: 10,
-                            color: d4uGray,
-                          ),
                         ],
+                      )
+                    : D4uText(
+                        text: 'RM $originalPrice',
+                        fontWeight: FontWeight.normal,
+                        color: color,
                       ),
-                    ),
-                    D4uText(
-                      text: widget.sellerName!.toCapitalized(),
-                      fontSize: 12,
-                      color: d4uGray,
-                    ),
-                    D4uText(
-                      text: widget.productName!.toCapitalized(),
-                      fontWeight: FontWeight.bold,
-                      fontSize: 16,
-                      color: widget.color,
-                    ),
-                    const SizedBox(
-                      height: 2,
-                    ),
-                    widget.isDiscount
-                        ? Row(
-                            children: [
-                              D4uText(
-                                text:
-                                    'RM${widget.originalPrice?.toStringAsFixed(2)}',
-                                textDecoration: TextDecoration.lineThrough,
-                                fontWeight: FontWeight.normal,
-                                color: d4uGray,
-                              ),
-                              const SizedBox(
-                                width: 3,
-                              ),
-                              Expanded(
-                                child: D4uText(
-                                  maxLines: 1,
-                                  overflow: TextOverflow.ellipsis,
-                                  text:
-                                      'RM${widget.discountPrice?.toStringAsFixed(2)}',
-                                  fontWeight: FontWeight.normal,
-                                  color: d4uPrimaryColor,
-                                ),
-                              ),
-                            ],
-                          )
-                        : D4uText(
-                            text: 'RM ${widget.originalPrice}',
-                            fontWeight: FontWeight.normal,
-                            color: widget.color,
-                          ),
-                  ]),
+              ],
             ),
           ),
-          widget.showFavorite
+          showFavorite
               ? Positioned(
-                  bottom: widget.favPositionBottom,
-                  right: widget.favPositionRight,
-                  child: ElevatedButton(
-                    onPressed: widget.onPressedFavorite ??
-                        () {
-                          setState(() {
-                            _favourite = !_favourite;
-                          });
-                        },
-                    style: ElevatedButton.styleFrom(
-                      shape: const CircleBorder(),
-                      backgroundColor: d4uSecondaryColor, // <-- Button color
-                      foregroundColor: d4uBackground, // <-- Splash color
-                    ),
-                    child: widget.isFavourite
-                        ? const Icon(
-                            Icons.favorite,
-                            color: d4uPrimaryColor,
-                            size: 18,
-                          )
-                        : const Icon(
-                            Icons.favorite_outline,
-                            color: d4uGray,
-                            size: 18,
-                          ),
-                  ),
+                  bottom: favPositionBottom,
+                  right: favPositionRight,
+                  child: D4uCircularButton(),
                 )
-              : Container(),
-          Positioned(
-            top: 14,
-            left: 8,
-            child: widget.showLabel
-                ? D4uLabel(labelText: widget.labelText ?? '')
-                : Container(),
-          )
+              : D4uSizedBox.shrink,
+          showLabel
+              ? Positioned(
+                  left: 8,
+                  top: 8,
+                  child: D4uLabel(
+                      padding: EdgeInsets.zero, labelText: labelText ?? ''),
+                )
+              : D4uSizedBox.shrink,
         ],
       ),
     );

@@ -16,6 +16,7 @@ class D4uTextField extends StatefulWidget {
     this.maxLines = 1,
     this.onChanged,
     this.validator,
+    this.hideLabelWhenFocused = false,
   }) : super(key: key);
 
   String? placeHolder;
@@ -29,6 +30,8 @@ class D4uTextField extends StatefulWidget {
   Function? onChanged;
   String? name;
   String? Function(String?)? validator;
+  bool hideLabelWhenFocused;
+
   @override
   State<D4uTextField> createState() => _D4uTextFieldState();
 }
@@ -74,6 +77,9 @@ class _D4uTextFieldState extends State<D4uTextField> {
           validator: widget.validator,
           maxLines: widget.obscureText ? 1 : widget.maxLines,
           decoration: InputDecoration(
+            floatingLabelBehavior: widget.hideLabelWhenFocused
+                ? FloatingLabelBehavior.never
+                : FloatingLabelBehavior.auto,
             errorBorder: const OutlineInputBorder(
               borderRadius: BorderRadius.all(Radius.circular(12)),
               borderSide: BorderSide(

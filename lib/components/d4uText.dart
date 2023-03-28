@@ -5,6 +5,8 @@ class D4uText extends StatelessWidget {
     Key? key,
     this.text = '',
     this.fontSize,
+    this.letterSpacing,
+    this.height,
     this.maxLines,
     this.fontWeight,
     this.overflow,
@@ -15,6 +17,8 @@ class D4uText extends StatelessWidget {
 
   String? text;
   double? fontSize;
+  double? letterSpacing;
+  double? height;
   int? maxLines;
   FontWeight? fontWeight;
   TextOverflow? overflow;
@@ -35,6 +39,8 @@ class D4uText extends StatelessWidget {
           fontWeight: fontWeight,
           overflow: overflow,
           decoration: textDecoration,
+          letterSpacing: letterSpacing,
+          height: height,
         ),
       ),
     );

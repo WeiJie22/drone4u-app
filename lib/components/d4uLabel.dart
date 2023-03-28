@@ -9,17 +9,19 @@ class D4uLabel extends StatelessWidget {
     this.labelColor = d4uPrimaryColor,
     this.fontWeight = FontWeight.bold,
     this.fontSize = 10,
+    this.padding = D4uPadding.h16,
   }) : super(key: key);
 
   String labelText;
   Color? labelColor;
   FontWeight? fontWeight;
   double? fontSize;
+  EdgeInsets padding;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: D4uPadding.h16,
+      padding: padding,
       child: FittedBox(
         fit: BoxFit.fitWidth,
         child: Container(
