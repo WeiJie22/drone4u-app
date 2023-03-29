@@ -19,6 +19,7 @@ class D4uPadding {
 
   static const v4 = EdgeInsets.symmetric(vertical: 4);
   static const a4 = EdgeInsets.all(4);
+  static const h4 = EdgeInsets.symmetric(horizontal: 4);
 
   static const t16 = EdgeInsets.only(top: 16);
   static const b16 = EdgeInsets.only(bottom: 16);
@@ -31,13 +32,12 @@ class D4uPadding {
 
   static const t4 = EdgeInsets.only(top: 4);
   static const b4 = EdgeInsets.only(bottom: 4);
+  static const r4 = EdgeInsets.only(right: 4);
 
   static const containerCenter = EdgeInsets.fromLTRB(16, 8, 16, 8);
   static const containerCenter2 = EdgeInsets.fromLTRB(8, 4, 8, 4);
   static const containerCenter3 = EdgeInsets.fromLTRB(16, 0, 16, 8);
   static const containerCenter4 = EdgeInsets.fromLTRB(16, 8, 16, 0);
-
-  
 }
 
 extension StringCasingExtension on String {

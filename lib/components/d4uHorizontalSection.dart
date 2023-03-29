@@ -66,12 +66,15 @@ class D4uHorizontalSection extends StatelessWidget {
           const SizedBox(
             height: 4,
           ),
-          SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            child: Row(
-              children: servicesList != null || servicesList!.isNotEmpty
-                  ? servicesList!.map<D4uProductCard>((card) => card).toList()
-                  : [],
+          SizedBox(
+            height: 240,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              shrinkWrap: true,
+              itemCount: 4,
+              itemBuilder: (context, idx) {
+                return servicesList?[idx] ?? D4uSizedBox.shrink;
+              },
             ),
           ),
         ],

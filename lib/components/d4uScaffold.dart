@@ -38,7 +38,6 @@ class D4uScaffold extends StatefulWidget {
   double? appBarElevation;
   bool snapAppBar;
   bool floatAppBar;
-  ScrollController? scrollController;
   Widget? sliverPersistentHeader;
   bool showSearchBar;
   VoidCallback? onFilterIconPressed;
@@ -58,7 +57,6 @@ class _D4uScaffoldState extends State<D4uScaffold> {
         backgroundColor: d4uBackground,
         bottomNavigationBar: widget.bottomNavigationBarWidget,
         body: CustomScrollView(
-          controller: widget.scrollController,
           slivers: [
             !widget.showExpandedAppBar
                 ? D4uSliverAppBar(

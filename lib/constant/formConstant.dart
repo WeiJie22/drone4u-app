@@ -17,3 +17,7 @@ class ForgetPassConstant {
 class CatalogFilterConstant {
   static const String filter = 'filter';
 }
+
+class FavouriteConstant {
+  static const String favourite = 'favourite';
+}

@@ -1,5 +1,6 @@
 import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/screens/d4uCatalogPage.dart';
+import 'package:drone4u/screens/d4uFavouritePage.dart';
 import 'package:drone4u/screens/d4uLoginScreen.dart';
 import 'package:drone4u/screens/d4uMainPage.dart';
 import 'package:flutter/material.dart';
@@ -21,7 +22,7 @@ class _D4uNavigationBarState extends State<D4uNavigationBar>
     D4uMainPage(),
     D4uCatalogPage(),
     D4uLoginScreen(),
-    D4uMainPage(),
+    D4uFavouritePage(),
     D4uMainPage(),
   ];
 

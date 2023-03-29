@@ -61,7 +61,6 @@ class D4uProductCard extends StatelessWidget {
   VoidCallback? onPressedProduct;
   VoidCallback? onPressedFavorite;
   EdgeInsets padding;
-  bool _favourite = false;
 
   @override
   Widget build(BuildContext context) {
