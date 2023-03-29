@@ -1,4 +1,5 @@
 import 'package:drone4u/components/d4uScaffold.dart';
+import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/routes.dart';
 import 'package:drone4u/screens/d4uLoginScreen.dart';
 import 'package:drone4u/screens/d4uNavigationBar.dart';
@@ -17,6 +18,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
+      theme: ThemeData(
+        colorScheme:
+            ColorScheme.fromSwatch().copyWith(primary: d4uPrimaryColor),
+      ),
       routes: d4uRoutes(context),
       initialRoute: '/',
       home: const D4uSignUpPage(),

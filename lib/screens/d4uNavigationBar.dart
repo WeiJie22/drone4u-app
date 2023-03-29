@@ -75,7 +75,7 @@ class _D4uNavigationBarState extends State<D4uNavigationBar>
             icon: bottomIcon(
               Icons.shopping_bag_outlined,
             ),
-            label: 'Profile',
+            label: 'Orders',
           ),
           BottomNavigationBarItem(
             activeIcon: bottomIcon(

@@ -17,6 +17,7 @@ class D4uTextField extends StatefulWidget {
     this.onChanged,
     this.validator,
     this.hideLabelWhenFocused = false,
+    this.enabled = true,
   }) : super(key: key);
 
   String? placeHolder;
@@ -31,6 +32,7 @@ class D4uTextField extends StatefulWidget {
   String? name;
   String? Function(String?)? validator;
   bool hideLabelWhenFocused;
+  bool enabled;
 
   @override
   State<D4uTextField> createState() => _D4uTextFieldState();
@@ -71,6 +73,7 @@ class _D4uTextFieldState extends State<D4uTextField> {
           // onChanged: ((value) => widget.onChanged!(value)),
           obscureText: widget.obscureText,
           keyboardType: widget.keyboardType,
+          enabled: widget.enabled,
           cursorColor: Colors.black,
           cursorWidth: 1,
           focusNode: focusNode,

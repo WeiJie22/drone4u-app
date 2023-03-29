@@ -1,8 +1,11 @@
 import 'package:drone4u/components/d4uServiceDetail.dart';
 import 'package:drone4u/constant/carouselImageConstant.dart';
+import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/reviewConstant.dart';
 import 'package:drone4u/components/d4uIndex.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 
 class D4uServiceDetailPage extends StatefulWidget {
   const D4uServiceDetailPage({super.key});
@@ -15,6 +18,7 @@ class _D4uServiceDetailPageState extends State<D4uServiceDetailPage> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      resizeToAvoidBottomInset: false,
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
@@ -53,11 +57,9 @@ class _D4uServiceDetailPageState extends State<D4uServiceDetailPage> {
                   },
                 ),
               ),
-              D4uSingleButton(
-                text: 'Book Now',
-                onPressed: () {},
-                padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
-              )
+              D4uBottomSheet(
+                price: 150,
+              ),
             ],
           ),
         ),
