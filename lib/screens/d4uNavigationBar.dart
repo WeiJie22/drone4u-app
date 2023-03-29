@@ -1,10 +1,9 @@
 import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/screens/d4uCatalogPage.dart';
 import 'package:drone4u/screens/d4uFavouritePage.dart';
-import 'package:drone4u/screens/d4uLoginScreen.dart';
 import 'package:drone4u/screens/d4uMainPage.dart';
+import 'package:drone4u/screens/d4uOrdersPage.dart';
 import 'package:flutter/material.dart';
-import '../components/d4uIndex.dart';
 
 class D4uNavigationBar extends StatefulWidget {
   const D4uNavigationBar({super.key});
@@ -21,7 +20,7 @@ class _D4uNavigationBarState extends State<D4uNavigationBar>
   List<Widget> pages = <Widget>[
     D4uMainPage(),
     D4uCatalogPage(),
-    D4uLoginScreen(),
+    D4uOrdersPage(),
     D4uFavouritePage(),
     D4uMainPage(),
   ];

@@ -16,3 +16,6 @@ export 'd4uCircularButton.dart';
 export 'd4uReviewTitle.dart';
 export 'd4uReviewTile.dart';
 export 'd4uHorizontalProductCard.dart';
+export 'd4uSegmentedTab.dart';
+export 'd4uChipModel.dart';
+export 'd4uServiceDetail.dart';
