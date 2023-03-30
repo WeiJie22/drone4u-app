@@ -28,7 +28,7 @@ class _D4uChipModelState extends State<D4uChipModel> {
         children: List.generate(
           widget.options.length,
           (index) => Padding(
-            padding: D4uPadding.r4,
+            padding: index == 0 ? D4uPadding.l16 : D4uPadding.l4,
             child: ChoiceChip(
               selectedColor: Colors.black,
               label: D4uText(

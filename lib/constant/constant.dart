@@ -23,16 +23,19 @@ class D4uPadding {
 
   static const t16 = EdgeInsets.only(top: 16);
   static const b16 = EdgeInsets.only(bottom: 16);
+  static const l16 = EdgeInsets.only(left: 16);
 
   static const v2 = EdgeInsets.symmetric(vertical: 2);
   static const a2 = EdgeInsets.all(2);
 
   static const t8 = EdgeInsets.only(top: 8);
   static const b8 = EdgeInsets.only(bottom: 8);
+  static const l8 = EdgeInsets.only(left: 8);
 
   static const t4 = EdgeInsets.only(top: 4);
   static const b4 = EdgeInsets.only(bottom: 4);
   static const r4 = EdgeInsets.only(right: 4);
+  static const l4 = EdgeInsets.only(left: 4);
 
   static const containerCenter = EdgeInsets.fromLTRB(16, 8, 16, 8);
   static const containerCenter2 = EdgeInsets.fromLTRB(8, 4, 8, 4);
