@@ -24,6 +24,7 @@ class D4uPadding {
   static const t16 = EdgeInsets.only(top: 16);
   static const b16 = EdgeInsets.only(bottom: 16);
   static const l16 = EdgeInsets.only(left: 16);
+  static const r16 = EdgeInsets.only(right: 16);
 
   static const v2 = EdgeInsets.symmetric(vertical: 2);
   static const a2 = EdgeInsets.all(2);
@@ -41,6 +42,8 @@ class D4uPadding {
   static const containerCenter2 = EdgeInsets.fromLTRB(8, 4, 8, 4);
   static const containerCenter3 = EdgeInsets.fromLTRB(16, 0, 16, 8);
   static const containerCenter4 = EdgeInsets.fromLTRB(16, 8, 16, 0);
+
+  static const zero = EdgeInsets.zero;
 }
 
 extension StringCasingExtension on String {
@@ -54,4 +57,73 @@ extension StringCasingExtension on String {
 
 class D4uSizedBox {
   static const shrink = SizedBox.shrink();
+}
+
+class D4uTextStyle {
+  static const title = TextStyle(
+    fontSize: 32,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const labelText = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
+    color: d4uGray,
+  );
+
+  static const labelTextBold = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+    color: Colors.black,
+  );
+
+  static const h1 = TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.bold,
+  );
+  static const h2 = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.bold,
+  );
+  static const h3 = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.bold,
+  );
+  static const h4 = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.bold,
+  );
+  static const h5 = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.bold,
+  );
+  static const h6 = TextStyle(
+    fontSize: 10,
+    fontWeight: FontWeight.bold,
+  );
+
+  static const b1 = TextStyle(
+    fontSize: 24,
+    fontWeight: FontWeight.normal,
+  );
+  static const b2 = TextStyle(
+    fontSize: 20,
+    fontWeight: FontWeight.normal,
+  );
+  static const b3 = TextStyle(
+    fontSize: 16,
+    fontWeight: FontWeight.normal,
+  );
+  static const b4 = TextStyle(
+    fontSize: 14,
+    fontWeight: FontWeight.normal,
+  );
+  static const b5 = TextStyle(
+    fontSize: 12,
+    fontWeight: FontWeight.normal,
+  );
+  static const b6 = TextStyle(
+    fontSize: 10,
+    fontWeight: FontWeight.normal,
+  );
 }

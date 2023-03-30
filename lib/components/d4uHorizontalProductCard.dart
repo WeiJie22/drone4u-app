@@ -13,6 +13,7 @@ class D4uHorizontalProductCard extends StatelessWidget {
     this.rating = 3,
     this.categories,
     this.cardHeight = 100,
+    this.hideCloseButton = false,
   });
 
   String? image;
@@ -22,6 +23,7 @@ class D4uHorizontalProductCard extends StatelessWidget {
   double? rating;
   List<String>? categories;
   double? cardHeight;
+  bool hideCloseButton;
 
   @override
   Widget build(BuildContext context) {
@@ -115,14 +117,16 @@ class D4uHorizontalProductCard extends StatelessWidget {
                       crossAxisAlignment: CrossAxisAlignment.end,
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        GestureDetector(
-                          child: const Icon(
-                            Icons.close,
-                            size: 18,
-                            color: d4uGray,
-                          ),
-                          onTap: () {},
-                        ),
+                        hideCloseButton
+                            ? D4uSizedBox.shrink
+                            : GestureDetector(
+                                child: const Icon(
+                                  Icons.close,
+                                  size: 18,
+                                  color: d4uGray,
+                                ),
+                                onTap: () {},
+                              ),
                         RatingBarIndicator(
                           rating: rating ?? 0,
                           itemCount: 5,

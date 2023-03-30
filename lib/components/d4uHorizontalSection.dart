@@ -1,5 +1,7 @@
 import 'package:drone4u/components/d4uIndex.dart';
 import 'package:drone4u/constant/constant.dart';
+import 'package:drone4u/constant/routes.dart';
+import 'package:drone4u/screens/d4uServiceDetailPage.dart';
 import 'package:flutter/material.dart';
 
 class D4uHorizontalSection extends StatelessWidget {
@@ -12,7 +14,7 @@ class D4uHorizontalSection extends StatelessWidget {
     this.padding = D4uPadding.t16,
   }) : super(key: key);
 
-  List<D4uProductCard>? servicesList;
+  List<Map<String, dynamic>>? servicesList;
   String? sectionTitle;
   String? sectionSubtitle;
   VoidCallback? viewAllOnTap;
@@ -71,9 +73,37 @@ class D4uHorizontalSection extends StatelessWidget {
             child: ListView.builder(
               scrollDirection: Axis.horizontal,
               shrinkWrap: true,
-              itemCount: 4,
+              itemCount: servicesList?.length ?? 0,
               itemBuilder: (context, idx) {
-                return servicesList?[idx] ?? D4uSizedBox.shrink;
+                return Padding(
+                  padding: idx == servicesList!.length - 1
+                      ? D4uPadding.r16
+                      : D4uPadding.zero,
+                  child: D4uProductCard(
+                    imagePath: servicesList![idx]['imagePath'],
+                    productName: servicesList![idx]['productName'],
+                    sellerName: servicesList![idx]['sellerName'],
+                    productRating: servicesList![idx]['productRating'],
+                    reviewCount: servicesList![idx]['reviewCount'],
+                    originalPrice: servicesList![idx]['originalPrice'],
+                    discountPrice: servicesList![idx]['discountPrice'],
+                    height: 240,
+                    width: 160,
+                    imageHeight: 160,
+                    imageWidth: 160,
+                    imageAlignment: Alignment.center,
+                    onPressedProduct: () {
+                      Navigator.pushNamed(
+                        context,
+                        RouteName.serviceDetailPage,
+                        arguments: D4uServiceDetailPageArgs(
+                          productName: servicesList![idx]['productName'],
+                        ),
+                      );
+                    },
+                    onPressedFavorite: () => print('Favorite'),
+                  ),
+                );
               },
             ),
           ),

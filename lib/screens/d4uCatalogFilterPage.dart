@@ -4,14 +4,14 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
-class D4uatalogFilterPage extends StatefulWidget {
-  const D4uatalogFilterPage({super.key});
+class D4uCatalogFilterPage extends StatefulWidget {
+  const D4uCatalogFilterPage({super.key});
 
   @override
-  State<D4uatalogFilterPage> createState() => D4uCatalogFilterPageState();
+  State<D4uCatalogFilterPage> createState() => D4uCatalogFilterPageState();
 }
 
-class D4uCatalogFilterPageState extends State<D4uatalogFilterPage> {
+class D4uCatalogFilterPageState extends State<D4uCatalogFilterPage> {
   List<FormBuilderFieldOption<String>> options = [
     const FormBuilderFieldOption(value: 'A'),
     const FormBuilderFieldOption(value: 'B'),

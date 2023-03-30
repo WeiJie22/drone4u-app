@@ -68,7 +68,11 @@ class _D4uLoginScreenState extends State<D4uLoginScreen> {
               onPressed: () => {
                 if (_formKey.currentState?.saveAndValidate() ?? false)
                   {
-                    Navigator.pushNamed(context, RouteName.naviagtionBar),
+                    Navigator.pushNamed(
+                      context,
+                      RouteName.navigationBar,
+                      arguments: 0,
+                    ),
                   }
               },
             ),

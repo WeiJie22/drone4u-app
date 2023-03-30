@@ -6,7 +6,9 @@ import 'package:drone4u/screens/d4uOrdersPage.dart';
 import 'package:flutter/material.dart';
 
 class D4uNavigationBar extends StatefulWidget {
-  const D4uNavigationBar({super.key});
+  const D4uNavigationBar({super.key, this.selectedIndex});
+
+  final int? selectedIndex;
 
   @override
   State<D4uNavigationBar> createState() => _D4uNavigationBarState();
@@ -16,6 +18,12 @@ class _D4uNavigationBarState extends State<D4uNavigationBar>
     with TickerProviderStateMixin {
   int _selectedIndex = 0;
   double expandedHeight = 160;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedIndex = widget.selectedIndex ?? 0;
+  }
 
   List<Widget> pages = <Widget>[
     D4uMainPage(),

@@ -71,8 +71,7 @@ class D4uProductCard extends StatelessWidget {
       child: Stack(
         children: [
           GestureDetector(
-            onTap: () =>
-                Navigator.pushNamed(context, RouteName.servcieDetailPage),
+            onTap: onPressedProduct,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

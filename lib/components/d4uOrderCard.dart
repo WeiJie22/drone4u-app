@@ -9,10 +9,12 @@ class D4uOrderCard extends StatelessWidget {
     super.key,
     this.leftTextList = const [],
     this.rightTextList = const [],
+    this.onTap,
   });
 
   List<String> leftTextList;
   List<String> rightTextList;
+  VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
@@ -37,7 +39,10 @@ class D4uOrderCard extends StatelessWidget {
             children: [
               _buildCardTitle(),
               const SizedBox(height: 8),
-              ..._buildInfoList(),
+              D4uInfoList(
+                leftTextList: leftTextList,
+                rightTextList: rightTextList,
+              ),
               const Divider(
                 indent: 2,
                 endIndent: 2,
@@ -72,7 +77,7 @@ class D4uOrderCard extends StatelessWidget {
                   ),
                 ),
               ),
-              onPressed: () {},
+              onPressed: onTap,
               child: D4uText(
                 color: d4uSecondaryColor,
                 fontSize: 14,
@@ -82,19 +87,6 @@ class D4uOrderCard extends StatelessWidget {
           ),
         ),
       ],
-    );
-  }
-
-  List<Widget> _buildInfoList() {
-    return List.generate(
-      leftTextList.length,
-      (index) => Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          _buildLeftText(leftTextList[index]),
-          _buildRightText(rightTextList[index]),
-        ],
-      ),
     );
   }
 
@@ -116,27 +108,6 @@ class D4uOrderCard extends StatelessWidget {
           labelType: LabelType.bordered,
         )
       ],
-    );
-  }
-
-  Widget _buildLeftText(String text) {
-    return Padding(
-      padding: D4uPadding.a2,
-      child: D4uText(
-        fontSize: 13,
-        text: text,
-      ),
-    );
-  }
-
-  Widget _buildRightText(String text) {
-    return Padding(
-      padding: D4uPadding.a2,
-      child: D4uText(
-        text: text,
-        fontSize: 13,
-        fontWeight: FontWeight.bold,
-      ),
     );
   }
 }

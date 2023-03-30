@@ -1,10 +1,20 @@
 import 'package:drone4u/components/d4uIndex.dart';
-import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/routes.dart';
 import 'package:flutter/material.dart';
 
+class D4uCatalogPageArguments {
+  final String? title;
+
+  D4uCatalogPageArguments({this.title});
+}
+
 class D4uCatalogPage extends StatefulWidget {
-  D4uCatalogPage({Key? key}) : super(key: key);
+  const D4uCatalogPage({
+    Key? key,
+    this.arg,
+  }) : super(key: key);
+
+  final D4uCatalogPageArguments? arg;
 
   @override
   State<D4uCatalogPage> createState() => _D4uCatalogPageState();
@@ -20,9 +30,12 @@ class _D4uCatalogPageState extends State<D4uCatalogPage> {
       forceElevated: true,
       showSearchBar: true,
       appBarElevation: 0.5,
-      appBarTitle: "All Services",
+      appBarTitle: widget.arg?.title ?? 'Catalog',
       onFilterIconPressed: () {
-        Navigator.pushNamed(context, RouteName.catalogFilterPage);
+        Navigator.pushNamed(
+          context,
+          RouteName.catalogFilterPage,
+        );
       },
       body: Padding(
         padding: const EdgeInsets.fromLTRB(0, 16, 16, 16),

@@ -15,11 +15,11 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      routes: d4uRoutes(context),
+      onGenerateRoute: D4uRouter.generateRoute,
       initialRoute: '/',
-      home: const D4uSignUpPage(),
+      home: D4uSignUpPage(),
     );
   }
 }

@@ -1,5 +1,6 @@
 import 'package:drone4u/constant/homePageContant.dart';
 import 'package:drone4u/constant/routes.dart';
+import 'package:drone4u/screens/d4uCatalogPage.dart';
 import 'package:flutter/material.dart';
 import '../components/d4uIndex.dart';
 
@@ -22,22 +23,31 @@ class _D4uMainPageState extends State<D4uMainPage> {
           D4uHorizontalSection(
             sectionTitle: 'Sales',
             sectionSubtitle: "Summer sales",
-            servicesList: salesProductCards,
-            viewAllOnTap: () =>
-                Navigator.pushNamed(context, RouteName.catalogPage),
+            servicesList: productMockDataList,
+            viewAllOnTap: () => _navigate('Sales 1'),
           ),
           D4uHorizontalSection(
             sectionTitle: 'Sales',
             sectionSubtitle: "Summer sales",
-            servicesList: salesProductCards,
+            servicesList: productMockDataList,
+            viewAllOnTap: () => _navigate('Sales 2'),
           ),
           D4uHorizontalSection(
             sectionTitle: 'Sales',
             sectionSubtitle: "Summer sales",
-            servicesList: salesProductCards,
+            servicesList: productMockDataList,
+            viewAllOnTap: () => _navigate('Sales 3'),
           ),
         ],
       ),
+    );
+  }
+
+  _navigate(String title) {
+    Navigator.pushNamed(
+      context,
+      RouteName.navigationBar,
+      arguments: 1,
     );
   }
 }

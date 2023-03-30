@@ -2,6 +2,8 @@ import 'package:drone4u/components/d4uIndex.dart';
 import 'package:drone4u/components/d4uOrderCard.dart';
 import 'package:drone4u/components/d4uSegmentedTab.dart';
 import 'package:drone4u/constant/constant.dart';
+import 'package:drone4u/constant/routes.dart';
+import 'package:drone4u/screens/d4uOrderDetailsPage.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
@@ -41,6 +43,14 @@ class _D4uOrdersPageState extends State<D4uOrdersPage> {
                 padding: EdgeInsets.zero,
                 itemCount: 10,
                 itemBuilder: (context, int) => D4uOrderCard(
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      RouteName.orderDetailsPage,
+                      arguments:
+                          D4uOrderDetailsPageArgs(productName: 'Product A'),
+                    );
+                  },
                   leftTextList: [
                     "Order ID",
                     'User name',

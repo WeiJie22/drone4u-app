@@ -4,9 +4,19 @@ import 'package:drone4u/constant/reviewConstant.dart';
 import 'package:drone4u/components/d4uIndex.dart';
 import 'package:flutter/material.dart';
 
-class D4uServiceDetailPage extends StatefulWidget {
-  const D4uServiceDetailPage({super.key});
+class D4uServiceDetailPageArgs {
+  D4uServiceDetailPageArgs({this.productName});
 
+  String? productName;
+}
+
+class D4uServiceDetailPage extends StatefulWidget {
+  D4uServiceDetailPage({
+    this.args,
+    super.key,
+  });
+
+  D4uServiceDetailPageArgs? args;
   @override
   State<D4uServiceDetailPage> createState() => _D4uServiceDetailPageState();
 }
@@ -19,7 +29,7 @@ class _D4uServiceDetailPageState extends State<D4uServiceDetailPage> {
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
             D4uSliverAppBar(
-              appBarTitle: 'Service 1',
+              appBarTitle: widget.args?.productName ?? "Unidentified Product",
             )
           ];
         },
