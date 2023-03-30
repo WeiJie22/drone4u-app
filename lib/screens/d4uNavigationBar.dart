@@ -2,6 +2,7 @@ import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/screens/d4uCatalogPage.dart';
 import 'package:drone4u/screens/d4uFavouritePage.dart';
 import 'package:drone4u/screens/d4uMainPage.dart';
+import 'package:drone4u/screens/d4uMyProfilePage.dart';
 import 'package:drone4u/screens/d4uOrdersPage.dart';
 import 'package:flutter/material.dart';
 
@@ -26,11 +27,11 @@ class _D4uNavigationBarState extends State<D4uNavigationBar>
   }
 
   List<Widget> pages = <Widget>[
-    D4uMainPage(),
-    D4uCatalogPage(),
-    D4uOrdersPage(),
-    D4uFavouritePage(),
-    D4uMainPage(),
+    const D4uMainPage(),
+    const D4uCatalogPage(),
+    const D4uOrdersPage(),
+    const D4uFavouritePage(),
+    D4uMyProfilePage(),
   ];
 
   _onItemTapped(index) {

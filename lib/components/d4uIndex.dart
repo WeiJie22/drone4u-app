@@ -22,3 +22,5 @@ export 'd4uChipModel.dart';
 export 'd4uServiceDetail.dart';
 export 'd4uInfoList.dart';
 export 'd4uDateTimePicker.dart';
+export 'd4uProfileAvartarTile.dart';
+export 'd4uProfileTile.dart';
