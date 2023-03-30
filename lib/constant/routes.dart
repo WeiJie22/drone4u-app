@@ -5,6 +5,7 @@ import 'package:drone4u/screens/d4uLoginScreen.dart';
 import 'package:drone4u/screens/d4uNavigationBar.dart';
 import 'package:drone4u/screens/d4uServiceDetailPage.dart';
 import 'package:drone4u/screens/d4uSignUpPage.dart';
+import 'package:drone4u/screens/d4uSuccessBookingPage.dart';
 
 class RouteName {
   static const signUp = '/signUp';
@@ -14,6 +15,7 @@ class RouteName {
   static const catalogFilterPage = '/catalogFilterPage';
   static const catalogPage = '/catalogPage';
   static const servcieDetailPage = '/servcieDetailPage';
+  static const successBookingPage = '/successBookingPage';
 }
 
 d4uRoutes(context) => {
@@ -24,4 +26,5 @@ d4uRoutes(context) => {
       RouteName.catalogFilterPage: (context) => const D4uatalogFilterPage(),
       RouteName.catalogPage: (context) => D4uCatalogPage(),
       RouteName.servcieDetailPage: (context) => const D4uServiceDetailPage(),
+      RouteName.successBookingPage: (context) => const D4uSuccessBookingPage(),
     };

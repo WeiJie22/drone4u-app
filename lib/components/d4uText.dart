@@ -14,6 +14,7 @@ class D4uText extends StatelessWidget {
     this.textDecoration,
     this.color = Colors.black,
     this.padding = EdgeInsets.zero,
+    this.textAlign,
   }) : super(key: key);
 
   String? text;
@@ -27,6 +28,7 @@ class D4uText extends StatelessWidget {
   TextDecoration? textDecoration;
   Color? color;
   EdgeInsets padding;
+  TextAlign? textAlign;
 
   @override
   Widget build(BuildContext context) {
@@ -36,6 +38,7 @@ class D4uText extends StatelessWidget {
         text!,
         maxLines: maxLines,
         softWrap: softWrap,
+        textAlign: textAlign,
         style: TextStyle(
           color: color,
           fontSize: fontSize,

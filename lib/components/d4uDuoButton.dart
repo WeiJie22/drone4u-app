@@ -31,7 +31,7 @@ class D4uDuoButton extends StatelessWidget {
           Expanded(
             flex: secondaryFlex,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: secondaryCallback,
               style: ElevatedButton.styleFrom(
                 shadowColor: d4uPrimaryColor,
                 elevation: 2,
@@ -56,7 +56,7 @@ class D4uDuoButton extends StatelessWidget {
           Expanded(
             flex: primaryFlex,
             child: ElevatedButton(
-              onPressed: () {},
+              onPressed: primaryCallback,
               style: ElevatedButton.styleFrom(
                 shadowColor: d4uPrimaryColor,
                 elevation: 2,
