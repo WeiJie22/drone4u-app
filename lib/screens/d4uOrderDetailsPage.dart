@@ -23,9 +23,9 @@ class D4uOrderDetailsPage extends StatelessWidget {
       bottomNavigationBarWidget: D4uDuoButton(
         padding: D4uPadding.a16,
         secondaryText: 'Cancel Order',
-        primaryText: 'Contact Seller',
+        primaryText: 'Accept Order',
         secondaryCallback: () => print('Cancel Order'),
-        primaryCallback: () => print('Contact Seller'),
+        primaryCallback: () => print('Accept Order'),
       ),
       body: Column(
         crossAxisAlignment: CrossAxisAlignment.start,

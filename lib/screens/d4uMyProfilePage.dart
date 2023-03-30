@@ -1,5 +1,6 @@
 import 'package:drone4u/components/d4uIndex.dart';
 import 'package:drone4u/constant/constant.dart';
+import 'package:drone4u/constant/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
@@ -51,6 +52,10 @@ class D4uMyProfilePage extends StatelessWidget {
                     D4uProfileTile(
                       title: title[index],
                       content: content[index],
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        RouteName.uploadPage,
+                      ),
                     ),
                     Divider(
                       color: Colors.grey[200],

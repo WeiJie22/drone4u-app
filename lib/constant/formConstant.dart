@@ -27,3 +27,21 @@ class BookNowConstant {
   static const String endDate = 'endDate';
   static const String location = 'location';
 }
+
+class SettingConstant {
+  static const String fullName = 'fullName';
+  static const String date = 'date';
+  static const String password = 'password';
+}
+
+class UploadServiceConstant {
+  static const String serviceName = 'serviceName';
+  static const String serviceDescription = 'serviceDescription';
+  static const String servicePictures = 'servicePictures';
+}
+
+class ChangePassConstant {
+  static const String oldPassword = 'oldPassword';
+  static const String newPassword = 'newPassword';
+  static const String confirmPassword = 'confirmPassword';
+}

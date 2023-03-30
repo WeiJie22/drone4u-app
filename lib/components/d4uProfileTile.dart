@@ -7,14 +7,17 @@ class D4uProfileTile extends StatelessWidget {
     Key? key,
     this.title = '',
     this.content = '',
+    this.onTap,
   }) : super(key: key);
 
   String title;
   String? content;
+  VoidCallback? onTap;
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
+      onTap: onTap,
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.center,
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
