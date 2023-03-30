@@ -6,6 +6,7 @@ import 'package:drone4u/screens/d4uNavigationBar.dart';
 import 'package:drone4u/screens/d4uOrderDetailsPage.dart';
 import 'package:drone4u/screens/d4uServiceDetailPage.dart';
 import 'package:drone4u/screens/d4uSignUpPage.dart';
+import 'package:drone4u/screens/d4uSuccessBookingPage.dart';
 import 'package:flutter/material.dart';
 
 class RouteName {
@@ -17,6 +18,7 @@ class RouteName {
   static const catalogPage = '/catalogPage';
   static const serviceDetailPage = '/serviceDetailPage';
   static const orderDetailsPage = '/orderDetailsPage';
+  static const successBookingPage = '/successBookingPage';
 }
 
 class D4uRouter {
@@ -69,6 +71,11 @@ class D4uRouter {
           builder: (_) => D4uOrderDetailsPage(
             args: args,
           ),
+        );
+
+      case RouteName.successBookingPage:
+        return MaterialPageRoute(
+          builder: (_) => D4uSuccessBookingPage(),
         );
     }
 

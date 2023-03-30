@@ -21,3 +21,9 @@ class CatalogFilterConstant {
 class FavouriteConstant {
   static const String favourite = 'favourite';
 }
+
+class BookNowConstant {
+  static const String startDate = 'startDate';
+  static const String endDate = 'endDate';
+  static const String location = 'location';
+}

@@ -7,7 +7,7 @@ class D4uPageTitle extends StatelessWidget {
     @required this.title,
     this.color = Colors.black,
     this.fontWeight = FontWeight.bold,
-    this.fontSize = 34,
+    this.fontSize = 32,
     this.overflow = TextOverflow.clip,
   }) : super(key: key);
 

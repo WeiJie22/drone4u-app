@@ -11,12 +11,15 @@ class D4uTextField extends StatefulWidget {
     this.suffixIcon,
     this.borderRadius,
     this.padding = D4uPadding.containerCenter,
+    this.labelStyle = const TextStyle(color: d4uGray),
     this.keyboardType,
     this.obscureText = false,
     this.maxLines = 1,
     this.onChanged,
     this.validator,
     this.hideLabelWhenFocused = false,
+    this.enabled = true,
+    this.alignLabelWithHint = false,
   }) : super(key: key);
 
   String? placeHolder;
@@ -25,12 +28,15 @@ class D4uTextField extends StatefulWidget {
   EdgeInsets padding;
   Color? focusedBorderColor;
   TextInputType? keyboardType;
+  TextStyle? labelStyle;
   bool obscureText;
   int? maxLines;
   Function? onChanged;
   String? name;
   String? Function(String?)? validator;
   bool hideLabelWhenFocused;
+  bool enabled;
+  bool alignLabelWithHint;
 
   @override
   State<D4uTextField> createState() => _D4uTextFieldState();
@@ -71,12 +77,14 @@ class _D4uTextFieldState extends State<D4uTextField> {
           // onChanged: ((value) => widget.onChanged!(value)),
           obscureText: widget.obscureText,
           keyboardType: widget.keyboardType,
+          enabled: widget.enabled,
           cursorColor: Colors.black,
           cursorWidth: 1,
           focusNode: focusNode,
           validator: widget.validator,
           maxLines: widget.obscureText ? 1 : widget.maxLines,
           decoration: InputDecoration(
+            alignLabelWithHint: widget.alignLabelWithHint,
             floatingLabelBehavior: widget.hideLabelWhenFocused
                 ? FloatingLabelBehavior.never
                 : FloatingLabelBehavior.auto,
@@ -91,7 +99,7 @@ class _D4uTextFieldState extends State<D4uTextField> {
               borderSide: BorderSide.none,
             ),
             labelText: widget.placeHolder,
-            labelStyle: const TextStyle(color: d4uGray),
+            labelStyle: widget.labelStyle,
             enabledBorder: UnderlineInputBorder(
               borderSide: BorderSide.none,
               borderRadius: BorderRadius.circular(12.0),

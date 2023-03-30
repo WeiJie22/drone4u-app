@@ -44,6 +44,7 @@ class D4uSliverAppBar extends StatelessWidget {
       snap: snapAppBar,
       leading: showBackButton
           ? GestureDetector(
+              behavior: HitTestBehavior.translucent,
               onTap: leadingOnTap ??
                   () {
                     Navigator.pop(context);

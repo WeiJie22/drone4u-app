@@ -1,4 +1,5 @@
 import 'package:drone4u/components/d4uScaffold.dart';
+import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/routes.dart';
 import 'package:drone4u/screens/d4uLoginScreen.dart';
 import 'package:drone4u/screens/d4uNavigationBar.dart';
@@ -15,11 +16,15 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
       onGenerateRoute: D4uRouter.generateRoute,
+      theme: ThemeData(
+        colorScheme:
+            ColorScheme.fromSwatch().copyWith(primary: d4uPrimaryColor),
+      ),
       initialRoute: '/',
-      home: D4uSignUpPage(),
+      home: const D4uSignUpPage(),
     );
   }
 }
