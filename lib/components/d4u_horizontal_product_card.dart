@@ -14,6 +14,8 @@ class D4uHorizontalProductCard extends StatelessWidget {
     this.categories,
     this.cardHeight = 100,
     this.hideCloseButton = false,
+    this.padding = D4uPadding.containerCenter,
+    this.isCard = true,
   });
 
   String? image;
@@ -24,22 +26,26 @@ class D4uHorizontalProductCard extends StatelessWidget {
   List<String>? categories;
   double? cardHeight;
   bool hideCloseButton;
+  EdgeInsets padding;
+  bool isCard;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: D4uPadding.containerCenter,
+      padding: isCard ? padding : D4uPadding.h16,
       child: Container(
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(10),
+          borderRadius:
+              isCard ? BorderRadius.circular(10) : const BorderRadius.only(),
           color: d4uSecondaryColor,
           boxShadow: [
-            BoxShadow(
-              color: Colors.grey.withOpacity(0.2),
-              spreadRadius: 2,
-              blurRadius: 5,
-              offset: const Offset(0, 0), // changes position of shadow
-            ),
+            if (isCard)
+              BoxShadow(
+                color: Colors.grey.withOpacity(0.2),
+                spreadRadius: 2,
+                blurRadius: 5,
+                offset: const Offset(0, 0), // changes position of shadow
+              ),
           ],
         ),
         height: cardHeight,
@@ -49,10 +55,12 @@ class D4uHorizontalProductCard extends StatelessWidget {
               flex: 3,
               child: Container(
                 decoration: BoxDecoration(
-                  borderRadius: const BorderRadius.only(
-                    topLeft: Radius.circular(10),
-                    bottomLeft: Radius.circular(10),
-                  ),
+                  borderRadius: isCard
+                      ? const BorderRadius.only(
+                          topLeft: Radius.circular(10),
+                          bottomLeft: Radius.circular(10),
+                        )
+                      : const BorderRadius.only(),
                   image: DecorationImage(
                     image: AssetImage(image ?? ''),
                     fit: BoxFit.cover,

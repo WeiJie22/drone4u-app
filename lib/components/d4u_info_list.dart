@@ -19,6 +19,8 @@ class D4uInfoList extends StatelessWidget {
     ),
     this.padding = D4uPadding.zero,
     this.showDottedLine = false,
+    this.showDivider = false,
+    this.backgroundColor,
   });
 
   List<String> leftTextList;
@@ -27,10 +29,13 @@ class D4uInfoList extends StatelessWidget {
   TextStyle? leftTextStyle;
   TextStyle? rightTextStyle;
   bool showDottedLine;
+  bool showDivider;
+  Color? backgroundColor;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      color: backgroundColor,
       padding: padding,
       child: Column(
         children: _buildInfoList(leftTextList, rightTextList),
@@ -62,11 +67,12 @@ class D4uInfoList extends StatelessWidget {
               child: DottedLine(
                 dashColor: d4uGray.withOpacity(0.5),
               ),
-            )
-          // Divider(
-          //   color: d4uGray.withOpacity(0.5),
-          //   thickness: 1,
-          // )
+            ),
+          if (showDivider && index != leftTextList.length - 1)
+            Divider(
+              color: d4uGray.withOpacity(0.5),
+              thickness: 1,
+            ),
         ],
       ),
     );
@@ -86,6 +92,7 @@ class D4uInfoList extends StatelessWidget {
     return Padding(
       padding: D4uPadding.a2,
       child: D4uText(
+        maxLines: 3,
         text: text,
         textAlign: TextAlign.right,
         textStyle: rightTextStyle,

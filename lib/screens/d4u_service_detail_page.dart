@@ -230,34 +230,38 @@ class _D4uServiceDetailPageState extends State<D4uServiceDetailPage> {
                                       const EdgeInsets.fromLTRB(16, 8, 16, 24),
                                   text: 'CONFIRM BOOKING',
                                   onPressed: () {
-                                    showDialog(
-                                      context: context,
-                                      builder: (context) => D4uAlertDialog(
-                                        contentTitle: const [
-                                          'Service:',
-                                          'Seller:',
-                                          'Starting Service Date:',
-                                          'Ending Service Date:',
-                                          'Service Location:',
-                                          'Total Price:'
-                                        ],
-                                        content: const [
-                                          'Service A',
-                                          'Seller name Here',
-                                          '31 Mar 2022',
-                                          '2 Apr 2022',
-                                          '124, Taman ABC, Jalan 45/2, 12345, Petaling Jaya, Selangor 124, Taman ABC, Jalan 45/2, 12345, Petaling Jaya, Selangor',
-                                          'RM150'
-                                        ],
-                                        primaryCallback: () =>
-                                            Navigator.pushNamed(
-                                          context,
-                                          RouteName.successBookingPage,
-                                        ),
-                                        secondaryCallback: () =>
-                                            Navigator.pop(context),
-                                      ),
+                                    Navigator.popAndPushNamed(
+                                      context,
+                                      RouteName.confirmBookingPage,
                                     );
+                                    // showDialog(
+                                    //   context: context,
+                                    //   builder: (context) => D4uAlertDialog(
+                                    //     contentTitle: const [
+                                    //       'Service:',
+                                    //       'Seller:',
+                                    //       'Starting Service Date:',
+                                    //       'Ending Service Date:',
+                                    //       'Service Location:',
+                                    //       'Total Price:'
+                                    //     ],
+                                    //     content: const [
+                                    //       'Service A',
+                                    //       'Seller name Here',
+                                    //       '31 Mar 2022',
+                                    //       '2 Apr 2022',
+                                    //       '124, Taman ABC, Jalan 45/2, 12345, Petaling Jaya, Selangor 124, Taman ABC, Jalan 45/2, 12345, Petaling Jaya, Selangor',
+                                    //       'RM150'
+                                    //     ],
+                                    //     primaryCallback: () =>
+                                    //         Navigator.pushNamed(
+                                    //       context,
+                                    //       RouteName.successBookingPage,
+                                    //     ),
+                                    //     secondaryCallback: () =>
+                                    //         Navigator.pop(context),
+                                    //   ),
+                                    // );
                                   },
                                 )
                               ],

@@ -1,8 +1,6 @@
 import 'package:drone4u/components/d4u_index.dart';
 import 'package:drone4u/constant/constant.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class D4uOrderDetailsPageArgs {
   D4uOrderDetailsPageArgs({this.productName});
@@ -36,6 +34,7 @@ class D4uOrderDetailsPage extends StatelessWidget {
             textStyle: D4uTextStyle.h1,
           ),
           D4uHorizontalProductCard(
+            isCard: false,
             hideCloseButton: true,
             image: 'assets/d4uDrone_road.jpg',
             seller: 'Drone4U',

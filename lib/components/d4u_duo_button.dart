@@ -12,6 +12,7 @@ class D4uDuoButton extends StatelessWidget {
     this.primaryFlex = 6,
     this.secondaryFlex = 4,
     this.padding = D4uPadding.containerCenter,
+    this.primaryDisabled = false,
   });
 
   String? primaryText;
@@ -21,6 +22,7 @@ class D4uDuoButton extends StatelessWidget {
   int primaryFlex;
   int secondaryFlex;
   EdgeInsets padding;
+  bool primaryDisabled;
 
   @override
   Widget build(BuildContext context) {
@@ -56,7 +58,7 @@ class D4uDuoButton extends StatelessWidget {
           Expanded(
             flex: primaryFlex,
             child: ElevatedButton(
-              onPressed: primaryCallback,
+              onPressed: primaryDisabled ? null : primaryCallback,
               style: ElevatedButton.styleFrom(
                 shadowColor: d4uPrimaryColor,
                 elevation: 2,

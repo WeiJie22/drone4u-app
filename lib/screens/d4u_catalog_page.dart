@@ -3,8 +3,8 @@ import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/home_page_contant.dart';
 import 'package:drone4u/constant/routes.dart';
 import 'package:drone4u/models/product.dart';
+import 'package:drone4u/screens/d4u_service_detail_page.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class D4uCatalogPageArguments {
   final String? title;
@@ -103,6 +103,15 @@ class _D4uCatalogPageState extends State<D4uCatalogPage> {
                             productRating: product.productRating ?? 0,
                             showLabel: true,
                             labelText: '-20%',
+                            onPressedProduct: () {
+                              Navigator.pushNamed(
+                                context,
+                                RouteName.serviceDetailPage,
+                                arguments: D4uServiceDetailPageArgs(
+                                  productName: product.name ?? '',
+                                ),
+                              );
+                            },
                           );
                         },
                       ),

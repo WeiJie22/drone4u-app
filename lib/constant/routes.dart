@@ -1,5 +1,6 @@
 import 'package:drone4u/screens/d4u_catalog_filter_page.dart';
 import 'package:drone4u/screens/d4u_catalog_page.dart';
+import 'package:drone4u/screens/d4u_confirm_booking_page.dart';
 import 'package:drone4u/screens/d4u_forgot_pass_page.dart';
 import 'package:drone4u/screens/d4u_login_screen.dart';
 import 'package:drone4u/screens/d4u_my_profile_page.dart';
@@ -25,6 +26,7 @@ class RouteName {
   static const myProfilePage = '/myProfilePage';
   static const settingsPage = '/settingsPage';
   static const uploadPage = '/uploadPage';
+  static const confirmBookingPage = '/confirmBookingPage';
 }
 
 class D4uRouter {
@@ -94,6 +96,10 @@ class D4uRouter {
         return MaterialPageRoute(
           builder: (_) => const D4uUploadPage(),
         );
+      case RouteName.confirmBookingPage:
+        return MaterialPageRoute(
+          builder: (_) => const D4uConfirmBookingPage(),
+        );
     }
 
     return MaterialPageRoute(
@@ -105,14 +111,3 @@ class D4uRouter {
     );
   }
 }
-
-// d4uRoutes(context) => {
-//       RouteName.signUp: (context) => const D4uSignUpPage(),
-//       RouteName.loginPage: (context) => const D4uLoginScreen(),
-//       RouteName.forgetPass: (context) => const D4uForgotPassPage(),
-//       RouteName.naviagtionBar: (context) => const D4uNavigationBar(),
-//       RouteName.catalogFilterPage: (context) => const D4uatalogFilterPage(),
-//       RouteName.catalogPage: (context) => D4uCatalogPage(),
-//       RouteName.servcieDetailPage: (context) => const D4uServiceDetailPage(),
-//       RouteName.orderDetailsPage: (context) => const D4uOrderDetailsPage(),
-//     };

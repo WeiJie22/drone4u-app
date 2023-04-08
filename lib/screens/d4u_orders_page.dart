@@ -1,10 +1,8 @@
 import 'package:drone4u/components/d4u_index.dart';
 import 'package:drone4u/components/d4u_order_card.dart';
-import 'package:drone4u/components/d4u_segmented_tab.dart';
 import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/routes.dart';
 import 'package:drone4u/screens/d4u_order_details_page.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class D4uOrdersPage extends StatefulWidget {
@@ -19,6 +17,8 @@ class _D4uOrdersPageState extends State<D4uOrdersPage> {
     "Own Orders",
     "Orders for me",
   ];
+
+  int selectedIndex = 0;
 
   @override
   Widget build(BuildContext context) {
@@ -35,14 +35,16 @@ class _D4uOrdersPageState extends State<D4uOrdersPage> {
             D4uSegmentedTab(
               options: options,
               onChange: (val) {
-                print(val);
+                setState(() {
+                  selectedIndex = val;
+                });
               },
             ),
             Expanded(
               child: ListView.builder(
                 padding: EdgeInsets.zero,
-                itemCount: 10,
-                itemBuilder: (context, int) => D4uOrderCard(
+                itemCount: selectedIndex == 0 ? 10 : 3,
+                itemBuilder: (context, idx) => D4uOrderCard(
                   onTap: () {
                     Navigator.pushNamed(
                       context,

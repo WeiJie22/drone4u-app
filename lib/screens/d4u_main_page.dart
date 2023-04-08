@@ -1,6 +1,5 @@
 import 'package:drone4u/constant/home_page_contant.dart';
 import 'package:drone4u/constant/routes.dart';
-import 'package:drone4u/screens/d4u_catalog_page.dart';
 import 'package:flutter/material.dart';
 import '../components/d4u_index.dart';
 

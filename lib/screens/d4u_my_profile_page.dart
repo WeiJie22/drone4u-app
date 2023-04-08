@@ -2,8 +2,6 @@ import 'package:drone4u/components/d4u_index.dart';
 import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/routes.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:flutter/src/widgets/placeholder.dart';
 
 class D4uMyProfilePage extends StatelessWidget {
   D4uMyProfilePage({super.key});
@@ -39,34 +37,44 @@ class D4uMyProfilePage extends StatelessWidget {
             const SizedBox(
               height: 30,
             ),
-            SizedBox(
-              width: MediaQuery.of(context).size.width,
-              height: MediaQuery.of(context).size.height * 0.7,
-              child: ListView.builder(
-                padding: EdgeInsets.zero,
-                scrollDirection: Axis.vertical,
-                itemCount: 5,
-                shrinkWrap: true,
-                itemBuilder: (context, index) => Column(
-                  children: [
-                    D4uProfileTile(
-                      title: title[index],
-                      content: content[index],
-                      onTap: () => Navigator.pushNamed(
-                        context,
-                        RouteName.uploadPage,
-                      ),
-                    ),
-                    Divider(
-                      color: Colors.grey[200],
-                    ),
-                  ],
-                ),
-              ),
+            _buildProfileTile(
+              'Upload your service',
+              'Service name, Service Photo',
+              () {
+                Navigator.pushNamed(
+                  context,
+                  RouteName.uploadPage,
+                );
+              },
+            ),
+            _buildProfileTile(
+              'Settings',
+              'Notifications, password',
+              () {
+                Navigator.pushNamed(
+                  context,
+                  RouteName.settingsPage,
+                );
+              },
             ),
           ],
         ),
       ),
+    );
+  }
+
+  Column _buildProfileTile(String title, String subTitle, VoidCallback onTap) {
+    return Column(
+      children: [
+        D4uProfileTile(
+          title: title,
+          content: subTitle,
+          onTap: onTap,
+        ),
+        Divider(
+          color: Colors.grey[200],
+        ),
+      ],
     );
   }
 }
