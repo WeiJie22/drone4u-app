@@ -40,6 +40,8 @@ class _D4uLoginScreenState extends State<D4uLoginScreen> {
               height: 50,
             ),
             D4uTextField(
+              onChanged: (_) {},
+
               name: LoginFormConstant.email,
               placeHolder: "Email",
               //TODO TO BE UNCOMMENTED AFTER TESTING
@@ -49,6 +51,8 @@ class _D4uLoginScreenState extends State<D4uLoginScreen> {
               // ]),
             ),
             D4uTextField(
+              onChanged: (_) {},
+
               name: LoginFormConstant.password,
               placeHolder: 'Password',
               obscureText: _isObscure,

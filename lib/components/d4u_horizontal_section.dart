@@ -1,6 +1,7 @@
 import 'package:drone4u/components/d4u_index.dart';
 import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/routes.dart';
+import 'package:drone4u/models/product.dart';
 import 'package:drone4u/screens/d4u_service_detail_page.dart';
 import 'package:flutter/material.dart';
 
@@ -14,7 +15,7 @@ class D4uHorizontalSection extends StatelessWidget {
     this.padding = D4uPadding.t16,
   }) : super(key: key);
 
-  List<Map<String, dynamic>>? servicesList;
+  List<Product>? servicesList;
   String? sectionTitle;
   String? sectionSubtitle;
   VoidCallback? viewAllOnTap;
@@ -80,13 +81,14 @@ class D4uHorizontalSection extends StatelessWidget {
                       ? D4uPadding.r16
                       : D4uPadding.zero,
                   child: D4uProductCard(
-                    imagePath: servicesList![idx]['imagePath'],
-                    productName: servicesList![idx]['productName'],
-                    sellerName: servicesList![idx]['sellerName'],
-                    productRating: servicesList![idx]['productRating'],
-                    reviewCount: servicesList![idx]['reviewCount'],
-                    originalPrice: servicesList![idx]['originalPrice'],
-                    discountPrice: servicesList![idx]['discountPrice'],
+                    imagePath: servicesList![idx].imagePath ?? '',
+                    productName: servicesList![idx].name ?? '',
+                    sellerName: servicesList![idx].sellerName ?? '',
+                    productRating: servicesList![idx].productRating ?? 0,
+                    reviewCount:
+                        servicesList![idx].reviewCount.toString() ?? '0',
+                    originalPrice: servicesList![idx].originalPrice ?? 0,
+                    discountPrice: servicesList![idx].discountPrice ?? 0,
                     height: 240,
                     width: 160,
                     imageHeight: 160,
@@ -97,7 +99,7 @@ class D4uHorizontalSection extends StatelessWidget {
                         context,
                         RouteName.serviceDetailPage,
                         arguments: D4uServiceDetailPageArgs(
-                          productName: servicesList![idx]['productName'],
+                          productName: servicesList![idx].name ?? '',
                         ),
                       );
                     },

@@ -44,11 +44,13 @@ class _D4uSignUpPageState extends State<D4uSignUpPage> {
               height: 50,
             ),
             D4uTextField(
+              onChanged: (_) {},
               name: SignUpFormConstant.name,
               placeHolder: "Name",
               validator: FormBuilderValidators.required(),
             ),
             D4uTextField(
+              onChanged: (_) {},
               name: SignUpFormConstant.email,
               placeHolder: "Email",
               keyboardType: TextInputType.emailAddress,
@@ -58,6 +60,7 @@ class _D4uSignUpPageState extends State<D4uSignUpPage> {
               ]),
             ),
             D4uTextField(
+              onChanged: (_) {},
               name: SignUpFormConstant.password,
               placeHolder: 'Password',
               obscureText: passwordObscure,
@@ -80,6 +83,7 @@ class _D4uSignUpPageState extends State<D4uSignUpPage> {
               ),
             ),
             D4uTextField(
+              onChanged: (_) {},
               name: SignUpFormConstant.confirmPassword,
               placeHolder: 'Confirm Password',
               obscureText: confirmPasswordObscure,

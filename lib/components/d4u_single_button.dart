@@ -3,20 +3,34 @@ import 'package:drone4u/constant/constant.dart';
 import 'package:flutter/material.dart';
 
 class D4uSingleButton extends StatelessWidget {
-  D4uSingleButton({
+  const D4uSingleButton({
     super.key,
     this.padding = D4uPadding.containerCenter,
     this.text = '',
     this.onPressed,
+    this.elevation = false,
   });
 
-  EdgeInsets padding;
-  String? text;
-  VoidCallback? onPressed;
+  final EdgeInsets padding;
+  final String? text;
+  final VoidCallback? onPressed;
+  final bool elevation;
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
+    return Container(
+      decoration: BoxDecoration(
+        color: d4uBackground,
+        boxShadow: [
+          if (elevation)
+            BoxShadow(
+              color: Colors.grey.withOpacity(0.2),
+              spreadRadius: 3,
+              blurRadius: 5,
+              offset: const Offset(0, 2), // changes position of shadow
+            ),
+        ],
+      ),
       padding: padding,
       child: ElevatedButton(
         onPressed: onPressed,

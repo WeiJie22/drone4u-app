@@ -198,6 +198,7 @@ class _D4uServiceDetailPageState extends State<D4uServiceDetailPage> {
                                   fontWeight: FontWeight.bold,
                                 ),
                                 D4uTextField(
+                                  onChanged: (_) {},
                                   name: BookNowConstant.location,
                                   maxLines: 5,
                                   keyboardType: TextInputType.multiline,

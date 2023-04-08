@@ -41,6 +41,7 @@ class _D4uSettingsPageState extends State<D4uSettingsPage> {
               textStyle: D4uTextStyle.h3,
             ),
             D4uTextField(
+              onChanged: (_) {},
               name: SettingConstant.fullName,
               placeHolder: "Full Name",
               validator: FormBuilderValidators.required(),
@@ -87,6 +88,7 @@ class _D4uSettingsPageState extends State<D4uSettingsPage> {
               ],
             ),
             D4uTextField(
+              onChanged: (_) {},
               name: LoginFormConstant.password,
               placeHolder: 'Password',
               obscureText: _isObscure,

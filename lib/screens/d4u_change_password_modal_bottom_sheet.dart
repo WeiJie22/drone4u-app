@@ -74,6 +74,7 @@ class _D4uChangePasswordModalBottomSheetState
                       ),
                     ),
                     D4uTextField(
+                      onChanged: (_) {},
                       name: ChangePassConstant.oldPassword,
                       placeHolder: 'Old Password',
                       obscureText: oldPassObscure,
@@ -109,6 +110,7 @@ class _D4uChangePasswordModalBottomSheetState
                       ),
                     ),
                     D4uTextField(
+                      onChanged: (_) {},
                       name: ChangePassConstant.newPassword,
                       placeHolder: 'New Password',
                       obscureText: newPassObscure,
@@ -130,6 +132,7 @@ class _D4uChangePasswordModalBottomSheetState
                       validator: FormBuilderValidators.required(),
                     ),
                     D4uTextField(
+                      onChanged: (_) {},
                       name: ChangePassConstant.confirmPassword,
                       placeHolder: 'Confirm Password',
                       obscureText: confirmPassObscure,

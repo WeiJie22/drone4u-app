@@ -23,19 +23,19 @@ class _D4uMainPageState extends State<D4uMainPage> {
           D4uHorizontalSection(
             sectionTitle: 'Sales',
             sectionSubtitle: "Summer sales",
-            servicesList: productMockDataList,
+            servicesList: productMockDataList.take(4).toList(),
             viewAllOnTap: () => _navigate('Sales 1'),
           ),
           D4uHorizontalSection(
             sectionTitle: 'Sales',
             sectionSubtitle: "Summer sales",
-            servicesList: productMockDataList,
+            servicesList: productMockDataList.take(4).toList(),
             viewAllOnTap: () => _navigate('Sales 2'),
           ),
           D4uHorizontalSection(
             sectionTitle: 'Sales',
             sectionSubtitle: "Summer sales",
-            servicesList: productMockDataList,
+            servicesList: productMockDataList.take(4).toList(),
             viewAllOnTap: () => _navigate('Sales 3'),
           ),
         ],

@@ -45,16 +45,19 @@ class D4uTextField extends StatefulWidget {
 class _D4uTextFieldState extends State<D4uTextField> {
   late FocusNode focusNode;
   Color borderColor = d4uGray;
+  late TextEditingController textEditingController;
 
   @override
   void initState() {
     focusNode = FocusNode();
+    textEditingController = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
     super.dispose();
+    textEditingController.dispose();
     focusNode.dispose();
   }
 
@@ -74,8 +77,9 @@ class _D4uTextFieldState extends State<D4uTextField> {
         ),
         child: FormBuilderTextField(
           name: widget.name ?? '',
-          // onChanged: ((value) => widget.onChanged!(value)),
           obscureText: widget.obscureText,
+          controller: textEditingController,
+          onChanged: (value) => widget.onChanged!(value),
           keyboardType: widget.keyboardType,
           enabled: widget.enabled,
           cursorColor: Colors.black,

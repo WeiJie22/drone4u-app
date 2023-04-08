@@ -38,6 +38,7 @@ class _D4uForgotPassPageState extends State<D4uForgotPassPage> {
               ),
             ),
             D4uTextField(
+              onChanged: (_) {},
               name: ForgetPassConstant.email,
               placeHolder: "Email",
               keyboardType: TextInputType.emailAddress,

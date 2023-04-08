@@ -54,11 +54,13 @@ class _D4uUploadPageState extends State<D4uUploadPage> {
               textStyle: D4uTextStyle.h3,
             ),
             D4uTextField(
+              onChanged: (_) {},
               name: UploadServiceConstant.serviceName,
               placeHolder: "Full Name",
               validator: FormBuilderValidators.required(),
             ),
             D4uTextField(
+              onChanged: (_) {},
               maxLines: 5,
               keyboardType: TextInputType.multiline,
               alignLabelWithHint: true,

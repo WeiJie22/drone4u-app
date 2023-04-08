@@ -19,7 +19,6 @@ class D4uScaffold extends StatefulWidget {
     this.floatAppBar = false,
     this.snapAppBar = false,
     this.sliverPersistentHeader,
-    this.showSearchBar = false,
     this.onFilterIconPressed,
     this.showExpandedAppBar = false,
     this.forceElevated = false,
@@ -39,7 +38,6 @@ class D4uScaffold extends StatefulWidget {
   bool snapAppBar;
   bool floatAppBar;
   Widget? sliverPersistentHeader;
-  bool showSearchBar;
   VoidCallback? onFilterIconPressed;
   bool showExpandedAppBar;
   bool forceElevated;
@@ -78,11 +76,6 @@ class _D4uScaffoldState extends State<D4uScaffold> {
                     appBarLeading: widget.appBarLeading,
                     leadingOnTap: widget.leadingOnTap,
                   ),
-            if (widget.showSearchBar)
-              SliverPersistentHeader(
-                delegate: MyHeaderDelegate(onTap: widget.onFilterIconPressed),
-                pinned: true,
-              ),
             SliverList(
               delegate: SliverChildListDelegate(
                 [
@@ -98,47 +91,4 @@ class _D4uScaffoldState extends State<D4uScaffold> {
       ),
     );
   }
-}
-
-class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
-  MyHeaderDelegate({this.onTap});
-
-  VoidCallback? onTap;
-
-  @override
-  Widget build(
-      BuildContext context, double shrinkOffset, bool overlapsContent) {
-    return Container(
-      color: d4uBackground,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: D4uTextField(
-              hideLabelWhenFocused: true,
-              name: 'search',
-              placeHolder: 'Search',
-            ),
-          ),
-          Padding(
-            padding: const EdgeInsets.only(right: 16),
-            child: GestureDetector(
-              onTap: onTap,
-              child: const Icon(Icons.sort),
-            ),
-          )
-        ],
-      ),
-    );
-  }
-
-  @override
-  double get maxExtent => 50;
-
-  @override
-  double get minExtent => 50;
-
-  @override
-  bool shouldRebuild(covariant SliverPersistentHeaderDelegate oldDelegate) =>
-      true;
 }
