@@ -13,30 +13,32 @@ class D4uSuccessBookingPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: d4uSecondaryColor,
-      body: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.center,
-        children: [
-          Image.asset(
-            'assets/completedBooking.png',
-            height: 260,
-            width: 260,
-          ),
-          D4uText(
-            text: 'Success!',
-            fontSize: 42,
-            fontWeight: FontWeight.bold,
-          ),
-          Padding(
-            padding: const EdgeInsets.all(24.0),
-            child: D4uText(
-              text: 'Your booking is pending for confirmation',
-              fontSize: 18,
-              textAlign: TextAlign.center,
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
+          children: [
+            Image.asset(
+              'assets/completedBooking.png',
+              height: 260,
+              width: 260,
+            ),
+            D4uText(
+              text: 'Success!',
+              fontSize: 42,
               fontWeight: FontWeight.bold,
             ),
-          ),
-        ],
+            Padding(
+              padding: const EdgeInsets.all(24.0),
+              child: D4uText(
+                text: 'Your booking is pending for confirmation',
+                fontSize: 18,
+                textAlign: TextAlign.center,
+                fontWeight: FontWeight.bold,
+              ),
+            ),
+          ],
+        ),
       ),
       bottomNavigationBar: Padding(
         padding: D4uPadding.a24,

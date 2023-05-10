@@ -54,7 +54,7 @@ class D4uMyProfilePage extends StatelessWidget {
                       content: content[index],
                       onTap: () => Navigator.pushNamed(
                         context,
-                        RouteName.uploadPage,
+                        RouteName.settingsPage,
                       ),
                     ),
                     Divider(
