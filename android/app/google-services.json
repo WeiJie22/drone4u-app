@@ -1,0 +1,82 @@
+{
+  "project_info": {
+    "project_number": "37472328879",
+    "project_id": "drone4u-feb4a",
+    "storage_bucket": "drone4u-feb4a.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:37472328879:android:6877eac61e466e59a9485a",
+        "android_client_info": {
+          "package_name": "com.drone.drone4u"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "37472328879-je2qpt7ra99mfu0s54d97a5qfdqktplu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdMON2kdnSCNq1ff-u6_3WR9RwEy34FrI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "37472328879-je2qpt7ra99mfu0s54d97a5qfdqktplu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "37472328879-urtjteoadshh6ccp4omshv3t0d0kupto.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.drone4u"
+              }
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:37472328879:android:b1b491de90806f35a9485a",
+        "android_client_info": {
+          "package_name": "com.example.drone4u"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "37472328879-je2qpt7ra99mfu0s54d97a5qfdqktplu.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBdMON2kdnSCNq1ff-u6_3WR9RwEy34FrI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "37472328879-je2qpt7ra99mfu0s54d97a5qfdqktplu.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "37472328879-urtjteoadshh6ccp4omshv3t0d0kupto.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.drone4u"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
