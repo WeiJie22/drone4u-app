@@ -3,8 +3,27 @@ import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/routes.dart';
 import 'package:flutter/material.dart';
 
-class D4uMyProfilePage extends StatelessWidget {
+import '../services/auth.dart';
+
+class D4uMyProfilePage extends StatefulWidget {
   D4uMyProfilePage({super.key});
+
+  @override
+  State<D4uMyProfilePage> createState() => _D4uMyProfilePageState();
+}
+
+class _D4uMyProfilePageState extends State<D4uMyProfilePage> {
+  Future<void> signOut() async {
+    await Auth().signOut();
+    Auth().authStateChanges.listen((user) {
+      if (user == null) {
+        Navigator.pushReplacementNamed(
+          context,
+          RouteName.signUp,
+        );
+      }
+    });
+  }
 
   List<String> title = [
     'Upload your service',
@@ -13,6 +32,7 @@ class D4uMyProfilePage extends StatelessWidget {
     'My reviews',
     'Settings'
   ];
+
   List<String> content = [
     'Service name, Service Photo',
     '3 addresses',
@@ -30,6 +50,7 @@ class D4uMyProfilePage extends StatelessWidget {
         child: Column(
           children: [
             D4uProfileAvartarTile(
+              logOutFunction: signOut,
               userImage: 'assets/d4uDrone_white.jpg',
               userName: 'Matilda Brown',
               userEmail: 'matildabrown@mail.com',

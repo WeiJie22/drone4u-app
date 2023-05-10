@@ -25,3 +25,4 @@ export 'd4u_date_time_picker.dart';
 export 'd4u_profile_avatar_tile.dart';
 export 'd4u_profile_tile.dart';
 export 'd4u_section_tile.dart';
+export 'd4u_error_dialog.dart';

@@ -4,8 +4,9 @@ import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/routes.dart';
 import 'package:drone4u/screens/d4u_sign_up_page.dart';
 import 'package:flutter/material.dart';
+import 'package:drone4u/services/widget_tree.dart';
 
-void main() async {
+Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -27,7 +28,7 @@ class MyApp extends StatelessWidget {
             ColorScheme.fromSwatch().copyWith(primary: d4uPrimaryColor),
       ),
       initialRoute: '/',
-      home: const D4uSignUpPage(),
+      home: const WidgetTree(),
     );
   }
 }

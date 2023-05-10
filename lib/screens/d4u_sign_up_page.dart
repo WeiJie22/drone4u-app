@@ -3,10 +3,12 @@ import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/form_constant.dart';
 import 'package:drone4u/constant/routes.dart';
 import 'package:drone4u/utils/form_utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import '../components/d4u_index.dart';
+import '../services/auth.dart';
 
 class D4uSignUpPage extends StatefulWidget {
   const D4uSignUpPage({super.key});
@@ -19,6 +21,44 @@ class _D4uSignUpPageState extends State<D4uSignUpPage> {
   bool passwordObscure = true;
   bool confirmPasswordObscure = true;
   final _formKey = GlobalKey<FormBuilderState>();
+
+  showError(String errormessage) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: const Text('Sign Up Error'),
+          content: Text(errormessage),
+          actions: <Widget>[
+            TextButton(
+                onPressed: () {
+                  Navigator.of(context).pop();
+                },
+                child: const Text('OK'))
+          ],
+        );
+      },
+    );
+  }
+
+  Future<void> createUserWithEmailAndPassword(formValues) async {
+    try {
+      await Auth().createUserWithEmailAndPassword(
+        email: formValues[SignUpFormConstant.email],
+        password: formValues[SignUpFormConstant.password],
+      );
+    } on FirebaseAuthException catch (e) {
+      if (e.code == 'weak-password') {
+        if (e.code == 'weak-password') {
+          showError('The password provided is too weak.');
+        } else if (e.code == 'email-already-in-use') {
+          showError('The account already exists for that email.');
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+  }
 
   Map<String, dynamic> formValues = {
     SignUpFormConstant.name: '',
@@ -122,7 +162,12 @@ class _D4uSignUpPageState extends State<D4uSignUpPage> {
               text: 'Sign Up',
               onPressed: () => {
                 if (_formKey.currentState?.saveAndValidate() ?? false)
-                  {debugPrint(_formKey.currentState?.value.toString())}
+                  {
+                    createUserWithEmailAndPassword(
+                      _formKey.currentState!.value,
+                    ),
+                    debugPrint(_formKey.currentState?.value.toString()),
+                  }
               },
             ),
           ],
