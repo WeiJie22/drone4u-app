@@ -57,6 +57,8 @@ extension StringCasingExtension on String {
 
 class D4uSizedBox {
   static const shrink = SizedBox.shrink();
+
+  static const h16 = SizedBox(height: 16);
 }
 
 class D4uTextStyle {

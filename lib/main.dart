@@ -1,9 +1,9 @@
-import 'package:drone4u/components/d4uScaffold.dart';
+import 'package:drone4u/components/d4u_scaffold.dart';
 import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/routes.dart';
-import 'package:drone4u/screens/d4uLoginScreen.dart';
-import 'package:drone4u/screens/d4uNavigationBar.dart';
-import 'package:drone4u/screens/d4uSignUpPage.dart';
+import 'package:drone4u/screens/d4u_login_screen.dart';
+import 'package:drone4u/screens/d4u_navigation_bar.dart';
+import 'package:drone4u/screens/d4u_sign_up_page.dart';
 import 'package:flutter/material.dart';
 
 void main() {

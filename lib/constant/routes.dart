@@ -1,15 +1,16 @@
-import 'package:drone4u/screens/d4uCatalogFilterPage.dart';
-import 'package:drone4u/screens/d4uCatalogPage.dart';
-import 'package:drone4u/screens/d4uForgotPassPage.dart';
-import 'package:drone4u/screens/d4uLoginScreen.dart';
-import 'package:drone4u/screens/d4uMyProfilePage.dart';
-import 'package:drone4u/screens/d4uNavigationBar.dart';
-import 'package:drone4u/screens/d4uOrderDetailsPage.dart';
-import 'package:drone4u/screens/d4uServiceDetailPage.dart';
-import 'package:drone4u/screens/d4uSettingsPage.dart';
-import 'package:drone4u/screens/d4uSignUpPage.dart';
-import 'package:drone4u/screens/d4uSuccessBookingPage.dart';
-import 'package:drone4u/screens/d4uUploadService.dart';
+import 'package:drone4u/screens/d4u_catalog_filter_page.dart';
+import 'package:drone4u/screens/d4u_catalog_page.dart';
+import 'package:drone4u/screens/d4u_confirm_booking_page.dart';
+import 'package:drone4u/screens/d4u_forgot_pass_page.dart';
+import 'package:drone4u/screens/d4u_login_screen.dart';
+import 'package:drone4u/screens/d4u_my_profile_page.dart';
+import 'package:drone4u/screens/d4u_navigation_bar.dart';
+import 'package:drone4u/screens/d4u_order_details_page.dart';
+import 'package:drone4u/screens/d4u_service_detail_page.dart';
+import 'package:drone4u/screens/d4u_settings_page.dart';
+import 'package:drone4u/screens/d4u_sign_up_page.dart';
+import 'package:drone4u/screens/d4u_success_booking_page.dart';
+import 'package:drone4u/screens/d4u_upload_service.dart';
 import 'package:flutter/material.dart';
 
 class RouteName {
@@ -25,6 +26,7 @@ class RouteName {
   static const myProfilePage = '/myProfilePage';
   static const settingsPage = '/settingsPage';
   static const uploadPage = '/uploadPage';
+  static const confirmBookingPage = '/confirmBookingPage';
 }
 
 class D4uRouter {
@@ -94,6 +96,10 @@ class D4uRouter {
         return MaterialPageRoute(
           builder: (_) => const D4uUploadPage(),
         );
+      case RouteName.confirmBookingPage:
+        return MaterialPageRoute(
+          builder: (_) => const D4uConfirmBookingPage(),
+        );
     }
 
     return MaterialPageRoute(
@@ -105,14 +111,3 @@ class D4uRouter {
     );
   }
 }
-
-// d4uRoutes(context) => {
-//       RouteName.signUp: (context) => const D4uSignUpPage(),
-//       RouteName.loginPage: (context) => const D4uLoginScreen(),
-//       RouteName.forgetPass: (context) => const D4uForgotPassPage(),
-//       RouteName.naviagtionBar: (context) => const D4uNavigationBar(),
-//       RouteName.catalogFilterPage: (context) => const D4uatalogFilterPage(),
-//       RouteName.catalogPage: (context) => D4uCatalogPage(),
-//       RouteName.servcieDetailPage: (context) => const D4uServiceDetailPage(),
-//       RouteName.orderDetailsPage: (context) => const D4uOrderDetailsPage(),
-//     };
