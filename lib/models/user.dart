@@ -1,13 +1,13 @@
-class User {
-  String? username;
+class SingleUser {
+  String? name;
   String? userId;
   String? email;
   String? role;
 
-  User({this.username, this.userId, this.email, this.role});
+  SingleUser({this.name, this.userId, this.email, this.role});
 
-  User.fromJson(Map<String, dynamic> json) {
-    username = json['username'];
+  SingleUser.fromJson(Map<String, dynamic> json) {
+    name = json['name'];
     userId = json['userId'];
     email = json['email'];
     role = json['role'];
@@ -15,7 +15,7 @@ class User {
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['username'] = this.username;
+    data['name'] = this.name;
     data['userId'] = this.userId;
     data['email'] = this.email;
     data['role'] = this.role;

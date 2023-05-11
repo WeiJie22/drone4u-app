@@ -1,16 +1,17 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drone4u/components/d4u_index.dart';
+import 'package:drone4u/models/user.dart';
 import 'package:flutter/material.dart';
 
 import '../main.dart';
 
-class UsersCollection {
+class UserService {
   final String? documentName;
   final Map<String, dynamic>? data;
 
-  UsersCollection({this.documentName, this.data});
+  UserService({this.documentName, this.data});
 
-  CollectionReference get userCollection =>
+  static CollectionReference get userCollection =>
       FirebaseFirestore.instance.collection('users');
 
   Future<void> set(String documentName, Map<String, dynamic> data) async {
@@ -27,17 +28,15 @@ class UsersCollection {
     }
   }
 
-  Future<void> get(String documentName) async {
+  static Future<SingleUser> getSingleUser(String documentName) async {
+    SingleUser user = SingleUser();
     try {
-      await userCollection.doc(documentName).get();
-      showCrudDialog(
-        titleMsg: 'Successful',
-        contentMsg: 'Document get successfully',
-      );
+      DocumentSnapshot snapshot = await userCollection.doc(documentName).get();
+      user = SingleUser.fromJson(snapshot.data() as Map<String, dynamic>);
     } catch (e) {
-      showCrudDialog(
-          titleMsg: 'Unsuccessful', contentMsg: 'Error setting document: $e');
+      print(e);
     }
+    return user;
   }
 
   Future<void> update(String documentName, Map<String, dynamic> data) async {

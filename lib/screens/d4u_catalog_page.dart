@@ -5,8 +5,10 @@ import 'package:drone4u/constant/routes.dart';
 import 'package:drone4u/models/product.dart';
 import 'package:drone4u/providers/products_provider.dart';
 import 'package:drone4u/screens/d4u_service_detail_page.dart';
+import 'package:drone4u/services/auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class D4uCatalogPageArguments {
   final String? title;
@@ -27,6 +29,9 @@ class D4uCatalogPage extends StatefulWidget {
 }
 
 class _D4uCatalogPageState extends State<D4uCatalogPage> {
+  final RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -45,80 +50,93 @@ class _D4uCatalogPageState extends State<D4uCatalogPage> {
               return const Center(child: CircularProgressIndicator());
             }
 
-            return CustomScrollView(
-              slivers: [
-                D4uSliverAppBar(
-                  showBackButton: false,
-                  pinAppBar: true,
-                  appBarTitle: 'Catalog',
-                  forceElevated: true,
-                  appBarElevation: 0.5,
-                ),
-                SliverPersistentHeader(
-                  delegate: MyHeaderDelegate(
-                    onTap: () => Navigator.pushNamed(
-                      context,
-                      RouteName.catalogFilterPage,
-                    ),
-                    onChanged: (value) {
-                      model.onSearchChanged(value);
-                    },
+            return SmartRefresher(
+              controller: _refreshController,
+              enablePullDown: true,
+              enablePullUp: true,
+              onLoading: () async {
+                // await model.loadMoreData();
+                _refreshController.loadComplete();
+              },
+              onRefresh: () async {
+                await model.initData();
+                _refreshController.refreshCompleted();
+              },
+              child: CustomScrollView(
+                slivers: [
+                  D4uSliverAppBar(
+                    showBackButton: false,
+                    pinAppBar: false,
+                    appBarTitle: 'Shops',
+                    forceElevated: true,
+                    appBarElevation: 0.5,
                   ),
-                  pinned: true,
-                ),
-                SliverList(
-                  delegate: SliverChildListDelegate(
-                    [
-                      SingleChildScrollView(
-                        child: Padding(
-                          padding: const EdgeInsets.fromLTRB(0, 16, 16, 16),
-                          child: GridView.builder(
-                            physics: const ClampingScrollPhysics(),
-                            padding: D4uPadding.zero,
-                            shrinkWrap: true,
-                            itemCount: products.length,
-                            gridDelegate:
-                                const SliverGridDelegateWithFixedCrossAxisCount(
-                              crossAxisCount: 2,
-                              childAspectRatio: 1 / 1.35,
-                              crossAxisSpacing: 4,
-                              mainAxisSpacing: 4,
-                            ),
-                            itemBuilder: (context, idx) {
-                              Product product = products[idx];
+                  SliverPersistentHeader(
+                    delegate: MyHeaderDelegate(
+                      onTap: () => Navigator.pushNamed(
+                        context,
+                        RouteName.catalogFilterPage,
+                      ),
+                      onChanged: (value) {
+                        model.onSearchChanged(value);
+                      },
+                    ),
+                    pinned: true,
+                  ),
+                  SliverList(
+                    delegate: SliverChildListDelegate(
+                      [
+                        SingleChildScrollView(
+                          child: Padding(
+                            padding: const EdgeInsets.fromLTRB(0, 16, 16, 16),
+                            child: GridView.builder(
+                              physics: const ClampingScrollPhysics(),
+                              padding: D4uPadding.zero,
+                              shrinkWrap: true,
+                              itemCount: products.length,
+                              gridDelegate:
+                                  const SliverGridDelegateWithFixedCrossAxisCount(
+                                crossAxisCount: 2,
+                                childAspectRatio: 1 / 1.35,
+                                crossAxisSpacing: 4,
+                                mainAxisSpacing: 4,
+                              ),
+                              itemBuilder: (context, idx) {
+                                Product product = products[idx];
 
-                              return D4uProductCard(
-                                sellerName: product.sellerName,
-                                productName: product.name,
-                                originalPrice: product.originalPrice,
-                                discountPrice: product.discountPrice,
-                                isDiscount: true,
-                                reviewCount: product.reviewCount.toString(),
-                                imageWidth: 200,
-                                imageHeight: 170,
-                                width: width / 2 - 18,
-                                imagePath: product.imagePath ?? '',
-                                productRating: product.productRating ?? 0,
-                                showLabel: true,
-                                labelText: '-20%',
-                                onPressedProduct: () {
-                                  Navigator.pushNamed(
-                                    context,
-                                    RouteName.serviceDetailPage,
-                                    arguments: D4uServiceDetailPageArgs(
-                                      productName: product.name ?? '',
-                                    ),
-                                  );
-                                },
-                              );
-                            },
+                                return D4uProductCard(
+                                  sellerName: product.sellerName ?? '',
+                                  productName: product.name,
+                                  price: product.price,
+                                  discountPrice: product.discountPrice,
+                                  isDiscount: true,
+                                  reviewCount: product.reviewCount.toString(),
+                                  imageWidth: 200,
+                                  imageHeight: 170,
+                                  imagePath: product.images?[0] ?? '',
+                                  width: width / 2 - 18,
+                                  productRating: product.productRating ?? 0,
+                                  showLabel: true,
+                                  labelText: '-20%',
+                                  onPressedProduct: () {
+                                    Navigator.pushNamed(
+                                      context,
+                                      RouteName.serviceDetailPage,
+                                      arguments: D4uServiceDetailPageArgs(
+                                        product: product,
+                                      ),
+                                    );
+                                  },
+                                );
+                              },
+                            ),
                           ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                ],
+              ),
             );
           },
         ),

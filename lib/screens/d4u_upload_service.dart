@@ -3,7 +3,11 @@ import 'package:drone4u/components/d4u_loading_dialog.dart';
 import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/form_constant.dart';
 import 'package:drone4u/constant/routes.dart';
+import 'package:drone4u/models/product.dart';
+import 'package:drone4u/models/user.dart';
 import 'package:drone4u/services/upload_service.dart';
+import 'package:drone4u/services/user_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_image_picker/form_builder_image_picker.dart';
@@ -60,6 +64,7 @@ class _D4uUploadPageState extends State<D4uUploadPage> {
       ),
       body: FormBuilder(
         key: _fbKey,
+        initialValue: formValues,
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [

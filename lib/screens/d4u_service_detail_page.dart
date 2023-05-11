@@ -5,14 +5,15 @@ import 'package:drone4u/constant/form_constant.dart';
 import 'package:drone4u/constant/review_constant.dart';
 import 'package:drone4u/components/d4u_index.dart';
 import 'package:drone4u/constant/routes.dart';
+import 'package:drone4u/models/product.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
 class D4uServiceDetailPageArgs {
-  D4uServiceDetailPageArgs({this.productName});
+  D4uServiceDetailPageArgs({this.product});
 
-  String? productName;
+  Product? product;
 }
 
 class D4uServiceDetailPage extends StatefulWidget {
@@ -40,13 +41,15 @@ class _D4uServiceDetailPageState extends State<D4uServiceDetailPage> {
 
   @override
   Widget build(BuildContext context) {
+    Product product = widget.args?.product ?? Product();
+
     return Scaffold(
       resizeToAvoidBottomInset: false,
       body: NestedScrollView(
         headerSliverBuilder: (context, innerBoxIsScrolled) {
           return [
             D4uSliverAppBar(
-              appBarTitle: widget.args?.productName ?? "Unidentified Product",
+              appBarTitle: product.name ?? "Unidentified Product",
             )
           ];
         },
@@ -54,14 +57,13 @@ class _D4uServiceDetailPageState extends State<D4uServiceDetailPage> {
           physics: const ScrollPhysics(),
           child: Column(
             children: [
-              D4uCarouselImageList(carouselImageList: carouselImageConstant),
+              D4uCarouselImageList(carouselImageList: product.images ?? []),
               D4uServiceDetail(
-                productName: 'Drone 1',
-                price: 450,
-                sellerName: 'Shop Larson Electronic',
+                productName: product.name,
+                price: product.price,
+                sellerName: product.sellerName,
                 sellerImage: 'assets/d4uDrone_road.jpg',
-                productDescription:
-                    'The speaker unit contains a diaphragm that is precision-grown from NAC Audio bio-cellulose, making it stiffer, lighter and stronger than regular PET speaker units, and allowing the sound-producing diaphragm to vibrate without the levels of distortion found in other speakers. \n\n The speaker unit contains a diaphragm that is precision-grown from NAC Audio bio-cellulose, making it stiffer, lighter and stronger than regular PET speaker units, and allowing the sound-producing diaphragm to vibrate without the levels of distortion found in other speakers. ',
+                productDescription: product.description,
               ),
               D4uReviewTitle(
                 review: 86,

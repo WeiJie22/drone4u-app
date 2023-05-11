@@ -1,4 +1,4 @@
-class Order {
+class SingleOrder {
   String? orderId;
   String? orderBy;
   num? orderDate;
@@ -10,7 +10,7 @@ class Order {
   String? status;
   String? desc;
 
-  Order(
+  SingleOrder(
       {this.orderId,
       this.orderBy,
       this.orderDate,
@@ -22,7 +22,7 @@ class Order {
       this.status,
       this.desc});
 
-  Order.fromJson(Map<String, dynamic> json) {
+  SingleOrder.fromJson(Map<String, dynamic> json) {
     orderId = json['orderId'];
     orderBy = json['orderBy'];
     orderDate = json['orderDate'];

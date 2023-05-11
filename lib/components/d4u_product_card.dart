@@ -13,7 +13,7 @@ class D4uProductCard extends StatelessWidget {
     this.imagePath = '',
     this.labelText = '',
     this.discountPrice = 0,
-    this.originalPrice = 0,
+    this.price = 0,
     this.height = 250,
     this.width = 150,
     this.imageHeight = 160,
@@ -41,7 +41,7 @@ class D4uProductCard extends StatelessWidget {
   String imagePath;
   String? labelText;
   double? discountPrice;
-  double? originalPrice;
+  double? price;
   double? height;
   double? width;
   double? imageHeight;
@@ -80,7 +80,7 @@ class D4uProductCard extends StatelessWidget {
                   width: imageWidth,
                   child: ClipRRect(
                     borderRadius: BorderRadius.circular(8.0),
-                    child: Image.asset(
+                    child: Image.network(
                       imagePath,
                       alignment: imageAlignment,
                       fit: BoxFit.cover,
@@ -127,7 +127,7 @@ class D4uProductCard extends StatelessWidget {
                     ? Row(
                         children: [
                           D4uText(
-                            text: 'RM${originalPrice?.toStringAsFixed(2)}',
+                            text: 'RM${price?.toStringAsFixed(2)}',
                             textDecoration: TextDecoration.lineThrough,
                             fontWeight: FontWeight.normal,
                             color: d4uGray,
@@ -147,7 +147,7 @@ class D4uProductCard extends StatelessWidget {
                         ],
                       )
                     : D4uText(
-                        text: 'RM $originalPrice',
+                        text: 'RM $price',
                         fontWeight: FontWeight.normal,
                         color: color,
                       ),

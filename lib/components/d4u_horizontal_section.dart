@@ -69,46 +69,45 @@ class D4uHorizontalSection extends StatelessWidget {
           const SizedBox(
             height: 4,
           ),
-          SizedBox(
-            height: 240,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              shrinkWrap: true,
-              itemCount: servicesList?.length ?? 0,
-              itemBuilder: (context, idx) {
-                return Padding(
-                  padding: idx == servicesList!.length - 1
-                      ? D4uPadding.r16
-                      : D4uPadding.zero,
-                  child: D4uProductCard(
-                    imagePath: servicesList![idx].imagePath ?? '',
-                    productName: servicesList![idx].name ?? '',
-                    sellerName: servicesList![idx].sellerName ?? '',
-                    productRating: servicesList![idx].productRating ?? 0,
-                    reviewCount:
-                        servicesList![idx].reviewCount.toString() ?? '0',
-                    originalPrice: servicesList![idx].originalPrice ?? 0,
-                    discountPrice: servicesList![idx].discountPrice ?? 0,
-                    height: 240,
-                    width: 160,
-                    imageHeight: 160,
-                    imageWidth: 160,
-                    imageAlignment: Alignment.center,
-                    onPressedProduct: () {
-                      Navigator.pushNamed(
-                        context,
-                        RouteName.serviceDetailPage,
-                        arguments: D4uServiceDetailPageArgs(
-                          productName: servicesList![idx].name ?? '',
-                        ),
-                      );
-                    },
-                    onPressedFavorite: () => print('Favorite'),
-                  ),
-                );
-              },
-            ),
-          ),
+          // SizedBox(
+          //   height: 240,
+          //   child: ListView.builder(
+          //     scrollDirection: Axis.horizontal,
+          //     shrinkWrap: true,
+          //     itemCount: servicesList?.length ?? 0,
+          //     itemBuilder: (context, idx) {
+          //       return Padding(
+          //         padding: idx == servicesList!.length - 1
+          //             ? D4uPadding.r16
+          //             : D4uPadding.zero,
+          //         child: D4uProductCard(
+          //           productName: servicesList![idx].name ?? '',
+          //           sellerName: "SELLER NAME",
+          //           productRating: servicesList![idx].productRating ?? 0,
+          //           reviewCount:
+          //               servicesList![idx].reviewCount.toString() ?? '0',
+          //           price: servicesList![idx].price ?? 0,
+          //           discountPrice: servicesList![idx].discountPrice ?? 0,
+          //           height: 240,
+          //           width: 160,
+          //           imageHeight: 160,
+          //           imageWidth: 160,
+          //           imageAlignment: Alignment.center,
+          //           onPressedProduct: () {
+          //             Navigator.pushNamed(
+          //               context,
+          //               RouteName.serviceDetailPage,
+          //               arguments: D4uServiceDetailPageArgs(
+          //                 productName: servicesList![idx].name ?? '',
+          //               ),
+          //             );
+          //           },
+          //           onPressedFavorite: () => print('Favorite'),
+          //         ),
+          //       );
+          //     },
+          //   ),
+          // ),
         ],
       ),
     );

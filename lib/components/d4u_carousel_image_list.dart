@@ -7,7 +7,7 @@ class D4uCarouselImageList extends StatefulWidget {
     this.carouselImageList = const [],
   }) : super(key: key);
 
-  final List<String> carouselImageList;
+  final List<dynamic> carouselImageList;
 
   @override
   State<D4uCarouselImageList> createState() => _D4uCarouselImageListState();
@@ -40,7 +40,7 @@ class _D4uCarouselImageListState extends State<D4uCarouselImageList> {
         Padding(
           padding: D4uPadding.b4,
           child: SizedBox(
-            height: 200,
+            height: 250,
             child: PageView.builder(
               controller: _pageController,
               itemCount: widget.carouselImageList.length,
@@ -50,9 +50,9 @@ class _D4uCarouselImageListState extends State<D4uCarouselImageList> {
                 });
               },
               itemBuilder: (context, index) {
-                return Image.asset(
+                return Image.network(
                   widget.carouselImageList[index],
-                  fit: BoxFit.cover,
+                  fit: BoxFit.fill,
                 );
               },
             ),

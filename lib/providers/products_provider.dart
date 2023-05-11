@@ -1,5 +1,6 @@
 import 'package:drone4u/constant/home_page_contant.dart';
 import 'package:drone4u/models/product.dart';
+import 'package:drone4u/services/product_service.dart';
 import 'package:flutter/material.dart';
 
 class ProductProvider extends ChangeNotifier {
@@ -21,9 +22,9 @@ class ProductProvider extends ChangeNotifier {
 
   initData() async {
     isLoading = true;
-    await Future.delayed(Duration(seconds: 10));
+    print('refrasldkfja');
+    products = await ProductService.getAllProducts();
     isLoading = false;
-    products = productMockDataList;
   }
 
   filterProducts(String query) {
@@ -34,7 +35,6 @@ class ProductProvider extends ChangeNotifier {
   }
 
   onSearchChanged(String searchQuery) {
-    // TODO should change this to call api during searching
     products = productMockDataList
         .where((element) =>
             element.name!.toLowerCase().contains(searchQuery.toLowerCase()))
