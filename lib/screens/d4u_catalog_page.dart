@@ -99,7 +99,6 @@ class _D4uCatalogPageState extends State<D4uCatalogPage> {
                                 width: width / 2 - 18,
                                 imagePath: product.imagePath ?? '',
                                 productRating: product.productRating ?? 0,
-                                showLabel: true,
                                 labelText: '-20%',
                                 onPressedProduct: () {
                                   Navigator.pushNamed(

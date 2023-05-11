@@ -1,6 +1,5 @@
 import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/components/d4u_index.dart';
-import 'package:drone4u/constant/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 
@@ -22,7 +21,6 @@ class D4uProductCard extends StatelessWidget {
     this.favPositionBottom = 60,
     this.favPositionRight = -6,
     this.productRating = 0,
-    this.showLabel = false,
     this.isFavourite = false,
     this.isDiscount = false,
     this.showFavorite = true,
@@ -50,7 +48,6 @@ class D4uProductCard extends StatelessWidget {
   double? favPositionBottom;
   double? favPositionRight;
   double productRating;
-  bool showLabel;
   bool isFavourite;
   bool isDiscount;
   bool showFavorite;
@@ -161,7 +158,7 @@ class D4uProductCard extends StatelessWidget {
                   child: D4uCircularButton(),
                 )
               : D4uSizedBox.shrink,
-          showLabel
+          isDiscount
               ? Positioned(
                   left: 8,
                   top: 8,
