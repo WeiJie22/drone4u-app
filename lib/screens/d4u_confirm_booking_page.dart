@@ -1,10 +1,27 @@
 import 'package:drone4u/components/d4u_index.dart';
 import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/routes.dart';
+import 'package:drone4u/models/booking.dart';
+import 'package:drone4u/models/product.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+
+class D4uConfirmBookingPageArgs {
+  D4uConfirmBookingPageArgs({
+    this.product,
+    this.formValues,
+    this.totalPrice,
+  });
+
+  Product? product;
+  Booking? formValues;
+  double? totalPrice;
+}
 
 class D4uConfirmBookingPage extends StatefulWidget {
-  const D4uConfirmBookingPage({super.key});
+  const D4uConfirmBookingPage({this.args, super.key});
+
+  final D4uConfirmBookingPageArgs? args;
 
   @override
   State<D4uConfirmBookingPage> createState() => _D4uConfirmBookingPageState();
@@ -16,6 +33,10 @@ class _D4uConfirmBookingPageState extends State<D4uConfirmBookingPage> {
 
   @override
   Widget build(BuildContext context) {
+    Product product = widget.args!.product!;
+    Booking booking = widget.args!.formValues!;
+    // double totalPrice = widget.args!.totalPrice!;
+
     return D4uScaffold(
       appBarTitle: 'Confirm Booking',
       showBackButton: true,
@@ -38,12 +59,12 @@ class _D4uConfirmBookingPageState extends State<D4uConfirmBookingPage> {
           D4uHorizontalProductCard(
             isCard: false,
             hideCloseButton: true,
-            image: 'assets/d4uDrone_road.jpg',
-            seller: 'Drone4U',
-            serviceName: 'Drone Photography',
-            price: 100,
+            image: product.images?[0],
+            seller: product.sellerName,
+            serviceName: product.name,
+            price: product.price,
             rating: 3,
-            categories: ['Photography', 'Drone'],
+            categories: product.categories,
             cardHeight: 115,
           ),
           Container(
@@ -57,7 +78,7 @@ class _D4uConfirmBookingPageState extends State<D4uConfirmBookingPage> {
             (bool? value) => setState(() => needInsurance = value!),
             needInsurance,
           ),
-          const D4uSectionTile(
+          D4uSectionTile(
             sectionTitle: 'Service Information',
             leftTextList: [
               'Product Name',
@@ -65,17 +86,17 @@ class _D4uConfirmBookingPageState extends State<D4uConfirmBookingPage> {
               'Order Rate',
               'Order Duration',
               'Order Date (Start)',
-              'Order Date (End)',
+              if (booking.endDate != null) 'Order Date (End)',
               'Address',
             ],
             rightTextList: [
-              'Product A',
-              'Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque ut facilisis est. Aliquam vulputate lobortis ante eu convallis. Proin in massa',
-              'RM100.00 / Day',
-              '1 Day',
-              '12/12/2020',
-              '13/12/2020',
-              'K-19-B, Tiara Damansara, Jalan 17/1, 46400 Petaling Jaya, Selangor',
+              product.name ?? '',
+              product.description ?? '',
+              'RM${product.price?.toStringAsFixed(2)} / Day',
+              '${calculateDuration(booking)} Day(s)',
+              formatDate(booking.startDate!),
+              if (booking.endDate != null) formatDate(booking.endDate!),
+              booking.location ?? '',
             ],
           ),
           const D4uSectionTile(
@@ -161,5 +182,13 @@ class _D4uConfirmBookingPageState extends State<D4uConfirmBookingPage> {
         ),
       ],
     );
+  }
+
+  String formatDate(DateTime dateTime) {
+    return DateFormat('dd/MM/yyyy').format(dateTime);
+  }
+
+  int calculateDuration(Booking booking) {
+    return booking.endDate!.difference(booking.startDate!).inDays + 1;
   }
 }

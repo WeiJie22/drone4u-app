@@ -8,9 +8,11 @@ class D4uBottomSheet extends StatefulWidget {
   D4uBottomSheet({
     Key? key,
     required this.child,
+    this.elevation = false,
   }) : super(key: key);
 
   Widget child;
+  bool elevation;
 
   @override
   State<D4uBottomSheet> createState() => _D4uBottomSheetState();
@@ -21,6 +23,7 @@ class _D4uBottomSheetState extends State<D4uBottomSheet> {
   Widget build(BuildContext context) {
     return D4uSingleButton(
       text: 'Book Now',
+      elevation: widget.elevation,
       onPressed: () {
         showModalBottomSheet(
           context: context,
@@ -31,7 +34,7 @@ class _D4uBottomSheetState extends State<D4uBottomSheet> {
           builder: (context) => widget.child,
         );
       },
-      padding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
+      padding: D4uPadding.containerCenter,
     );
   }
 }

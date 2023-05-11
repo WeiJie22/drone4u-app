@@ -10,8 +10,8 @@ class D4uSectionTile extends StatelessWidget {
     this.sectionTitle,
   });
 
-  final List<String> leftTextList;
-  final List<String> rightTextList;
+  final List<String>? leftTextList;
+  final List<String>? rightTextList;
   final String? sectionTitle;
 
   @override
@@ -32,8 +32,8 @@ class D4uSectionTile extends StatelessWidget {
             padding: D4uPadding.containerCenter,
             leftTextStyle: D4uTextStyle.labelText,
             rightTextStyle: D4uTextStyle.labelTextBold,
-            leftTextList: leftTextList,
-            rightTextList: rightTextList,
+            leftTextList: leftTextList ?? [],
+            rightTextList: rightTextList ?? [],
           ),
           Container(
             height: 16,

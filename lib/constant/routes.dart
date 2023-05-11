@@ -97,8 +97,12 @@ class D4uRouter {
           builder: (_) => const D4uUploadPage(),
         );
       case RouteName.confirmBookingPage:
+        D4uConfirmBookingPageArgs args =
+            settings.arguments as D4uConfirmBookingPageArgs;
         return MaterialPageRoute(
-          builder: (_) => const D4uConfirmBookingPage(),
+          builder: (_) => D4uConfirmBookingPage(
+            args: args,
+          ),
         );
     }
 

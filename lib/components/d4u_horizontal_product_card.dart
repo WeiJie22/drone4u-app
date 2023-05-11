@@ -23,7 +23,7 @@ class D4uHorizontalProductCard extends StatelessWidget {
   String? serviceName;
   double? price;
   double? rating;
-  List<String>? categories;
+  List<dynamic>? categories;
   double? cardHeight;
   bool hideCloseButton;
   EdgeInsets padding;
@@ -62,7 +62,7 @@ class D4uHorizontalProductCard extends StatelessWidget {
                         )
                       : const BorderRadius.only(),
                   image: DecorationImage(
-                    image: AssetImage(image ?? ''),
+                    image: NetworkImage(image ?? ''),
                     fit: BoxFit.cover,
                   ),
                   color: Colors.black,
