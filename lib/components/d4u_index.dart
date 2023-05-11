@@ -26,3 +26,4 @@ export 'd4u_profile_avatar_tile.dart';
 export 'd4u_profile_tile.dart';
 export 'd4u_section_tile.dart';
 export 'd4u_error_dialog.dart';
+export 'd4u_loading_dialog.dart';

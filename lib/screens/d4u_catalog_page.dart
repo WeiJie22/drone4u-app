@@ -3,8 +3,10 @@ import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/home_page_contant.dart';
 import 'package:drone4u/constant/routes.dart';
 import 'package:drone4u/models/product.dart';
+import 'package:drone4u/providers/products_provider.dart';
 import 'package:drone4u/screens/d4u_service_detail_page.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class D4uCatalogPageArguments {
   final String? title;
@@ -25,20 +27,6 @@ class D4uCatalogPage extends StatefulWidget {
 }
 
 class _D4uCatalogPageState extends State<D4uCatalogPage> {
-  String _searchValue = '';
-
-  List dataList = productMockDataList;
-
-  _onSearchChanged(String value) {
-    setState(() {
-      _searchValue = value;
-      dataList = productMockDataList
-          .where((element) =>
-              element.name!.toLowerCase().contains(_searchValue.toLowerCase()))
-          .toList();
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -47,80 +35,92 @@ class _D4uCatalogPageState extends State<D4uCatalogPage> {
       onTap: () => FocusScope.of(context).unfocus(),
       child: Scaffold(
         backgroundColor: d4uBackground,
-        body: CustomScrollView(
-          slivers: [
-            D4uSliverAppBar(
-              showBackButton: false,
-              pinAppBar: true,
-              appBarTitle: 'Catalog',
-              forceElevated: true,
-              appBarElevation: 0.5,
-            ),
-            SliverPersistentHeader(
-              delegate: MyHeaderDelegate(
-                onTap: () => Navigator.pushNamed(
-                  context,
-                  RouteName.catalogFilterPage,
-                ),
-                onChanged: (value) {
-                  _onSearchChanged(value);
-                },
-              ),
-              pinned: true,
-            ),
-            SliverList(
-              delegate: SliverChildListDelegate(
-                [
-                  SingleChildScrollView(
-                    child: Padding(
-                      padding: const EdgeInsets.fromLTRB(0, 16, 16, 16),
-                      child: GridView.builder(
-                        physics: const ClampingScrollPhysics(),
-                        padding: D4uPadding.zero,
-                        shrinkWrap: true,
-                        itemCount: dataList.length,
-                        gridDelegate:
-                            const SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: 2,
-                          childAspectRatio: 1 / 1.35,
-                          crossAxisSpacing: 4,
-                          mainAxisSpacing: 4,
-                        ),
-                        itemBuilder: (context, idx) {
-                          Product product = dataList[idx];
+        body: ChangeNotifierProvider(
+          create: (context) => ProductProvider(),
+          builder: (context, child) {
+            ProductProvider model = Provider.of<ProductProvider>(context);
+            List<Product> products = model.products ?? [];
 
-                          return D4uProductCard(
-                            sellerName: product.sellerName,
-                            productName: product.name,
-                            originalPrice: product.originalPrice,
-                            discountPrice: product.discountPrice,
-                            isDiscount: true,
-                            reviewCount: product.reviewCount.toString(),
-                            imageWidth: 200,
-                            imageHeight: 170,
-                            width: width / 2 - 18,
-                            imagePath: product.imagePath ?? '',
-                            productRating: product.productRating ?? 0,
-                            showLabel: true,
-                            labelText: '-20%',
-                            onPressedProduct: () {
-                              Navigator.pushNamed(
-                                context,
-                                RouteName.serviceDetailPage,
-                                arguments: D4uServiceDetailPageArgs(
-                                  productName: product.name ?? '',
-                                ),
+            if (model.isLoading) {
+              return const Center(child: CircularProgressIndicator());
+            }
+
+            return CustomScrollView(
+              slivers: [
+                D4uSliverAppBar(
+                  showBackButton: false,
+                  pinAppBar: true,
+                  appBarTitle: 'Catalog',
+                  forceElevated: true,
+                  appBarElevation: 0.5,
+                ),
+                SliverPersistentHeader(
+                  delegate: MyHeaderDelegate(
+                    onTap: () => Navigator.pushNamed(
+                      context,
+                      RouteName.catalogFilterPage,
+                    ),
+                    onChanged: (value) {
+                      model.onSearchChanged(value);
+                    },
+                  ),
+                  pinned: true,
+                ),
+                SliverList(
+                  delegate: SliverChildListDelegate(
+                    [
+                      SingleChildScrollView(
+                        child: Padding(
+                          padding: const EdgeInsets.fromLTRB(0, 16, 16, 16),
+                          child: GridView.builder(
+                            physics: const ClampingScrollPhysics(),
+                            padding: D4uPadding.zero,
+                            shrinkWrap: true,
+                            itemCount: products.length,
+                            gridDelegate:
+                                const SliverGridDelegateWithFixedCrossAxisCount(
+                              crossAxisCount: 2,
+                              childAspectRatio: 1 / 1.35,
+                              crossAxisSpacing: 4,
+                              mainAxisSpacing: 4,
+                            ),
+                            itemBuilder: (context, idx) {
+                              Product product = products[idx];
+
+                              return D4uProductCard(
+                                sellerName: product.sellerName,
+                                productName: product.name,
+                                originalPrice: product.originalPrice,
+                                discountPrice: product.discountPrice,
+                                isDiscount: true,
+                                reviewCount: product.reviewCount.toString(),
+                                imageWidth: 200,
+                                imageHeight: 170,
+                                width: width / 2 - 18,
+                                imagePath: product.imagePath ?? '',
+                                productRating: product.productRating ?? 0,
+                                showLabel: true,
+                                labelText: '-20%',
+                                onPressedProduct: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    RouteName.serviceDetailPage,
+                                    arguments: D4uServiceDetailPageArgs(
+                                      productName: product.name ?? '',
+                                    ),
+                                  );
+                                },
                               );
                             },
-                          );
-                        },
+                          ),
+                        ),
                       ),
-                    ),
+                    ],
                   ),
-                ],
-              ),
-            ),
-          ],
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

@@ -1,8 +1,12 @@
 import 'package:drone4u/components/d4u_index.dart';
+import 'package:drone4u/components/d4u_loading_dialog.dart';
 import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/form_constant.dart';
+import 'package:drone4u/constant/routes.dart';
+import 'package:drone4u/services/upload_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_image_picker/form_builder_image_picker.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 
 class D4uUploadPage extends StatefulWidget {
@@ -17,12 +21,11 @@ class _D4uUploadPageState extends State<D4uUploadPage> {
 
   final _fbKey = GlobalKey<FormBuilderState>();
 
-  int length = 1;
-
   Map<String, dynamic> formValues = {
     UploadServiceConstant.serviceName: '',
     UploadServiceConstant.serviceDescription: '',
     UploadServiceConstant.servicePictures: [],
+    UploadServiceConstant.servicePrice: '',
   };
 
   @override
@@ -34,13 +37,25 @@ class _D4uUploadPageState extends State<D4uUploadPage> {
         padding: D4uPadding.a16,
         child: D4uDuoButton(
           primaryText: 'Add Service',
-          primaryCallback: () {
+          primaryCallback: () async {
             if (_fbKey.currentState?.saveAndValidate() ?? false) {
-              print(_fbKey.currentState!.value);
+              Map<String, dynamic> formValues =
+                  _fbKey.currentState?.value ?? {};
+              showDialog(
+                context: context,
+                builder: (_) => const D4uLoadingDialog(),
+              );
+              await UploadService.uploadFile(formValues).then((value) {
+                // pop 2 times to close the dialog and the upload page
+                Navigator.pop(context);
+                Navigator.pop(context);
+              });
             }
           },
           secondaryText: 'Cancel',
-          secondaryCallback: () {},
+          secondaryCallback: () {
+            Navigator.pop(context);
+          },
         ),
       ),
       body: FormBuilder(
@@ -68,56 +83,28 @@ class _D4uUploadPageState extends State<D4uUploadPage> {
               placeHolder: "Service Description",
               validator: FormBuilderValidators.required(),
             ),
-            const SizedBox(
-              height: 10,
+            D4uTextField(
+              onChanged: (_) {},
+              name: UploadServiceConstant.servicePrice,
+              placeHolder: "Price (Per Day)",
+              validator: FormBuilderValidators.required(),
             ),
             D4uText(
-              padding: D4uPadding.a16,
+              padding: D4uPadding.containerCenter,
               text: 'Photos',
               textStyle: D4uTextStyle.h3,
             ),
-            SingleChildScrollView(
-              padding: D4uPadding.l8,
-              scrollDirection: Axis.horizontal,
-              child: Row(
-                children: [
-                  ...List.generate(
-                    length,
-                    (index) => Padding(
-                      padding: D4uPadding.h8,
-                      child: Container(
-                        height: 80,
-                        width: 80,
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(10),
-                          image: const DecorationImage(
-                            image: AssetImage('assets/d4uDrone_road.jpg' ?? ''),
-                            fit: BoxFit.cover,
-                          ),
-                          color: Colors.black,
-                        ),
-                      ),
-                    ),
-                  ),
-                  GestureDetector(
-                    onTap: () {
-                      setState(() {
-                        length++;
-                      });
-                    },
-                    child: Container(
-                      height: 80,
-                      width: 80,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(10),
-                        color: d4uGray.withOpacity(0.15),
-                      ),
-                      child: const Center(
-                        child: Icon(Icons.file_upload_outlined),
-                      ),
-                    ),
-                  ),
-                ],
+            Padding(
+              padding: D4uPadding.h16,
+              child: FormBuilderImagePicker(
+                name: UploadServiceConstant.servicePictures,
+                showDecoration: false,
+                previewHeight: 80,
+                previewWidth: 80,
+                maxImages: 3,
+                previewAutoSizeWidth: true,
+                previewMargin: D4uPadding.r16,
+                fit: BoxFit.cover,
               ),
             ),
           ],

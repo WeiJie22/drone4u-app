@@ -35,9 +35,10 @@ class SettingConstant {
 }
 
 class UploadServiceConstant {
-  static const String serviceName = 'serviceName';
-  static const String serviceDescription = 'serviceDescription';
-  static const String servicePictures = 'servicePictures';
+  static const String serviceName = 'name';
+  static const String serviceDescription = 'description';
+  static const String servicePictures = 'images';
+  static const String servicePrice = 'price';
 }
 
 class ChangePassConstant {

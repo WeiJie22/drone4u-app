@@ -11,6 +11,7 @@ class Product {
   final double? discountPercentage;
   final bool? isDiscount;
   final double? reviewCount;
+  final List<String>? images;
 
   Product({
     this.name,
@@ -25,6 +26,7 @@ class Product {
     this.discountPercentage,
     this.isDiscount,
     this.reviewCount,
+    this.images,
   });
 
   factory Product.fromJson(Map<String, dynamic> json) {
@@ -41,6 +43,7 @@ class Product {
       discountPercentage: json['discountPercentage'],
       isDiscount: json['isDiscount'],
       reviewCount: json['reviewCount'],
+      images: json['images'],
     );
   }
 
@@ -58,6 +61,7 @@ class Product {
       'discountPercentage': discountPercentage,
       'isDiscount': isDiscount,
       'reviewCount': reviewCount,
+      'images': images,
     };
   }
 
