@@ -46,7 +46,7 @@ class _D4uSignUpPageState extends State<D4uSignUpPage> {
   }
 
   String generateShortUuid() {
-    final uuid = Uuid().v4();
+    final uuid = const Uuid().v4();
     return uuid.substring(0, 16);
   }
 
