@@ -2,16 +2,19 @@ import 'package:drone4u/components/d4u_text.dart';
 import 'package:flutter/material.dart';
 
 import '../constant/constant.dart';
+import '../constant/routes.dart';
 
 class D4uErrorDialog extends StatelessWidget {
   D4uErrorDialog({
     Key? key,
     this.title = '',
     this.content = '',
+    this.refresh = false,
   }) : super(key: key);
 
   String title;
   String? content;
+  bool refresh;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +22,6 @@ class D4uErrorDialog extends StatelessWidget {
       title: D4uText(
         text: title,
         fontSize: 13,
-        color: d4uGray,
         maxLines: 1,
       ),
       content: D4uText(
@@ -30,17 +32,17 @@ class D4uErrorDialog extends StatelessWidget {
       ),
       actions: <Widget>[
         TextButton(
-          child: Text("Understand"),
-          onPressed: () {
-            Navigator.of(context).pop();
-          },
+          onPressed: refresh
+              ? () => Navigator.pushNamedAndRemoveUntil(
+                    context,
+                    RouteName.navigationBar,
+                    (route) => false,
+                    arguments: 0,
+                  )
+              : () => Navigator.of(context).pop(),
+          child: const Text("Understand"),
         ),
       ],
     );
   }
 }
-
-
-
-
-

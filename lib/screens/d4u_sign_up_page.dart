@@ -2,6 +2,7 @@ import 'package:drone4u/components/d4u_login_sub_text.dart';
 import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/form_constant.dart';
 import 'package:drone4u/constant/routes.dart';
+import 'package:drone4u/services/users_collection.dart';
 import 'package:drone4u/utils/form_utils.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -9,6 +10,7 @@ import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import '../components/d4u_index.dart';
 import '../services/auth.dart';
+import 'package:uuid/uuid.dart';
 
 class D4uSignUpPage extends StatefulWidget {
   const D4uSignUpPage({super.key});
@@ -20,6 +22,7 @@ class D4uSignUpPage extends StatefulWidget {
 class _D4uSignUpPageState extends State<D4uSignUpPage> {
   bool passwordObscure = true;
   bool confirmPasswordObscure = true;
+  final firebaseCollection = UsersCollection();
   final _formKey = GlobalKey<FormBuilderState>();
 
   showError(String errormessage) {
@@ -31,14 +34,20 @@ class _D4uSignUpPageState extends State<D4uSignUpPage> {
           content: Text(errormessage),
           actions: <Widget>[
             TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('OK'))
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+              child: const Text('OK'),
+            ),
           ],
         );
       },
     );
+  }
+
+  String generateShortUuid() {
+    final uuid = Uuid().v4();
+    return uuid.substring(0, 16);
   }
 
   Future<void> createUserWithEmailAndPassword(formValues) async {
@@ -47,6 +56,12 @@ class _D4uSignUpPageState extends State<D4uSignUpPage> {
         email: formValues[SignUpFormConstant.email],
         password: formValues[SignUpFormConstant.password],
       );
+      String userId = generateShortUuid();
+      firebaseCollection.set(userId, {
+        'name': formValues[SignUpFormConstant.name],
+        'email': formValues[SignUpFormConstant.email],
+        "userID": userId,
+      });
     } on FirebaseAuthException catch (e) {
       if (e.code == 'weak-password') {
         if (e.code == 'weak-password') {

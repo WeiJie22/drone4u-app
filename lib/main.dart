@@ -6,6 +6,7 @@ import 'package:drone4u/screens/d4u_sign_up_page.dart';
 import 'package:flutter/material.dart';
 import 'package:drone4u/services/widget_tree.dart';
 
+final navigatorKey = GlobalKey<NavigatorState>();
 Future<void> main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await Firebase.initializeApp(
@@ -29,6 +30,7 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/',
       home: const WidgetTree(),
+      navigatorKey: navigatorKey,
     );
   }
 }

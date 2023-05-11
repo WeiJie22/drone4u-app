@@ -23,16 +23,9 @@ class _D4uLoginScreenState extends State<D4uLoginScreen> {
     showDialog(
       context: context,
       builder: (BuildContext context) {
-        return AlertDialog(
-          title: const Text('Log In Error'),
-          content: Text(errormessage),
-          actions: <Widget>[
-            TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('OK'))
-          ],
+        return D4uErrorDialog(
+          title: "Login Error",
+          content: errormessage,
         );
       },
     );
@@ -53,9 +46,10 @@ class _D4uLoginScreenState extends State<D4uLoginScreen> {
     }
     Auth().authStateChanges.listen((user) {
       if (user != null) {
-        Navigator.pushReplacementNamed(
+        Navigator.pushNamedAndRemoveUntil(
           context,
           RouteName.navigationBar,
+          (route) => false,
           arguments: 0,
         );
       }
