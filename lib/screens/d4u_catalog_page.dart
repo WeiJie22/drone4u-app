@@ -109,14 +109,13 @@ class _D4uCatalogPageState extends State<D4uCatalogPage> {
                                   productName: product.name,
                                   price: product.price,
                                   discountPrice: product.discountPrice,
-                                  isDiscount: true,
+                                  isDiscount: product.isDiscount ?? false,
                                   reviewCount: product.reviewCount.toString(),
                                   imageWidth: 200,
                                   imageHeight: 170,
                                   imagePath: product.images?[0] ?? '',
                                   width: width / 2 - 18,
                                   productRating: product.productRating ?? 0,
-                                  showLabel: true,
                                   labelText: '-20%',
                                   onPressedProduct: () {
                                     Navigator.pushNamed(

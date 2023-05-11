@@ -22,7 +22,7 @@ class ProductProvider extends ChangeNotifier {
 
   initData() async {
     isLoading = true;
-    print('refrasldkfja');
+    print('Refreshing');
     products = await ProductService.getAllProducts();
     isLoading = false;
   }
