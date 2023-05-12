@@ -11,6 +11,7 @@ import 'package:drone4u/screens/d4u_confirm_booking_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:uuid/uuid.dart';
 
 class D4uServiceDetailPageArgs {
   D4uServiceDetailPageArgs({this.product});
@@ -76,7 +77,7 @@ class _D4uServiceDetailPageState extends State<D4uServiceDetailPage> {
                                 text: 'Book Now',
                                 fontWeight: FontWeight.bold,
                                 padding: D4uPadding.a16,
-                                fontSize: 32,
+                                fontSize: 28,
                               ),
                               const SizedBox(
                                 height: 18,
@@ -152,15 +153,22 @@ class _D4uServiceDetailPageState extends State<D4uServiceDetailPage> {
                           onPressed: () {
                             if (_formKey.currentState?.saveAndValidate() ??
                                 false) {
+                              Map<String, dynamic> formValues = {
+                                ..._formKey.currentState?.value ?? {}
+                              };
+                              formValues['totalPrice'] =
+                                  _calculateTotalPrice(product.price);
+                              formValues['bookingId'] = const Uuid().v4();
+                              if (formValues[BookNowConstant.endDate] == null) {
+                                formValues[BookNowConstant.endDate] =
+                                    formValues[BookNowConstant.startDate];
+                              }
                               Navigator.popAndPushNamed(
                                 context,
                                 RouteName.confirmBookingPage,
                                 arguments: D4uConfirmBookingPageArgs(
                                   product: product,
-                                  formValues: Booking.fromJson(
-                                      _formKey.currentState?.value ?? {}),
-                                  totalPrice:
-                                      _calculateTotalPrice(product.price),
+                                  formValues: Booking.fromJson(formValues),
                                 ),
                               );
                             }

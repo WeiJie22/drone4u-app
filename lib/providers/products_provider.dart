@@ -25,6 +25,7 @@ class ProductProvider extends ChangeNotifier {
     print('Refreshing');
     products = await ProductService.getAllProducts();
     isLoading = false;
+    notifyListeners();
   }
 
   filterProducts(String query) {
