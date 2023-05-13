@@ -1,11 +1,9 @@
 import 'package:drone4u/components/d4u_centered_loading.dart';
 import 'package:drone4u/components/d4u_index.dart';
 import 'package:drone4u/constant/constant.dart';
-import 'package:drone4u/constant/routes.dart';
-import 'package:drone4u/models/booking.dart';
+import 'package:drone4u/models/order.dart';
 import 'package:drone4u/models/product.dart';
-import 'package:drone4u/models/user.dart';
-import 'package:drone4u/providers/booking_provider.dart';
+import 'package:drone4u/providers/orders_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -17,7 +15,7 @@ class D4uConfirmBookingPageArgs {
   });
 
   Product? product;
-  Booking? formValues;
+  SingleOrder? formValues;
 }
 
 class D4uConfirmBookingPage extends StatefulWidget {
@@ -32,11 +30,12 @@ class D4uConfirmBookingPage extends StatefulWidget {
 class _D4uConfirmBookingPageState extends State<D4uConfirmBookingPage> {
   bool needInsurance = false;
   bool tnc = false;
+  late OrderProvider _model;
 
   @override
   Widget build(BuildContext context) {
     Product product = widget.args!.product!;
-    Booking booking = widget.args!.formValues!;
+    SingleOrder order = widget.args!.formValues!;
 
     return D4uScaffold(
       appBarTitle: 'Confirm Booking',
@@ -47,12 +46,12 @@ class _D4uConfirmBookingPageState extends State<D4uConfirmBookingPage> {
           D4uDuoButton(
             primaryText: 'Pay Deposit',
             primaryDisabled: !tnc,
-            primaryCallback: () {
-              Navigator.pop(context);
-              Navigator.popAndPushNamed(
-                context,
-                RouteName.successBookingPage,
+            primaryCallback: () async {
+              showDialog(
+                context: context,
+                builder: (_) => const D4uLoadingDialog(),
               );
+              await _model.confirmBooking(context);
             },
             secondaryCallback: () => Navigator.pop(context),
             secondaryText: 'Cancel',
@@ -60,9 +59,10 @@ class _D4uConfirmBookingPageState extends State<D4uConfirmBookingPage> {
         ],
       ),
       body: ChangeNotifierProvider(
-        create: (context) => BookingProvider(booking, product),
+        create: (context) => OrderProvider(order: order, product: product),
         builder: (context, child) {
-          BookingProvider model = Provider.of<BookingProvider>(context);
+          OrderProvider model = Provider.of<OrderProvider>(context);
+          _model = model;
 
           if (model.isLoading) {
             return const D4uCenteredLoading();
@@ -74,12 +74,12 @@ class _D4uConfirmBookingPageState extends State<D4uConfirmBookingPage> {
               D4uHorizontalProductCard(
                 isCard: false,
                 hideCloseButton: true,
-                image: model.product.images?[0],
-                seller: model.product.sellerName,
-                serviceName: model.product.name,
-                price: model.product.price,
+                image: model.product?.images?[0],
+                seller: model.product?.sellerName,
+                serviceName: model.product?.name,
+                price: model.product?.price,
                 rating: 3,
-                categories: model.product.categories,
+                categories: model.product?.categories,
                 cardHeight: 115,
               ),
               Container(
@@ -92,8 +92,8 @@ class _D4uConfirmBookingPageState extends State<D4uConfirmBookingPage> {
                 'I agree to pay RM10.00 for insurance coverage',
                 (bool? value) => setState(() {
                   needInsurance = value!;
-                  model.booking.insurance = needInsurance;
-                  print('Modle => ${model.booking.toJson()}');
+                  model.order?.insurance = needInsurance;
+                  print('Modle => ${model.order?.toJson()}');
                 }),
                 needInsurance,
               ),
@@ -105,18 +105,18 @@ class _D4uConfirmBookingPageState extends State<D4uConfirmBookingPage> {
                   'Order Rate',
                   'Order Duration',
                   'Order Date (Start)',
-                  if (model.booking.endDate != null) 'Order Date (End)',
+                  if (model.order?.endDate != null) 'Order Date (End)',
                   'Address',
                 ],
                 rightTextList: [
-                  model.product.name ?? '',
-                  model.product.description ?? '',
+                  model.product?.name ?? '',
+                  model.product?.description ?? '',
                   'RM${product.price?.toStringAsFixed(2)} / Day',
-                  '${calculateDuration(model.booking)} Day(s)',
-                  formatDate(model.booking.startDate!),
-                  if (model.booking.endDate != null)
-                    formatDate(model.booking.endDate!),
-                  model.booking.location ?? '',
+                  '${calculateDuration(model.order)} Day(s)',
+                  formatDate(model.order?.startDate),
+                  if (model.order?.endDate != null)
+                    formatDate(model.order?.endDate!),
+                  model.order?.location ?? '',
                 ],
               ),
               D4uSectionTile(
@@ -126,7 +126,7 @@ class _D4uConfirmBookingPageState extends State<D4uConfirmBookingPage> {
                   'Location',
                 ],
                 rightTextList: [
-                  '${model.product.sellerName}',
+                  '${model.product?.sellerName}',
                   'S43, Taman Tun Dr Ismail, Jalan Dun, 04637, Kuala Lumpur',
                 ],
               ),
@@ -138,9 +138,9 @@ class _D4uConfirmBookingPageState extends State<D4uConfirmBookingPage> {
                   'Order Amount',
                 ],
                 rightTextList: [
-                  '${model.booking.bookingId}',
-                  '${model.product.name}',
-                  '${_calculateTotalPrice(model.booking.totalPrice!, needInsurance)}',
+                  '${model.order?.bookingId}',
+                  '${model.product?.name}',
+                  '${_calculateTotalPrice(model.order?.totalPrice, needInsurance)}',
                 ],
               ),
               _buildCheckbox(
@@ -156,8 +156,8 @@ class _D4uConfirmBookingPageState extends State<D4uConfirmBookingPage> {
     );
   }
 
-  _calculateTotalPrice(double totalPrice, bool needInsurance) {
-    return 'RM${needInsurance ? (totalPrice + 10).toStringAsFixed(2) : totalPrice.toStringAsFixed(2)}';
+  _calculateTotalPrice(double? totalPrice, bool needInsurance) {
+    return 'RM${needInsurance ? (totalPrice! + 10).toStringAsFixed(2) : totalPrice!.toStringAsFixed(2)}';
   }
 
   Column _buildCheckbox(
@@ -210,13 +210,13 @@ class _D4uConfirmBookingPageState extends State<D4uConfirmBookingPage> {
     );
   }
 
-  String formatDate(DateTime dateTime) {
-    return DateFormat('dd/MM/yyyy').format(dateTime);
+  String formatDate(DateTime? dateTime) {
+    return DateFormat('dd/MM/yyyy').format(dateTime ?? DateTime.now());
   }
 
-  int calculateDuration(Booking booking) {
-    if (booking.endDate != null) {
-      return booking.endDate!.difference(booking.startDate!).inDays + 1;
+  int calculateDuration(SingleOrder? order) {
+    if (order?.endDate != null) {
+      return order!.endDate!.difference(order.startDate!).inDays + 1;
     }
     return 1;
   }

@@ -1,11 +1,15 @@
 import 'package:drone4u/components/d4u_index.dart';
 import 'package:drone4u/constant/constant.dart';
+import 'package:drone4u/models/order.dart';
+import 'package:drone4u/providers/orders_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/intl.dart';
+import 'package:provider/provider.dart';
 
 class D4uOrderDetailsPageArgs {
-  D4uOrderDetailsPageArgs({this.productName});
+  D4uOrderDetailsPageArgs({this.orderId});
 
-  String? productName;
+  String? orderId;
 }
 
 class D4uOrderDetailsPage extends StatelessWidget {
@@ -15,6 +19,8 @@ class D4uOrderDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    print('Order id -> ${args?.orderId ?? ''}');
+
     return D4uScaffold(
       showBackButton: true,
       appBarTitle: "Order Details",
@@ -25,58 +31,70 @@ class D4uOrderDetailsPage extends StatelessWidget {
         secondaryCallback: () => print('Cancel Order'),
         primaryCallback: () => print('Accept Order'),
       ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          D4uText(
-            padding: D4uPadding.containerCenter,
-            text: args?.productName ?? 'Product A',
-            textStyle: D4uTextStyle.h1,
-          ),
-          D4uHorizontalProductCard(
-            isCard: false,
-            hideCloseButton: true,
-            image: 'assets/d4uDrone_road.jpg',
-            seller: 'Drone4U',
-            serviceName: 'Drone Photography',
-            price: 100,
-            rating: 3,
-            categories: ['Photography', 'Drone'],
-            cardHeight: 115,
-          ),
-          D4uText(
-            padding: D4uPadding.containerCenter,
-            text: 'Order Information',
-            textStyle: D4uTextStyle.h2,
-          ),
-          D4uInfoList(
-            showDottedLine: true,
-            padding: D4uPadding.containerCenter4,
-            leftTextStyle: D4uTextStyle.labelText,
-            rightTextStyle: D4uTextStyle.labelTextBold,
-            leftTextList: [
-              'Order ID',
-              'Username',
-              'Order Date',
-              'Order Status',
-              "Service start date",
-              "Service end date",
-              'Address',
-              'Order Amount',
+      body: ChangeNotifierProvider(
+        create: (context) => OrderProvider(orderId: args?.orderId ?? ''),
+        builder: (context, child) {
+          OrderProvider model = Provider.of<OrderProvider>(context);
+          SingleOrder? order = model.order;
+
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              D4uText(
+                padding: D4uPadding.containerCenter,
+                text: order?.product?.name ?? 'Product A',
+                textStyle: D4uTextStyle.h1,
+              ),
+              D4uHorizontalProductCard(
+                isCard: false,
+                hideCloseButton: true,
+                image: order?.product?.images?[0],
+                seller: order?.product?.sellerName,
+                serviceName: order?.product?.name,
+                price: order?.product?.price,
+                rating: 3,
+                categories: order?.product?.categories,
+                cardHeight: 115,
+              ),
+              D4uText(
+                padding: D4uPadding.containerCenter,
+                text: 'Order Information',
+                textStyle: D4uTextStyle.h2,
+              ),
+              D4uInfoList(
+                showDottedLine: true,
+                padding: D4uPadding.containerCenter4,
+                leftTextStyle: D4uTextStyle.labelText,
+                rightTextStyle: D4uTextStyle.labelTextBold,
+                leftTextList: const [
+                  'Order ID',
+                  'Username',
+                  'Order Date',
+                  'Order Status',
+                  "Service start date",
+                  "Service end date",
+                  'Address',
+                  'Order Amount',
+                ],
+                rightTextList: [
+                  '${order?.bookingId}',
+                  '${order?.buyer?.name}',
+                  '${formatDate(order?.orderDate)}',
+                  '${order?.status}',
+                  '${formatDate(order?.startDate)}',
+                  '${formatDate(order?.endDate)}',
+                  '${order?.location}',
+                  'RM${order?.totalPrice?.toStringAsFixed(2)}',
+                ],
+              )
             ],
-            rightTextList: [
-              '123456789',
-              'Tan Ah Kow',
-              '2021-01-01',
-              'Completed',
-              '2021-01-02',
-              '2021-01-02',
-              'K-19-B, Tiara Damansara, Jalan 17/1, 46400 Petaling Jaya, Selangor',
-              'RM100.00',
-            ],
-          )
-        ],
+          );
+        },
       ),
     );
+  }
+
+  formatDate(DateTime? date) {
+    return date != null ? DateFormat('dd/MM/yyyy').format(date) : null;
   }
 }

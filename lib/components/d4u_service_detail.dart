@@ -29,6 +29,7 @@ class D4uServiceDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -43,7 +44,7 @@ class D4uServiceDetail extends StatelessWidget {
                   padding: D4uPadding.h16,
                 ),
                 D4uText(
-                  text: 'RM ${price?.toStringAsFixed(2)} / day',
+                  text: 'RM${price?.toStringAsFixed(2)} / day',
                   color: d4uPrimaryColor,
                   fontSize: 18,
                   fontWeight: FontWeight.w500,

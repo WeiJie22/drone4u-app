@@ -4,11 +4,21 @@ import 'package:drone4u/constant/routes.dart';
 import 'package:drone4u/screens/d4u_order_details_page.dart';
 import 'package:flutter/material.dart';
 
+class D4uSuccessBookingPageArgs {
+  final String? orderId;
+
+  const D4uSuccessBookingPageArgs({this.orderId});
+}
+
 class D4uSuccessBookingPage extends StatelessWidget {
-  const D4uSuccessBookingPage({super.key});
+  const D4uSuccessBookingPage({this.args, super.key});
+
+  final D4uSuccessBookingPageArgs? args;
 
   @override
   Widget build(BuildContext context) {
+    String orderId = args?.orderId ?? '';
+
     return Scaffold(
       backgroundColor: d4uSecondaryColor,
       body: Center(
@@ -44,10 +54,10 @@ class D4uSuccessBookingPage extends StatelessWidget {
           primaryText: 'Go to Orders',
           secondaryText: 'Back',
           secondaryCallback: () => Navigator.pop(context),
-          primaryCallback: () => Navigator.pushNamed(
+          primaryCallback: () => Navigator.popAndPushNamed(
             context,
             RouteName.orderDetailsPage,
-            arguments: D4uOrderDetailsPageArgs(productName: 'Product A'),
+            arguments: D4uOrderDetailsPageArgs(orderId: orderId),
           ),
         ),
       ),

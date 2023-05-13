@@ -5,7 +5,7 @@ import 'package:drone4u/constant/form_constant.dart';
 import 'package:drone4u/constant/review_constant.dart';
 import 'package:drone4u/components/d4u_index.dart';
 import 'package:drone4u/constant/routes.dart';
-import 'package:drone4u/models/booking.dart';
+import 'package:drone4u/models/order.dart';
 import 'package:drone4u/models/product.dart';
 import 'package:drone4u/screens/d4u_confirm_booking_page.dart';
 import 'package:flutter/material.dart';
@@ -158,7 +158,7 @@ class _D4uServiceDetailPageState extends State<D4uServiceDetailPage> {
                               };
                               formValues['totalPrice'] =
                                   _calculateTotalPrice(product.price);
-                              formValues['bookingId'] = const Uuid().v4();
+                              formValues['bookingId'] = const Uuid().v1();
                               if (formValues[BookNowConstant.endDate] == null) {
                                 formValues[BookNowConstant.endDate] =
                                     formValues[BookNowConstant.startDate];
@@ -168,7 +168,7 @@ class _D4uServiceDetailPageState extends State<D4uServiceDetailPage> {
                                 RouteName.confirmBookingPage,
                                 arguments: D4uConfirmBookingPageArgs(
                                   product: product,
-                                  formValues: Booking.fromJson(formValues),
+                                  formValues: SingleOrder.fromJson(formValues),
                                 ),
                               );
                             }

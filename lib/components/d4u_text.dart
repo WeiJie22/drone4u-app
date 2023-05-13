@@ -37,7 +37,7 @@ class D4uText extends StatelessWidget {
     return Padding(
       padding: padding,
       child: Text(
-        text!,
+        text ?? '',
         textAlign: textAlign,
         maxLines: maxLines,
         softWrap: softWrap,

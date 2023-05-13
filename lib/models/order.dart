@@ -1,52 +1,77 @@
+import 'package:drone4u/models/product.dart';
+import 'package:drone4u/models/user.dart';
+
 class SingleOrder {
-  String? orderId;
-  String? orderBy;
-  num? orderDate;
-  num? serviceStartDate;
-  num? serviceEndDate;
-  String? address;
-  String? productId;
-  num? price;
+  String? bookingId;
+  DateTime? orderDate;
+  DateTime? startDate;
+  DateTime? endDate;
+  String? location;
+  double? totalPrice;
+  SingleUser? seller;
+  SingleUser? buyer;
+  Product? product;
+  bool? insurance;
   String? status;
-  String? desc;
+  bool convertTimestamp;
 
-  SingleOrder(
-      {this.orderId,
-      this.orderBy,
-      this.orderDate,
-      this.serviceStartDate,
-      this.serviceEndDate,
-      this.address,
-      this.productId,
-      this.price,
-      this.status,
-      this.desc});
+  SingleOrder({
+    this.bookingId,
+    this.startDate,
+    this.endDate,
+    this.location,
+    this.totalPrice,
+    this.buyer,
+    this.seller,
+    this.product,
+    this.insurance,
+    this.orderDate,
+    this.status,
+    this.convertTimestamp = false,
+  });
 
-  SingleOrder.fromJson(Map<String, dynamic> json) {
-    orderId = json['orderId'];
-    orderBy = json['orderBy'];
-    orderDate = json['orderDate'];
-    serviceStartDate = json['serviceStartDate'];
-    serviceEndDate = json['serviceEndDate'];
-    address = json['address'];
-    productId = json['productId'];
-    price = json['price'];
+  SingleOrder.fromJson(Map<String, dynamic> json,
+      {this.convertTimestamp = false}) {
+    bookingId = json['bookingId'];
+    startDate =
+        convertTimestamp ? json['startDate'].toDate() : json['startDate'];
+    endDate = convertTimestamp ? json['endDate'].toDate() : json['endDate'];
+    orderDate =
+        convertTimestamp ? json['orderDate'].toDate() : json['orderDate'];
+    location = json['location'];
     status = json['status'];
-    desc = json['desc'];
+    totalPrice = json['totalPrice'];
+    insurance = json['insurance'];
+    if (json['buyer'] != null) {
+      buyer = SingleUser.fromJson(json['buyer']);
+    }
+    if (json['seller'] != null) {
+      seller = SingleUser.fromJson(json['seller']);
+    }
+    if (json['product'] != null) {
+      product = Product.fromJson(json['product']);
+    }
   }
 
   Map<String, dynamic> toJson() {
     final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['orderId'] = this.orderId;
-    data['orderBy'] = this.orderBy;
-    data['orderDate'] = this.orderDate;
-    data['serviceStartDate'] = this.serviceStartDate;
-    data['serviceEndDate'] = this.serviceEndDate;
-    data['address'] = this.address;
-    data['productId'] = this.productId;
-    data['price'] = this.price;
-    data['status'] = this.status;
-    data['desc'] = this.desc;
+    data['bookingId'] = bookingId;
+    data['startDate'] = startDate;
+    data['orderDate'] = orderDate;
+    data['endDate'] = endDate;
+    data['status'] = status;
+    data['location'] = location;
+    data['totalPrice'] = totalPrice;
+    data['insurance'] = insurance;
+    if (buyer != null) {
+      data['buyer'] = buyer?.toJson();
+    }
+    if (seller != null) {
+      data['seller'] = seller?.toJson();
+    }
+    if (product != null) {
+      data['product'] = product?.toJson();
+    }
     return data;
   }
 }

@@ -10,7 +10,7 @@ import 'package:drone4u/screens/d4u_service_detail_page.dart';
 import 'package:drone4u/screens/d4u_settings_page.dart';
 import 'package:drone4u/screens/d4u_sign_up_page.dart';
 import 'package:drone4u/screens/d4u_success_booking_page.dart';
-import 'package:drone4u/screens/d4u_upload_service.dart';
+import 'package:drone4u/screens/d4u_upload_service_page.dart';
 import 'package:flutter/material.dart';
 
 class RouteName {
@@ -81,8 +81,12 @@ class D4uRouter {
           ),
         );
       case RouteName.successBookingPage:
+        D4uSuccessBookingPageArgs args =
+            settings.arguments as D4uSuccessBookingPageArgs;
         return MaterialPageRoute(
-          builder: (_) => const D4uSuccessBookingPage(),
+          builder: (_) => D4uSuccessBookingPage(
+            args: args,
+          ),
         );
       case RouteName.myProfilePage:
         return MaterialPageRoute(
