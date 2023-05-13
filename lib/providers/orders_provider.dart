@@ -17,7 +17,9 @@ class OrderProvider extends ChangeNotifier {
   late SingleUser buyer;
   late SingleOrder? order;
   late Product? product;
-  late List<SingleOrder> allOrders;
+  late Map<String, List<SingleOrder>> allOrders = {};
+  late List<SingleOrder> buyOrders;
+  late List<SingleOrder> sellOrders;
   late String? orderId;
 
   OrderProvider({
@@ -26,13 +28,15 @@ class OrderProvider extends ChangeNotifier {
     this.initAllOrders = false,
     this.orderId,
   }) {
+    isLoading = true;
+
     initAllOrders
         ? initAllOrdersData()
         : initData(order, product, orderId: orderId);
+    isLoading = false;
   }
 
   initData(SingleOrder? initOrder, Product? product, {String? orderId}) async {
-    isLoading = true;
     if (orderId == null) {
       order = initOrder;
       seller = await UserService.getSingleUser(product?.sellerId ?? '');
@@ -46,20 +50,19 @@ class OrderProvider extends ChangeNotifier {
       order = await OrderService.getSingleOrder(orderId);
     }
 
-    isLoading = false;
     notifyListeners();
   }
 
-  initAllOrdersData() {
+  initAllOrdersData() async {
     String currentUserUid = currentUser.uid;
-
-    isLoading = true;
-    allOrders = [];
-    isLoading = false;
+    allOrders = await OrderService.retrieveAllOrders(currentUserUid);
+    buyOrders = allOrders['buyOrders']!;
+    sellOrders = allOrders['sellOrders']!;
     notifyListeners();
   }
 
   confirmBooking(context) async {
+    order?.status = 'Pending';
     await OrderService.uploadOrder(order);
     Navigator.pop(context);
     Navigator.pushReplacementNamed(

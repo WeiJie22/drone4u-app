@@ -10,11 +10,17 @@ class D4uOrderCard extends StatelessWidget {
     this.leftTextList = const [],
     this.rightTextList = const [],
     this.onTap,
+    this.serviceName,
+    this.price,
+    this.status,
   });
 
   List<String> leftTextList;
   List<String> rightTextList;
   VoidCallback? onTap;
+  String? serviceName;
+  double? price;
+  String? status;
 
   @override
   Widget build(BuildContext context) {
@@ -61,7 +67,7 @@ class D4uOrderCard extends StatelessWidget {
       children: [
         D4uText(
           fontSize: 16,
-          text: "RM250",
+          text: "RM${price?.toStringAsFixed(2)}",
         ),
         Padding(
           padding: D4uPadding.b4,
@@ -96,14 +102,14 @@ class D4uOrderCard extends StatelessWidget {
       children: [
         Expanded(
           child: D4uText(
-            text: 'Service Name',
+            text: serviceName,
             maxLines: 2,
             fontWeight: FontWeight.bold,
             fontSize: 18,
           ),
         ),
         D4uLabel(
-          labelText: 'Delivered'.toUpperCase(),
+          labelText: status!.toUpperCase(),
           padding: EdgeInsets.zero,
           labelType: LabelType.bordered,
         )

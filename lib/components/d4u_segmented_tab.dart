@@ -35,7 +35,7 @@ class _D4uSegmentedTabState extends State<D4uSegmentedTab> {
               })
             },
             child: AnimatedContainer(
-              padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 8),
+              padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 8),
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(25),
                 color: selectedIndex == index ? Colors.black : d4uBackground,

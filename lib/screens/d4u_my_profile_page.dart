@@ -1,7 +1,12 @@
 import 'package:drone4u/components/d4u_index.dart';
 import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/routes.dart';
+import 'package:drone4u/models/user.dart';
+import 'package:drone4u/providers/users_provider.dart';
+import 'package:drone4u/services/user_service.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 import '../services/auth.dart';
 
@@ -47,38 +52,46 @@ class _D4uMyProfilePageState extends State<D4uMyProfilePage> {
       pageTitle: 'My profile',
       body: Padding(
         padding: D4uPadding.a16,
-        child: Column(
-          children: [
-            D4uProfileAvartarTile(
-              logOutFunction: signOut,
-              userImage: 'assets/d4uDrone_white.jpg',
-              userName: 'Matilda Brown',
-              userEmail: 'matildabrown@mail.com',
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            _buildProfileTile(
-              'Upload your service',
-              'Service name, Service Photo',
-              () {
-                Navigator.pushNamed(
-                  context,
-                  RouteName.uploadPage,
-                );
-              },
-            ),
-            _buildProfileTile(
-              'Settings',
-              'Notifications, password',
-              () {
-                Navigator.pushNamed(
-                  context,
-                  RouteName.settingsPage,
-                );
-              },
-            ),
-          ],
+        child: ChangeNotifierProvider(
+          create: (context) => UserProvider(),
+          builder: (context, child) {
+            UserProvider model = Provider.of<UserProvider>(context);
+            SingleUser user = model.user ?? SingleUser();
+
+            return Column(
+              children: [
+                D4uProfileAvartarTile(
+                  logOutFunction: signOut,
+                  userImage: 'assets/d4uDrone_white.jpg',
+                  userName: '${user.name}',
+                  userEmail: '${user.email}',
+                ),
+                const SizedBox(
+                  height: 30,
+                ),
+                _buildProfileTile(
+                  'Upload your service',
+                  'Service name, Service Photo',
+                  () {
+                    Navigator.pushNamed(
+                      context,
+                      RouteName.uploadPage,
+                    );
+                  },
+                ),
+                _buildProfileTile(
+                  'Settings',
+                  'Notifications, password',
+                  () {
+                    Navigator.pushNamed(
+                      context,
+                      RouteName.settingsPage,
+                    );
+                  },
+                ),
+              ],
+            );
+          },
         ),
       ),
     );

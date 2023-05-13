@@ -55,12 +55,16 @@ class _D4uCatalogPageState extends State<D4uCatalogPage> {
               enablePullDown: true,
               enablePullUp: true,
               onLoading: () async {
-                // await model.loadMoreData();
+                await model.loadMore();
                 _refreshController.loadComplete();
+                if (!model.canLoadMore) {
+                  _refreshController.loadNoData();
+                }
               },
               onRefresh: () async {
                 await model.initData();
                 _refreshController.refreshCompleted();
+                _refreshController.loadComplete();
               },
               child: CustomScrollView(
                 slivers: [

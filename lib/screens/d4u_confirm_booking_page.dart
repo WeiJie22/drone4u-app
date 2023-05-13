@@ -4,6 +4,7 @@ import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/models/order.dart';
 import 'package:drone4u/models/product.dart';
 import 'package:drone4u/providers/orders_provider.dart';
+import 'package:drone4u/utils/date_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -93,7 +94,6 @@ class _D4uConfirmBookingPageState extends State<D4uConfirmBookingPage> {
                 (bool? value) => setState(() {
                   needInsurance = value!;
                   model.order?.insurance = needInsurance;
-                  print('Modle => ${model.order?.toJson()}');
                 }),
                 needInsurance,
               ),
@@ -208,10 +208,6 @@ class _D4uConfirmBookingPageState extends State<D4uConfirmBookingPage> {
         ),
       ],
     );
-  }
-
-  String formatDate(DateTime? dateTime) {
-    return DateFormat('dd/MM/yyyy').format(dateTime ?? DateTime.now());
   }
 
   int calculateDuration(SingleOrder? order) {

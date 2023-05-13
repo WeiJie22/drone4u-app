@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 
 class ProductProvider extends ChangeNotifier {
   bool isLoading = false;
+  bool canLoadMore = true;
   List<Product>? _products;
   List<Product>? _filteredProducts;
 
@@ -21,10 +22,17 @@ class ProductProvider extends ChangeNotifier {
   }
 
   initData() async {
+    canLoadMore = true;
     isLoading = true;
-    print('Refreshing');
-    products = await ProductService.getAllProducts();
+    products = await ProductService.fetchFirstList();
     isLoading = false;
+    notifyListeners();
+  }
+
+  loadMore() async {
+    List<Product> newProducts = await ProductService.fetchNewList();
+    newProducts.isEmpty ? canLoadMore = false : canLoadMore = true;
+    products?.addAll(newProducts);
     notifyListeners();
   }
 

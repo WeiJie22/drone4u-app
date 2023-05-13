@@ -2,8 +2,13 @@ import 'package:drone4u/components/d4u_index.dart';
 import 'package:drone4u/components/d4u_order_card.dart';
 import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/routes.dart';
+import 'package:drone4u/models/order.dart';
+import 'package:drone4u/providers/orders_provider.dart';
 import 'package:drone4u/screens/d4u_order_details_page.dart';
+import 'package:drone4u/utils/date_utils.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class D4uOrdersPage extends StatefulWidget {
   const D4uOrdersPage({super.key});
@@ -13,62 +18,89 @@ class D4uOrdersPage extends StatefulWidget {
 }
 
 class _D4uOrdersPageState extends State<D4uOrdersPage> {
-  List<String> options = [
-    "Own Orders",
-    "Orders for me",
-  ];
-
+  List<String> options = ["buyOrders", "sellOrders"];
+  List<String> optionsMapping = ["Own orders", "Orders for me"];
   int selectedIndex = 0;
+
+  final RefreshController _refreshController =
+      RefreshController(initialRefresh: false);
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: d4uBackground,
-      body: NestedScrollView(
-        headerSliverBuilder: (context, innerBoxIsScrolled) => [
-          D4uSliverAppBar(
-            appBarTitle: 'Orders',
-          )
-        ],
-        body: Column(
-          children: [
-            D4uSegmentedTab(
-              options: options,
-              onChange: (val) {
-                setState(() {
-                  selectedIndex = val;
-                });
+      body: ChangeNotifierProvider(
+        create: (context) => OrderProvider(initAllOrders: true),
+        builder: (context, child) {
+          OrderProvider model = Provider.of<OrderProvider>(context);
+          Map<String, List<SingleOrder>> allOrders = model.allOrders;
+
+          List<SingleOrder> orders = allOrders[options[selectedIndex]] ?? [];
+
+          return NestedScrollView(
+            headerSliverBuilder: (context, innerBoxIsScrolled) => [
+              D4uSliverAppBar(
+                showBackButton: false,
+                appBarTitle: 'Orders',
+              )
+            ],
+            body: SmartRefresher(
+              controller: _refreshController,
+              enablePullDown: true,
+              primary: false,
+              onRefresh: () async {
+                await model.initAllOrdersData();
+                _refreshController.refreshCompleted();
               },
-            ),
-            Expanded(
-              child: ListView.builder(
-                padding: EdgeInsets.zero,
-                itemCount: selectedIndex == 0 ? 10 : 3,
-                itemBuilder: (context, idx) => D4uOrderCard(
-                  onTap: () {
-                    Navigator.pushNamed(
-                      context,
-                      RouteName.orderDetailsPage,
-                      arguments: D4uOrderDetailsPageArgs(orderId: ''),
-                    );
-                  },
-                  leftTextList: [
-                    "Order ID",
-                    'User name',
-                    "Service Start Date",
-                    "Service End Date",
-                  ],
-                  rightTextList: [
-                    '123456789',
-                    "Jason Wang",
-                    '12/12/2021',
-                    '12/12/2021',
-                  ],
-                ),
+              child: Column(
+                children: [
+                  D4uSegmentedTab(
+                    options: optionsMapping,
+                    onChange: (val) {
+                      setState(() {
+                        selectedIndex = val;
+                      });
+                    },
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                        padding: EdgeInsets.zero,
+                        itemCount: orders.length,
+                        itemBuilder: (context, idx) {
+                          SingleOrder order = orders[idx];
+                          return D4uOrderCard(
+                            onTap: () {
+                              Navigator.pushNamed(
+                                context,
+                                RouteName.orderDetailsPage,
+                                arguments: D4uOrderDetailsPageArgs(
+                                  orderId: order.bookingId,
+                                ),
+                              );
+                            },
+                            status: order.status ?? 'UNKNOWN',
+                            serviceName: order.product?.name,
+                            price: order.totalPrice,
+                            leftTextList: const [
+                              "Order ID",
+                              'User name',
+                              "Service Start Date",
+                              "Service End Date",
+                            ],
+                            rightTextList: [
+                              '${order.bookingId}',
+                              "${order.buyer?.name}",
+                              (formatDate(order.startDate)),
+                              (formatDate(order.endDate)),
+                            ],
+                          );
+                        }),
+                  )
+                ],
               ),
-            )
-          ],
-        ),
+            ),
+          );
+        },
       ),
     );
   }

@@ -76,9 +76,7 @@ class D4uServiceDetail extends StatelessWidget {
               ],
             ),
             GestureDetector(
-              onTap: () {
-                print('he');
-              },
+              onTap: () {},
               child: Container(
                 padding: D4uPadding.a24,
                 child: isFavorite

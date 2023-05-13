@@ -2,6 +2,7 @@ import 'package:drone4u/components/d4u_index.dart';
 import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/models/order.dart';
 import 'package:drone4u/providers/orders_provider.dart';
+import 'package:drone4u/utils/date_utils.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
@@ -19,8 +20,6 @@ class D4uOrderDetailsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    print('Order id -> ${args?.orderId ?? ''}');
-
     return D4uScaffold(
       showBackButton: true,
       appBarTitle: "Order Details",
@@ -79,10 +78,10 @@ class D4uOrderDetailsPage extends StatelessWidget {
                 rightTextList: [
                   '${order?.bookingId}',
                   '${order?.buyer?.name}',
-                  '${formatDate(order?.orderDate)}',
+                  (formatDate(order?.orderDate)),
                   '${order?.status}',
-                  '${formatDate(order?.startDate)}',
-                  '${formatDate(order?.endDate)}',
+                  (formatDate(order?.startDate)),
+                  (formatDate(order?.endDate)),
                   '${order?.location}',
                   'RM${order?.totalPrice?.toStringAsFixed(2)}',
                 ],
@@ -92,9 +91,5 @@ class D4uOrderDetailsPage extends StatelessWidget {
         },
       ),
     );
-  }
-
-  formatDate(DateTime? date) {
-    return date != null ? DateFormat('dd/MM/yyyy').format(date) : null;
   }
 }
