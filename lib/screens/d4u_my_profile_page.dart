@@ -11,7 +11,7 @@ import 'package:provider/provider.dart';
 import '../services/auth.dart';
 
 class D4uMyProfilePage extends StatefulWidget {
-  D4uMyProfilePage({super.key});
+  const D4uMyProfilePage({super.key});
 
   @override
   State<D4uMyProfilePage> createState() => _D4uMyProfilePageState();
@@ -79,16 +79,16 @@ class _D4uMyProfilePageState extends State<D4uMyProfilePage> {
                     );
                   },
                 ),
-                _buildProfileTile(
-                  'Settings',
-                  'Notifications, password',
-                  () {
-                    Navigator.pushNamed(
-                      context,
-                      RouteName.settingsPage,
-                    );
-                  },
-                ),
+                // _buildProfileTile(
+                //   'Settings',
+                //   'Notifications, password',
+                //   () {
+                //     Navigator.pushNamed(
+                //       context,
+                //       RouteName.settingsPage,
+                //     );
+                //   },
+                // ),
               ],
             );
           },

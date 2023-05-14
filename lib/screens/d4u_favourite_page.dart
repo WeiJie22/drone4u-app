@@ -1,3 +1,4 @@
+import 'package:drone4u/components/d4u_centered_loading.dart';
 import 'package:drone4u/components/d4u_index.dart';
 import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/favourite_constant.dart';
@@ -15,7 +16,11 @@ class D4uFavouritePage extends StatefulWidget {
   State<D4uFavouritePage> createState() => _D4uFavouritePageState();
 }
 
-class _D4uFavouritePageState extends State<D4uFavouritePage> {
+class _D4uFavouritePageState extends State<D4uFavouritePage>
+    with AutomaticKeepAliveClientMixin {
+  @override
+  bool get wantKeepAlive => false;
+
   List<FormBuilderChipOption> options = categories
       .map<FormBuilderChipOption>(
         (e) => FormBuilderChipOption(value: e),
@@ -44,6 +49,16 @@ class _D4uFavouritePageState extends State<D4uFavouritePage> {
 
             List<Product> products = model.favouriteProducts ?? [];
             products = products.reversed.toList();
+
+            if (model.isLoading) {
+              return const D4uCenteredLoading();
+            }
+
+            if (products.isEmpty) {
+              return const Center(
+                child: Text('No favourite products'),
+              );
+            }
 
             return SmartRefresher(
               primary: false,
@@ -77,6 +92,9 @@ class _D4uFavouritePageState extends State<D4uFavouritePage> {
                             rating: 3,
                             categories: product.categories,
                             cardHeight: 115,
+                            onCancelTap: () async {
+                              model.removeFavourite(product.id!);
+                            },
                           );
                         }),
                   ),

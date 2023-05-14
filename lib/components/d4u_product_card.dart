@@ -56,7 +56,7 @@ class D4uProductCard extends StatelessWidget {
   Alignment imageAlignment;
   Color? color;
   VoidCallback? onPressedProduct;
-  VoidCallback? onPressedCircularIcon;
+  Function? onPressedCircularIcon;
   EdgeInsets padding;
 
   @override
@@ -156,7 +156,10 @@ class D4uProductCard extends StatelessWidget {
                   bottom: favPositionBottom,
                   right: favPositionRight,
                   child: D4uCircularButton(
-                    onPressed: onPressedCircularIcon,
+                    active: isFavourite,
+                    onPressed: (val) {
+                      showFavorite ? onPressedCircularIcon!(val) : null;
+                    },
                   ),
                 )
               : D4uSizedBox.shrink,

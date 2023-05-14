@@ -31,7 +31,7 @@ class _D4uNavigationBarState extends State<D4uNavigationBar>
     const D4uCatalogPage(),
     const D4uOrdersPage(),
     const D4uFavouritePage(),
-    D4uMyProfilePage(),
+    const D4uMyProfilePage(),
   ];
 
   _onItemTapped(index) {
@@ -43,10 +43,7 @@ class _D4uNavigationBarState extends State<D4uNavigationBar>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: IndexedStack(
-        index: _selectedIndex,
-        children: pages,
-      ),
+      body: pages[_selectedIndex],
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
         backgroundColor: d4uSecondaryColor,

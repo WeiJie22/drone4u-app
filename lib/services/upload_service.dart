@@ -34,6 +34,7 @@ class UploadService {
         formValues['price'] = double.tryParse(formValues['price']);
         formValues['categories'] =
             ['Big Drone', "Small Drone"].take(Random().nextInt(2) + 1).toList();
+        formValues['isFavourite'] = false;
         formValues['isDiscount'] = false;
 
         Product newProduct = Product.fromJson(formValues);

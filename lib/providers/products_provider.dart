@@ -9,9 +9,11 @@ class ProductProvider extends ChangeNotifier {
   bool initFavourite = false;
   List<Product>? _products;
   List<Product>? _favouriteProducts;
+  List<String> _favouriteProductIds = [];
 
   List<Product>? get products => _products;
   List<Product>? get favouriteProducts => _favouriteProducts;
+  List<String> get favouriteProductIds => _favouriteProductIds;
 
   set products(List<Product>? products) {
     _products = products;
@@ -23,6 +25,11 @@ class ProductProvider extends ChangeNotifier {
     notifyListeners();
   }
 
+  set favouriteProductIds(List<String> ids) {
+    _favouriteProductIds = ids;
+    notifyListeners();
+  }
+
   ProductProvider({this.initFavourite = false}) {
     !initFavourite ? initData() : getFavouriteProducts();
   }
@@ -30,18 +37,34 @@ class ProductProvider extends ChangeNotifier {
   initData() async {
     canLoadMore = true;
     isLoading = true;
+    favouriteProductIds = await UserFavouriteService.getFavouriteProductsId();
     products = await ProductService.initProducts();
     isLoading = false;
     notifyListeners();
   }
 
   setFavourite(String productId) async {
-    await UserFavouriteService.setFavouriteProduct(productId);
+    favouriteProductIds =
+        await UserFavouriteService.setFavouriteProduct(productId);
+    getFavouriteProducts();
     notifyListeners();
   }
 
+  removeFavourite(String productId) async {
+    favouriteProductIds =
+        await UserFavouriteService.removeFavouriteProduct(productId);
+    getFavouriteProducts();
+    notifyListeners();
+  }
+
+  checkFav(String productId) {
+    return favouriteProductIds.contains(productId);
+  }
+
   getFavouriteProducts() async {
+    isLoading = true;
     favouriteProducts = await ProductService.retrieveFavouriteProducts();
+    isLoading = false;
   }
 
   loadMore() async {

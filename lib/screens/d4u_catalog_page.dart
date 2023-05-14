@@ -126,10 +126,13 @@ class _D4uCatalogPageState extends State<D4uCatalogPage> {
                                   imageHeight: 170,
                                   imagePath: product.images?[0] ?? '',
                                   width: width / 2 - 18,
+                                  isFavourite: model.checkFav(product.id!),
                                   productRating: product.productRating ?? 0,
-                                  onPressedCircularIcon: () async {
-                                    print('Favourite');
-                                    model.setFavourite(product.id!);
+                                  onPressedCircularIcon: (val) async {
+                                    val
+                                        ? await model.setFavourite(product.id!)
+                                        : await model
+                                            .removeFavourite(product.id!);
                                   },
                                   onPressedProduct: () {
                                     Navigator.pushNamed(

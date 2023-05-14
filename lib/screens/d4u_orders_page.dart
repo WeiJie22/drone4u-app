@@ -1,3 +1,4 @@
+import 'package:drone4u/components/d4u_centered_loading.dart';
 import 'package:drone4u/components/d4u_index.dart';
 import 'package:drone4u/components/d4u_order_card.dart';
 import 'package:drone4u/constant/constant.dart';
@@ -37,6 +38,10 @@ class _D4uOrdersPageState extends State<D4uOrdersPage> {
 
           List<SingleOrder> orders = allOrders[options[selectedIndex]] ?? [];
 
+          if (model.isLoading) {
+            return const D4uCenteredLoading();
+          }
+
           return NestedScrollView(
             headerSliverBuilder: (context, innerBoxIsScrolled) => [
               D4uSliverAppBar(
@@ -63,38 +68,42 @@ class _D4uOrdersPageState extends State<D4uOrdersPage> {
                     },
                   ),
                   Expanded(
-                    child: ListView.builder(
-                        padding: EdgeInsets.zero,
-                        itemCount: orders.length,
-                        itemBuilder: (context, idx) {
-                          SingleOrder order = orders[idx];
-                          return D4uOrderCard(
-                            onTap: () {
-                              Navigator.pushNamed(
-                                context,
-                                RouteName.orderDetailsPage,
-                                arguments: D4uOrderDetailsPageArgs(
-                                  orderId: order.bookingId,
-                                ),
+                    child: orders.isEmpty
+                        ? const Center(
+                            child: Text('No Orders'),
+                          )
+                        : ListView.builder(
+                            padding: EdgeInsets.zero,
+                            itemCount: orders.length,
+                            itemBuilder: (context, idx) {
+                              SingleOrder order = orders[idx];
+                              return D4uOrderCard(
+                                onTap: () {
+                                  Navigator.pushNamed(
+                                    context,
+                                    RouteName.orderDetailsPage,
+                                    arguments: D4uOrderDetailsPageArgs(
+                                      orderId: order.bookingId,
+                                    ),
+                                  );
+                                },
+                                status: order.status ?? 'UNKNOWN',
+                                serviceName: order.product?.name,
+                                price: order.totalPrice,
+                                leftTextList: const [
+                                  "Order ID",
+                                  'User name',
+                                  "Service Start Date",
+                                  "Service End Date",
+                                ],
+                                rightTextList: [
+                                  '${order.bookingId}',
+                                  "${order.buyer?.name}",
+                                  (formatDate(order.startDate)),
+                                  (formatDate(order.endDate)),
+                                ],
                               );
-                            },
-                            status: order.status ?? 'UNKNOWN',
-                            serviceName: order.product?.name,
-                            price: order.totalPrice,
-                            leftTextList: const [
-                              "Order ID",
-                              'User name',
-                              "Service Start Date",
-                              "Service End Date",
-                            ],
-                            rightTextList: [
-                              '${order.bookingId}',
-                              "${order.buyer?.name}",
-                              (formatDate(order.startDate)),
-                              (formatDate(order.endDate)),
-                            ],
-                          );
-                        }),
+                            }),
                   )
                 ],
               ),

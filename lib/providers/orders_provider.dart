@@ -28,12 +28,9 @@ class OrderProvider extends ChangeNotifier {
     this.initAllOrders = false,
     this.orderId,
   }) {
-    isLoading = true;
-
     initAllOrders
         ? initAllOrdersData()
         : initData(order, product, orderId: orderId);
-    isLoading = false;
   }
 
   initData(SingleOrder? initOrder, Product? product, {String? orderId}) async {
@@ -54,10 +51,12 @@ class OrderProvider extends ChangeNotifier {
   }
 
   initAllOrdersData() async {
+    isLoading = true;
     String currentUserUid = currentUser.uid;
     allOrders = await OrderService.retrieveAllOrders(currentUserUid);
     buyOrders = allOrders['buyOrders']!;
     sellOrders = allOrders['sellOrders']!;
+    isLoading = false;
     notifyListeners();
   }
 

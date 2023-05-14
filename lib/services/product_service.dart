@@ -26,7 +26,6 @@ class ProductService {
         snapshot = await productCollection
             .where('name', isGreaterThanOrEqualTo: query)
             .get();
-        print(snapshot.docs.length);
       }
 
       productDocs.addAll(snapshot.docs);

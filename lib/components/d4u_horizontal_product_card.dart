@@ -16,6 +16,7 @@ class D4uHorizontalProductCard extends StatelessWidget {
     this.hideCloseButton = false,
     this.padding = D4uPadding.containerCenter,
     this.isCard = true,
+    this.onCancelTap,
   });
 
   String? image;
@@ -28,6 +29,7 @@ class D4uHorizontalProductCard extends StatelessWidget {
   bool hideCloseButton;
   EdgeInsets padding;
   bool isCard;
+  VoidCallback? onCancelTap;
 
   @override
   Widget build(BuildContext context) {
@@ -133,7 +135,7 @@ class D4uHorizontalProductCard extends StatelessWidget {
                                   size: 18,
                                   color: d4uGray,
                                 ),
-                                onTap: () {},
+                                onTap: onCancelTap,
                               ),
                         RatingBarIndicator(
                           rating: rating ?? 0,
