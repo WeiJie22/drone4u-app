@@ -84,6 +84,9 @@ class _D4uOrdersPageState extends State<D4uOrdersPage> {
                                     RouteName.orderDetailsPage,
                                     arguments: D4uOrderDetailsPageArgs(
                                       orderId: order.bookingId,
+                                      isOrdersForMe: selectedIndex == 1 &&
+                                          order.status?.toLowerCase() ==
+                                              'pending',
                                     ),
                                   );
                                 },

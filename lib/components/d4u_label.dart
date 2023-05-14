@@ -8,7 +8,7 @@ class D4uLabel extends StatelessWidget {
   D4uLabel({
     Key? key,
     required this.labelText,
-    this.labelColor = d4uPrimaryColor,
+    this.labelColor,
     this.fontWeight = FontWeight.bold,
     this.fontSize = 10,
     this.padding = D4uPadding.h16,
@@ -38,7 +38,7 @@ class D4uLabel extends StatelessWidget {
               : BoxDecoration(
                   borderRadius: BorderRadius.circular(25),
                   border: Border.all(
-                    color: d4uPrimaryColor,
+                    color: labelColor ?? d4uPrimaryColor,
                     width: 1,
                   ),
                   color: d4uSecondaryColor,
@@ -50,7 +50,7 @@ class D4uLabel extends StatelessWidget {
               fontSize: fontSize,
               color: labelType == LabelType.filled
                   ? d4uSecondaryColor
-                  : d4uPrimaryColor,
+                  : labelColor ?? d4uPrimaryColor,
             ),
           ),
         ),

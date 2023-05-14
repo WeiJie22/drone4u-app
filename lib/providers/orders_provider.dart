@@ -2,6 +2,7 @@ import 'package:drone4u/constant/routes.dart';
 import 'package:drone4u/models/order.dart';
 import 'package:drone4u/models/product.dart';
 import 'package:drone4u/models/user.dart';
+import 'package:drone4u/screens/d4u_order_details_page.dart';
 import 'package:drone4u/screens/d4u_success_booking_page.dart';
 import 'package:drone4u/services/order_service.dart';
 import 'package:drone4u/services/user_service.dart';
@@ -34,6 +35,7 @@ class OrderProvider extends ChangeNotifier {
   }
 
   initData(SingleOrder? initOrder, Product? product, {String? orderId}) async {
+    isLoading = true;
     if (orderId == null) {
       order = initOrder;
       seller = await UserService.getSingleUser(product?.sellerId ?? '');
@@ -46,7 +48,7 @@ class OrderProvider extends ChangeNotifier {
     } else {
       order = await OrderService.getSingleOrder(orderId);
     }
-
+    isLoading = false;
     notifyListeners();
   }
 
@@ -57,6 +59,11 @@ class OrderProvider extends ChangeNotifier {
     buyOrders = allOrders['buyOrders']!;
     sellOrders = allOrders['sellOrders']!;
     isLoading = false;
+    notifyListeners();
+  }
+
+  updateOrderStatus({String? status, String? orderId}) async {
+    await OrderService.updateOrderStatus(orderId!, status!);
     notifyListeners();
   }
 

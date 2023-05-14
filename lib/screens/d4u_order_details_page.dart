@@ -1,40 +1,47 @@
+import 'package:drone4u/components/d4u_centered_loading.dart';
 import 'package:drone4u/components/d4u_index.dart';
 import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/models/order.dart';
 import 'package:drone4u/providers/orders_provider.dart';
 import 'package:drone4u/utils/date_utils.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:provider/provider.dart';
 
 class D4uOrderDetailsPageArgs {
-  D4uOrderDetailsPageArgs({this.orderId});
+  D4uOrderDetailsPageArgs({
+    this.orderId,
+    this.isOrdersForMe = false,
+  });
 
   String? orderId;
+  bool? isOrdersForMe;
 }
 
 class D4uOrderDetailsPage extends StatelessWidget {
-  const D4uOrderDetailsPage({this.args, super.key});
+  D4uOrderDetailsPage({this.args, super.key});
 
   final D4uOrderDetailsPageArgs? args;
+
+  late OrderProvider _model;
 
   @override
   Widget build(BuildContext context) {
     return D4uScaffold(
       showBackButton: true,
       appBarTitle: "Order Details",
-      // bottomNavigationBarWidget: D4uDuoButton(
-      //   padding: D4uPadding.a16,
-      //   secondaryText: 'Cancel Order',
-      //   primaryText: 'Accept Order',
-      //   secondaryCallback: () => print('Cancel Order'),
-      //   primaryCallback: () => print('Accept Order'),
-      // ),
+      bottomNavigationBarWidget: _buildDuoButton(args?.isOrdersForMe, context),
       body: ChangeNotifierProvider(
         create: (context) => OrderProvider(orderId: args?.orderId ?? ''),
         builder: (context, child) {
           OrderProvider model = Provider.of<OrderProvider>(context);
+          _model = model;
           SingleOrder? order = model.order;
+
+          if (model.isLoading) {
+            return const D4uCenteredLoading();
+          }
 
           return Column(
             crossAxisAlignment: CrossAxisAlignment.start,
@@ -91,5 +98,31 @@ class D4uOrderDetailsPage extends StatelessWidget {
         },
       ),
     );
+  }
+
+  _buildDuoButton(bool? isOrdersForMe, context) {
+    if (isOrdersForMe ?? false) {
+      return D4uDuoButton(
+        padding: D4uPadding.a16,
+        secondaryText: 'Cancel Order',
+        primaryText: 'Accept Order',
+        secondaryCallback: () async {
+          await _model.updateOrderStatus(
+            status: 'rejected',
+            orderId: _model.order?.bookingId ?? '',
+          );
+          Navigator.pop(context);
+        },
+        primaryCallback: () async {
+          await _model.updateOrderStatus(
+            status: 'approved',
+            orderId: _model.order?.bookingId ?? '',
+          );
+          Navigator.pop(context);
+        },
+      );
+    } else {
+      D4uSizedBox.shrink;
+    }
   }
 }

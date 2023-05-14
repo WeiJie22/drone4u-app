@@ -41,6 +41,10 @@ class OrderService {
     );
   }
 
+  static updateOrderStatus(String bookingId, String status) async {
+    await orderCollection.doc(bookingId).update({'status': status});
+  }
+
   static Future<Map<String, List<SingleOrder>>> retrieveAllOrders(
       String userId) async {
     List<String> buyOrders = await UserOrdersService.allBuyOrders();

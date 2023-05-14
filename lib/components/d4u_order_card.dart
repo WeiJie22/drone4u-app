@@ -112,6 +112,13 @@ class D4uOrderCard extends StatelessWidget {
           labelText: status!.toUpperCase(),
           padding: EdgeInsets.zero,
           labelType: LabelType.bordered,
+          labelColor: status == 'pending'
+              ? d4uPrimaryColor
+              : status == 'approved'
+                  ? Colors.green
+                  : status == 'rejected'
+                      ? Colors.black
+                      : Colors.grey,
         )
       ],
     );
