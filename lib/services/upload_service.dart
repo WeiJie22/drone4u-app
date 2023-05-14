@@ -14,38 +14,38 @@ class UploadService {
   static User user = FirebaseAuth.instance.currentUser!;
 
   static Future uploadFile(Map<String, dynamic> json) async {
-    for (int i = 0; i < 15; i++) {
-      try {
-        Map<String, dynamic> formValues = {...json};
-        List<String> images = [];
+    // for (int i = 0; i < 15; i++) {
+    try {
+      Map<String, dynamic> formValues = {...json};
+      List<String> images = [];
 
-        if (json[UploadServiceConstant.servicePictures] != null) {
-          for (var image in json[UploadServiceConstant.servicePictures]) {
-            String url = await uploadImage(image);
-            images.add(url);
-          }
+      if (json[UploadServiceConstant.servicePictures] != null) {
+        for (var image in json[UploadServiceConstant.servicePictures]) {
+          String url = await uploadImage(image);
+          images.add(url);
         }
-
-        // Set default value for the product
-        formValues[UploadServiceConstant.servicePictures] = images;
-        formValues['sellerId'] = user.uid;
-        SingleUser currentUser = await UserService.getSingleUser(user.uid);
-        formValues['sellerName'] = currentUser.name;
-        formValues['price'] = double.tryParse(formValues['price']);
-        formValues['categories'] =
-            ['Big Drone', "Small Drone"].take(Random().nextInt(2) + 1).toList();
-        formValues['isFavourite'] = false;
-        formValues['isDiscount'] = false;
-
-        Product newProduct = Product.fromJson(formValues);
-        DocumentReference newDoc = await FirebaseFirestore.instance
-            .collection('products')
-            .add(newProduct.toJson());
-        newDoc.set({'id': newDoc.id}, SetOptions(merge: true));
-      } catch (e) {
-        print(e);
       }
+
+      // Set default value for the product
+      formValues[UploadServiceConstant.servicePictures] = images;
+      formValues['sellerId'] = user.uid;
+      SingleUser currentUser = await UserService.getSingleUser(user.uid);
+      formValues['sellerName'] = currentUser.name;
+      formValues['price'] = double.tryParse(formValues['price']);
+      formValues['categories'] =
+          ['Big Drone', "Small Drone"].take(Random().nextInt(2) + 1).toList();
+      formValues['isFavourite'] = false;
+      formValues['isDiscount'] = false;
+
+      Product newProduct = Product.fromJson(formValues);
+      DocumentReference newDoc = await FirebaseFirestore.instance
+          .collection('products')
+          .add(newProduct.toJson());
+      newDoc.set({'id': newDoc.id}, SetOptions(merge: true));
+    } catch (e) {
+      print(e);
     }
+    // }
   }
 
   static Future<String> uploadImage(image) async {

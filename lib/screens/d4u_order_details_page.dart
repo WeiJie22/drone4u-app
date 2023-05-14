@@ -23,13 +23,13 @@ class D4uOrderDetailsPage extends StatelessWidget {
     return D4uScaffold(
       showBackButton: true,
       appBarTitle: "Order Details",
-      bottomNavigationBarWidget: D4uDuoButton(
-        padding: D4uPadding.a16,
-        secondaryText: 'Cancel Order',
-        primaryText: 'Accept Order',
-        secondaryCallback: () => print('Cancel Order'),
-        primaryCallback: () => print('Accept Order'),
-      ),
+      // bottomNavigationBarWidget: D4uDuoButton(
+      //   padding: D4uPadding.a16,
+      //   secondaryText: 'Cancel Order',
+      //   primaryText: 'Accept Order',
+      //   secondaryCallback: () => print('Cancel Order'),
+      //   primaryCallback: () => print('Accept Order'),
+      // ),
       body: ChangeNotifierProvider(
         create: (context) => OrderProvider(orderId: args?.orderId ?? ''),
         builder: (context, child) {
