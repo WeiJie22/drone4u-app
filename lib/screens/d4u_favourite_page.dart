@@ -1,8 +1,12 @@
 import 'package:drone4u/components/d4u_index.dart';
 import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/favourite_constant.dart';
+import 'package:drone4u/models/product.dart';
+import 'package:drone4u/providers/products_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:provider/provider.dart';
+import 'package:pull_to_refresh/pull_to_refresh.dart';
 
 class D4uFavouritePage extends StatefulWidget {
   const D4uFavouritePage({super.key});
@@ -20,6 +24,8 @@ class _D4uFavouritePageState extends State<D4uFavouritePage> {
 
   int selectedIndex = 0;
 
+  final RefreshController _refreshController = RefreshController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -31,32 +37,53 @@ class _D4uFavouritePageState extends State<D4uFavouritePage> {
             showBackButton: false,
           ),
         ],
-        body: Column(
-          children: [
-            D4uChipModel(
-              options: categories,
-              onChange: (index) {
-                print(categories[index]);
+        body: ChangeNotifierProvider(
+          create: (context) => ProductProvider(initFavourite: true),
+          builder: (context, child) {
+            ProductProvider model = Provider.of<ProductProvider>(context);
+
+            List<Product> products = model.favouriteProducts ?? [];
+            products = products.reversed.toList();
+
+            return SmartRefresher(
+              primary: false,
+              controller: _refreshController,
+              onRefresh: () async {
+                await model.getFavouriteProducts();
+                _refreshController.refreshCompleted();
               },
-            ),
-            Expanded(
-              child: ListView.builder(
-                padding: EdgeInsets.zero,
-                scrollDirection: Axis.vertical,
-                itemCount: 15,
-                shrinkWrap: true,
-                itemBuilder: (context, index) => D4uHorizontalProductCard(
-                  image: 'assets/d4uDrone_road.jpg',
-                  seller: 'Drone4U',
-                  serviceName: 'Drone Photography',
-                  price: 100,
-                  rating: 3,
-                  categories: ['Photography', 'Drone'],
-                  cardHeight: 115,
-                ),
+              child: Column(
+                children: [
+                  D4uChipModel(
+                    options: categories,
+                    onChange: (index) {
+                      print(categories[index]);
+                    },
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                        padding: EdgeInsets.zero,
+                        scrollDirection: Axis.vertical,
+                        itemCount: products.length,
+                        shrinkWrap: true,
+                        itemBuilder: (context, index) {
+                          Product product = products[index];
+
+                          return D4uHorizontalProductCard(
+                            image: product.images?[0],
+                            seller: product.sellerName,
+                            serviceName: product.name,
+                            price: product.price,
+                            rating: 3,
+                            categories: product.categories,
+                            cardHeight: 115,
+                          );
+                        }),
+                  ),
+                ],
               ),
-            ),
-          ],
+            );
+          },
         ),
       ),
     );

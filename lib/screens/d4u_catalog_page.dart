@@ -6,6 +6,7 @@ import 'package:drone4u/models/product.dart';
 import 'package:drone4u/providers/products_provider.dart';
 import 'package:drone4u/screens/d4u_service_detail_page.dart';
 import 'package:drone4u/services/auth.dart';
+import 'package:drone4u/utils/debouncer.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:pull_to_refresh/pull_to_refresh.dart';
@@ -32,6 +33,8 @@ class _D4uCatalogPageState extends State<D4uCatalogPage> {
   final RefreshController _refreshController =
       RefreshController(initialRefresh: false);
 
+  Debouncer debouncer = Debouncer(milliseconds: 500);
+
   @override
   Widget build(BuildContext context) {
     double width = MediaQuery.of(context).size.width;
@@ -55,10 +58,11 @@ class _D4uCatalogPageState extends State<D4uCatalogPage> {
               enablePullDown: true,
               enablePullUp: true,
               onLoading: () async {
-                await model.loadMore();
-                _refreshController.loadComplete();
                 if (!model.canLoadMore) {
                   _refreshController.loadNoData();
+                } else {
+                  await model.loadMore();
+                  _refreshController.loadComplete();
                 }
               },
               onRefresh: () async {
@@ -82,7 +86,10 @@ class _D4uCatalogPageState extends State<D4uCatalogPage> {
                         RouteName.catalogFilterPage,
                       ),
                       onChanged: (value) {
-                        model.onSearchChanged(value);
+                        debouncer.run(() {
+                          model.onSearchChanged(value);
+                          _refreshController.loadComplete();
+                        });
                       },
                     ),
                     pinned: true,
@@ -120,7 +127,10 @@ class _D4uCatalogPageState extends State<D4uCatalogPage> {
                                   imagePath: product.images?[0] ?? '',
                                   width: width / 2 - 18,
                                   productRating: product.productRating ?? 0,
-                                  labelText: '-20%',
+                                  onPressedCircularIcon: () async {
+                                    print('Favourite');
+                                    model.setFavourite(product.id!);
+                                  },
                                   onPressedProduct: () {
                                     Navigator.pushNamed(
                                       context,

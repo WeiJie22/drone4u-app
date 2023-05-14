@@ -29,7 +29,7 @@ class D4uProductCard extends StatelessWidget {
     this.imageAlignment = Alignment.bottomCenter,
     this.color = Colors.black,
     this.onPressedProduct,
-    this.onPressedFavorite,
+    this.onPressedCircularIcon,
     this.padding = const EdgeInsets.fromLTRB(16, 0, 0, 0),
   }) : super(key: key);
 
@@ -56,7 +56,7 @@ class D4uProductCard extends StatelessWidget {
   Alignment imageAlignment;
   Color? color;
   VoidCallback? onPressedProduct;
-  VoidCallback? onPressedFavorite;
+  VoidCallback? onPressedCircularIcon;
   EdgeInsets padding;
 
   @override
@@ -144,7 +144,7 @@ class D4uProductCard extends StatelessWidget {
                         ],
                       )
                     : D4uText(
-                        text: 'RM $price',
+                        text: 'RM$price',
                         fontWeight: FontWeight.normal,
                         color: color,
                       ),
@@ -155,7 +155,9 @@ class D4uProductCard extends StatelessWidget {
               ? Positioned(
                   bottom: favPositionBottom,
                   right: favPositionRight,
-                  child: D4uCircularButton(),
+                  child: D4uCircularButton(
+                    onPressed: onPressedCircularIcon,
+                  ),
                 )
               : D4uSizedBox.shrink,
           isDiscount

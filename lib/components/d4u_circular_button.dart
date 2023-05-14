@@ -5,9 +5,11 @@ class D4uCircularButton extends StatefulWidget {
   D4uCircularButton({
     super.key,
     this.icon = Icons.favorite,
+    this.onPressed,
   });
 
   IconData icon;
+  VoidCallback? onPressed;
 
   @override
   State<D4uCircularButton> createState() => _D4uCircularButtonState();
@@ -19,13 +21,7 @@ class _D4uCircularButtonState extends State<D4uCircularButton> {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-      onPressed: () {
-        setState(
-          () {
-            _active = !_active;
-          },
-        );
-      },
+      onPressed: widget.onPressed ?? () {},
       style: ElevatedButton.styleFrom(
         shape: const CircleBorder(),
         backgroundColor: d4uSecondaryColor, // <-- Button color
