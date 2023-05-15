@@ -61,6 +61,7 @@ class _D4uSignUpPageState extends State<D4uSignUpPage> {
       firebaseCollection.set(userId, {
         'name': formValues[SignUpFormConstant.name],
         'email': formValues[SignUpFormConstant.email],
+        'role': 'buyer',
         "userId": userId,
       });
     } on FirebaseAuthException catch (e) {
@@ -86,9 +87,9 @@ class _D4uSignUpPageState extends State<D4uSignUpPage> {
   @override
   Widget build(BuildContext context) {
     return D4uScaffold(
-      bottomNavigationBarWidget: D4uBottomSocialMedia(
-        text: "Or sign up with social account",
-      ),
+      // bottomNavigationBarWidget: D4uBottomSocialMedia(
+      //   text: "Or sign up with social account",
+      // ),
       pageTitle: 'Sign Up',
       body: FormBuilder(
         key: _formKey,

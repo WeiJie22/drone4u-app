@@ -12,7 +12,6 @@ class Product {
   bool? isDiscount;
   double? reviewCount;
   List<dynamic>? images;
-  bool? isFavourite;
 
   Product({
     this.id,

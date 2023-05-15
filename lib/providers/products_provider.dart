@@ -62,9 +62,7 @@ class ProductProvider extends ChangeNotifier {
   }
 
   getFavouriteProducts() async {
-    isLoading = true;
     favouriteProducts = await ProductService.retrieveFavouriteProducts();
-    isLoading = false;
   }
 
   loadMore() async {
