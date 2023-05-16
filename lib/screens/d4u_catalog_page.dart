@@ -4,6 +4,7 @@ import 'package:drone4u/constant/home_page_contant.dart';
 import 'package:drone4u/constant/routes.dart';
 import 'package:drone4u/models/product.dart';
 import 'package:drone4u/providers/products_provider.dart';
+import 'package:drone4u/screens/d4u_catalog_filter_page.dart';
 import 'package:drone4u/screens/d4u_service_detail_page.dart';
 import 'package:drone4u/services/auth.dart';
 import 'package:drone4u/utils/debouncer.dart';
@@ -34,6 +35,9 @@ class _D4uCatalogPageState extends State<D4uCatalogPage> {
       RefreshController(initialRefresh: false);
 
   Debouncer debouncer = Debouncer(milliseconds: 500);
+  Map<String, List<String>> filter = {
+    FilterType.categories: [],
+  };
 
   @override
   Widget build(BuildContext context) {
@@ -81,16 +85,26 @@ class _D4uCatalogPageState extends State<D4uCatalogPage> {
                   ),
                   SliverPersistentHeader(
                     delegate: MyHeaderDelegate(
-                      onTap: () => Navigator.pushNamed(
-                        context,
-                        RouteName.catalogFilterPage,
-                      ),
+                      onTap: () async {
+                        filter = await Navigator.pushNamed(
+                              context,
+                              RouteName.catalogFilterPage,
+                              arguments: D4uCatalogFilterPageArgs(
+                                filters: filter,
+                              ),
+                            ) as Map<String, List<String>>? ??
+                            {};
+                        filter[FilterType.categories]!.isNotEmpty
+                            ? model.filterProduct(filter)
+                            : model.initData();
+                      },
                       onChanged: (value) {
                         debouncer.run(() {
                           model.onSearchChanged(value);
                           _refreshController.loadComplete();
                         });
                       },
+                      filter: filter[FilterType.categories],
                     ),
                     pinned: true,
                   ),
@@ -165,10 +179,12 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
   MyHeaderDelegate({
     this.onTap,
     this.onChanged,
+    this.filter,
   });
 
   VoidCallback? onTap;
   Function(String)? onChanged;
+  List<String>? filter;
 
   @override
   Widget build(
@@ -187,12 +203,35 @@ class MyHeaderDelegate extends SliverPersistentHeaderDelegate {
               },
             ),
           ),
-          Padding(
-            padding: const EdgeInsets.only(right: 16),
-            child: GestureDetector(
-              onTap: onTap,
-              child: const Icon(Icons.sort),
-            ),
+          Stack(
+            children: [
+              Padding(
+                padding: const EdgeInsets.only(right: 16),
+                child: GestureDetector(
+                  onTap: onTap,
+                  child: const Icon(Icons.sort),
+                ),
+              ),
+              if (filter?.isNotEmpty ?? false)
+                Positioned(
+                  right: 12,
+                  child: Container(
+                    height: 18,
+                    width: 18,
+                    decoration: const BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: d4uPrimaryColor,
+                    ),
+                    child: Center(
+                      child: D4uText(
+                        text: '${filter?.length ?? 0}',
+                        fontSize: 10,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ),
+                ),
+            ],
           )
         ],
       ),

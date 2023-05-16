@@ -69,12 +69,12 @@ class _D4uFavouritePageState extends State<D4uFavouritePage>
               },
               child: Column(
                 children: [
-                  D4uChipModel(
-                    options: categories,
-                    onChange: (index) {
-                      print(categories[index]);
-                    },
-                  ),
+                  // D4uChipModel(
+                  //   options: categories,
+                  //   onChange: (index) {
+                  //     print(categories[index]);
+                  //   },
+                  // ),
                   Expanded(
                     child: ListView.builder(
                         padding: EdgeInsets.zero,

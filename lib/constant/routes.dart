@@ -56,8 +56,12 @@ class D4uRouter {
           ),
         );
       case RouteName.catalogFilterPage:
+        D4uCatalogFilterPageArgs args =
+            settings.arguments as D4uCatalogFilterPageArgs;
         return MaterialPageRoute(
-          builder: (_) => const D4uCatalogFilterPage(),
+          builder: (_) => D4uCatalogFilterPage(
+            args: args,
+          ),
         );
       case RouteName.catalogPage:
         D4uCatalogPageArguments args =

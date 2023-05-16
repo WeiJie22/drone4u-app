@@ -62,7 +62,9 @@ class ProductProvider extends ChangeNotifier {
   }
 
   getFavouriteProducts() async {
+    isLoading = true;
     favouriteProducts = await ProductService.retrieveFavouriteProducts();
+    isLoading = false;
   }
 
   loadMore() async {
@@ -80,6 +82,13 @@ class ProductProvider extends ChangeNotifier {
       canLoadMore = true;
       products = await ProductService.initProducts();
     }
+    notifyListeners();
+  }
+
+  filterProduct(Map<String, dynamic> filters) async {
+    isLoading = true;
+    products = await ProductService.filterProducts(filters);
+    isLoading = false;
     notifyListeners();
   }
 }

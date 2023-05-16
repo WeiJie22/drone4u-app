@@ -1,5 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:drone4u/models/product.dart';
+import 'package:drone4u/screens/d4u_catalog_filter_page.dart';
 import 'package:drone4u/services/user_favourite_service.dart';
 
 class ProductService {
@@ -14,6 +15,25 @@ class ProductService {
       FirebaseFirestore.instance.collection('products');
 
   static List<QueryDocumentSnapshot> productDocs = [];
+
+  static Future<List<Product>> filterProducts(
+      Map<String, dynamic> filters) async {
+    List<Product> products = [];
+    try {
+      QuerySnapshot snapshot = await productCollection
+          .where('categories', arrayContainsAny: filters[FilterType.categories])
+          .get();
+      if (snapshot.docs.isNotEmpty) {
+        for (var element in snapshot.docs) {
+          products
+              .add(Product.fromJson(element.data() as Map<String, dynamic>));
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+    return products;
+  }
 
   static Future<Product> getSingleProduct(String id) async {
     Product product = Product();
@@ -64,6 +84,7 @@ class ProductService {
 
   static Future<List<Product>> initProducts({String? query}) async {
     List<Product> products = [];
+    productDocs = [];
     try {
       QuerySnapshot snapshot;
 

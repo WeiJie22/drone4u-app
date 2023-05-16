@@ -9,8 +9,16 @@ class FilterType {
   static const String brand = 'brand';
 }
 
+class D4uCatalogFilterPageArgs {
+  D4uCatalogFilterPageArgs({required this.filters});
+
+  Map<String, List<String>> filters;
+}
+
 class D4uCatalogFilterPage extends StatefulWidget {
-  const D4uCatalogFilterPage({super.key});
+  D4uCatalogFilterPage({this.args, super.key});
+
+  D4uCatalogFilterPageArgs? args;
 
   @override
   State<D4uCatalogFilterPage> createState() => D4uCatalogFilterPageState();
@@ -19,9 +27,17 @@ class D4uCatalogFilterPage extends StatefulWidget {
 class D4uCatalogFilterPageState extends State<D4uCatalogFilterPage> {
   Map<String, List<String>> filters = {
     FilterType.categories: [],
-    FilterType.locations: [],
-    FilterType.brand: [],
+    // FilterType.locations: [],
+    // FilterType.brand: [],
   };
+
+  @override
+  void initState() {
+    super.initState();
+    if (widget.args != null) {
+      filters = widget.args!.filters;
+    }
+  }
 
   bool isSelected(String filterType, String value) {
     return filters[filterType]?.contains(value) ?? false;
@@ -48,8 +64,8 @@ class D4uCatalogFilterPageState extends State<D4uCatalogFilterPage> {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             _buildFilterSection(FilterType.categories, categoriesFilterModel),
-            _buildFilterSection(FilterType.locations, locationsFilterModel),
-            _buildFilterSection(FilterType.brand, brandFilterModel),
+            // _buildFilterSection(FilterType.locations, locationsFilterModel),
+            // _buildFilterSection(FilterType.brand, brandFilterModel),
           ],
         ),
       ),
@@ -57,9 +73,7 @@ class D4uCatalogFilterPageState extends State<D4uCatalogFilterPage> {
         elevation: true,
         padding: D4uPadding.a16,
         onPressed: () {
-          print(
-            'filters: $filters',
-          );
+          Navigator.pop(context, filters);
         },
         text: "Save",
       ),

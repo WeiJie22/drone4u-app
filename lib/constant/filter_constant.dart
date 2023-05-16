@@ -11,10 +11,10 @@ class FilterModel {
 }
 
 List<FilterModel> categoriesFilterModel = [
-  FilterModel(value: 'category1', name: 'This is category1'),
-  FilterModel(value: 'category2', name: 'This is category2'),
-  FilterModel(value: 'category3', name: 'This is category3'),
-  FilterModel(value: 'category4', name: 'This is category4'),
+  FilterModel(value: 'Big Drone', name: 'Big Drone'),
+  FilterModel(value: 'Small Drone', name: 'Small Drone'),
+  // FilterModel(value: 'category3', name: 'This is category3'),
+  // FilterModel(value: 'category4', name: 'This is category4'),
 ];
 
 List<FilterModel> locationsFilterModel = [
