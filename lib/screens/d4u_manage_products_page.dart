@@ -54,7 +54,7 @@ class _D4uManageProductsPageState extends State<D4uManageProductsPage> {
                 return Padding(
                   padding: D4uPadding.v8,
                   child: D4uHorizontalProductCard(
-                    onCardTap: () => Navigator.pushReplacementNamed(
+                    onCardTap: () => Navigator.pushNamed(
                       context,
                       RouteName.editProductPage,
                       arguments: D4uEditProductPageArgs(

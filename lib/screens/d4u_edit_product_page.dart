@@ -43,40 +43,17 @@ class D4uEditProductPage extends StatelessWidget {
         primaryText: 'UPDATE PRODUCT',
         primaryCallback: () async {
           if (_fbKey.currentState!.saveAndValidate()) {
-            Map<String, dynamic> formValue = {..._fbKey.currentState!.value};
-            showDialog(
-              context: context,
-              builder: (_) => const D4uLoadingDialog(),
+            _updateProduct(
+              context,
+              args?.productId,
+              _fbKey.currentState!.value,
             );
-            formValue[UploadServiceConstant.servicePrice] =
-                double.parse(formValue[UploadServiceConstant.servicePrice]);
-            List newImages = formValue[UploadServiceConstant.servicePictures];
-            List xfiles = newImages
-                .where((element) => !initialImage.contains(element))
-                .toList();
-            List<String> images = [];
-            if (xfiles.isNotEmpty) {
-              for (var xfile in xfiles) {
-                String? url = await UploadService.uploadImage(xfile);
-                images.add(url);
-              }
-            }
-            formValue[UploadServiceConstant.servicePictures] = [
-              ...initialImage,
-              ...images
-            ];
-
-            await ProductService.updateProduct(args?.productId, formValue)
-                .then((value) {
-              Navigator.pop(context);
-              Navigator.pop(context);
-            });
           }
         },
         secondaryFlex: 1,
         secondaryText: 'DELETE PRODUCT',
         secondaryCallback: () {
-          Navigator.pop(context);
+          _showDialog(context, args?.productId);
         },
       ),
       body: ChangeNotifierProvider(
@@ -155,6 +132,62 @@ class D4uEditProductPage extends StatelessWidget {
         },
       ),
     );
-    ;
+  }
+
+  _updateProduct(context, productId, formValues) async {
+    Map<String, dynamic> formValue = {...formValues};
+    showDialog(
+      context: context,
+      builder: (_) => const D4uLoadingDialog(),
+    );
+    formValue[UploadServiceConstant.servicePrice] =
+        double.parse(formValue[UploadServiceConstant.servicePrice]);
+    List newImages = formValue[UploadServiceConstant.servicePictures];
+    List xfiles =
+        newImages.where((element) => !initialImage.contains(element)).toList();
+    List<String> images = [];
+    if (xfiles.isNotEmpty) {
+      for (var xfile in xfiles) {
+        String? url = await UploadService.uploadImage(xfile);
+        images.add(url);
+      }
+    }
+    formValue[UploadServiceConstant.servicePictures] = [
+      ...initialImage,
+      ...images
+    ];
+
+    await ProductService.updateProduct(productId, formValue).then((value) {
+      Navigator.pop(context);
+      Navigator.pop(context);
+    });
+  }
+
+  _showDialog(BuildContext context, String? productId) {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return AlertDialog(
+          title: Text('Confirmation'),
+          content: Text('Are you sure you want to delete this product?'),
+          actions: [
+            TextButton(
+              child: const Text('Cancel'),
+              onPressed: () {
+                Navigator.of(context).pop();
+              },
+            ),
+            TextButton(
+              child: const Text('OK'),
+              onPressed: () async {
+                await ProductService.deleteProduct(productId).then(
+                  (value) => Navigator.pop(context),
+                );
+              },
+            ),
+          ],
+        );
+      },
+    );
   }
 }

@@ -28,7 +28,7 @@ class ProductService {
     return product;
   }
 
-  static Future<void> deleteProduct(String id) async {
+  static Future<void> deleteProduct(String? id) async {
     try {
       await productCollection.doc(id).delete();
     } catch (e) {
