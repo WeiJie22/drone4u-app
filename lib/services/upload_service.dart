@@ -13,8 +13,25 @@ import 'package:uuid/uuid.dart';
 class UploadService {
   static User user = FirebaseAuth.instance.currentUser!;
 
-  static Future uploadFile(Map<String, dynamic> json) async {
-    // for (int i = 0; i < 15; i++) {
+  static Future<List<String>> getCategories() async {
+    List<String> categories = [];
+    try {
+      final snapshot = await FirebaseFirestore.instance
+          .collection('categories')
+          .orderBy('categories')
+          .get();
+      if (snapshot.docs.isNotEmpty) {
+        for (var element in snapshot.docs) {
+          categories.addAll(List<String>.from(element.data()['categories']));
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+    return categories;
+  }
+
+  static Future uploadProduct(Map<String, dynamic> json) async {
     try {
       Map<String, dynamic> formValues = {...json};
       List<String> images = [];
@@ -42,10 +59,12 @@ class UploadService {
           .collection('products')
           .add(newProduct.toJson());
       newDoc.set({'id': newDoc.id}, SetOptions(merge: true));
+      FirebaseFirestore.instance.collection('user-products').doc(user.uid).set({
+        'products': FieldValue.arrayUnion([newDoc.id])
+      }, SetOptions(merge: true));
     } catch (e) {
       print(e);
     }
-    // }
   }
 
   static Future<String> uploadImage(image) async {

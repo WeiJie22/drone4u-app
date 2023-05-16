@@ -74,7 +74,7 @@ class _D4uCatalogPageState extends State<D4uCatalogPage> {
                 slivers: [
                   D4uSliverAppBar(
                     showBackButton: false,
-                    pinAppBar: false,
+                    pinAppBar: true,
                     appBarTitle: 'Shops',
                     forceElevated: true,
                     appBarElevation: 0.5,

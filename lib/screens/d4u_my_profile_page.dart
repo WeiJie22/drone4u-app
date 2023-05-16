@@ -1,10 +1,9 @@
+import 'package:drone4u/components/d4u_centered_loading.dart';
 import 'package:drone4u/components/d4u_index.dart';
 import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/routes.dart';
 import 'package:drone4u/models/user.dart';
 import 'package:drone4u/providers/users_provider.dart';
-import 'package:drone4u/services/user_service.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -53,10 +52,14 @@ class _D4uMyProfilePageState extends State<D4uMyProfilePage> {
       body: Padding(
         padding: D4uPadding.a16,
         child: ChangeNotifierProvider(
-          create: (context) => UserProvider(),
+          create: (context) => SettingProvider(),
           builder: (context, child) {
-            UserProvider model = Provider.of<UserProvider>(context);
+            SettingProvider model = Provider.of<SettingProvider>(context);
             SingleUser user = model.user ?? SingleUser();
+
+            if (model.isLoading) {
+              return const D4uCenteredLoading();
+            }
 
             return Column(
               children: [
@@ -70,25 +73,25 @@ class _D4uMyProfilePageState extends State<D4uMyProfilePage> {
                   height: 30,
                 ),
                 _buildProfileTile(
-                  'Upload your service',
-                  'Service name, Service Photo',
-                  () {
+                  title: 'Upload your service',
+                  subTitle: 'Service name, Service Photo',
+                  onTap: () {
                     Navigator.pushNamed(
                       context,
                       RouteName.uploadPage,
                     );
                   },
                 ),
-                // _buildProfileTile(
-                //   'Settings',
-                //   'Notifications, password',
-                //   () {
-                //     Navigator.pushNamed(
-                //       context,
-                //       RouteName.settingsPage,
-                //     );
-                //   },
-                // ),
+                _buildProfileTile(
+                  title: 'Your Products',
+                  subTitle: 'Mange your products',
+                  onTap: () {
+                    Navigator.pushNamed(
+                      context,
+                      RouteName.manageProductPage,
+                    );
+                  },
+                ),
               ],
             );
           },
@@ -97,13 +100,14 @@ class _D4uMyProfilePageState extends State<D4uMyProfilePage> {
     );
   }
 
-  Column _buildProfileTile(String title, String subTitle, VoidCallback onTap) {
+  Column _buildProfileTile(
+      {String? title, String? subTitle, VoidCallback? onTap}) {
     return Column(
       children: [
         D4uProfileTile(
-          title: title,
-          content: subTitle,
-          onTap: onTap,
+          title: title ?? "",
+          content: subTitle ?? "",
+          onTap: onTap ?? () {},
         ),
         Divider(
           color: Colors.grey[200],

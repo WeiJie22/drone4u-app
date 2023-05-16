@@ -144,7 +144,7 @@ class D4uProductCard extends StatelessWidget {
                         ],
                       )
                     : D4uText(
-                        text: 'RM$price',
+                        text: 'RM${price!.toStringAsFixed(2)}',
                         fontWeight: FontWeight.normal,
                         color: color,
                       ),

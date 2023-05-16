@@ -15,6 +15,53 @@ class ProductService {
 
   static List<QueryDocumentSnapshot> productDocs = [];
 
+  static Future<Product> getSingleProduct(String id) async {
+    Product product = Product();
+    try {
+      final snapshot = await productCollection.doc(id).get();
+      if (snapshot.exists) {
+        product = Product.fromJson(snapshot.data() as Map<String, dynamic>);
+      }
+    } catch (e) {
+      print(e);
+    }
+    return product;
+  }
+
+  static Future<void> deleteProduct(String id) async {
+    try {
+      await productCollection.doc(id).delete();
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  static Future<void> updateProduct(
+      String? id, Map<String, dynamic> data) async {
+    try {
+      await productCollection.doc(id).update(data);
+    } catch (e) {
+      print(e);
+    }
+  }
+
+  static Future<List<Product>> getSellerProducts(String id) async {
+    List<Product> products = [];
+    try {
+      final snapshot =
+          await productCollection.where('sellerId', isEqualTo: id).get();
+      if (snapshot.docs.isNotEmpty) {
+        for (var element in snapshot.docs) {
+          products
+              .add(Product.fromJson(element.data() as Map<String, dynamic>));
+        }
+      }
+    } catch (e) {
+      print(e);
+    }
+    return products;
+  }
+
   static Future<List<Product>> initProducts({String? query}) async {
     List<Product> products = [];
     try {
@@ -24,7 +71,9 @@ class ProductService {
         snapshot = await productCollection.limit(limit).get();
       } else {
         snapshot = await productCollection
+            .orderBy('name', descending: true)
             .where('name', isGreaterThanOrEqualTo: query)
+            .where('name', isLessThanOrEqualTo: query + '\uf8ff')
             .get();
       }
 

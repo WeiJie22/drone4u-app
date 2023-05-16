@@ -2,7 +2,8 @@ import 'package:drone4u/components/d4u_centered_loading.dart';
 import 'package:drone4u/components/d4u_index.dart';
 import 'package:drone4u/constant/constant.dart';
 import 'package:drone4u/constant/form_constant.dart';
-import 'package:drone4u/providers/users_provider.dart';
+import 'package:drone4u/providers/manage_products_provider.dart';
+import 'package:drone4u/services/product_service.dart';
 import 'package:drone4u/services/upload_service.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
@@ -10,17 +11,18 @@ import 'package:form_builder_image_picker/form_builder_image_picker.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
 import 'package:provider/provider.dart';
 
-class D4uUploadPage extends StatefulWidget {
-  const D4uUploadPage({super.key});
+class D4uEditProductPageArgs {
+  String? productId;
 
-  @override
-  State<D4uUploadPage> createState() => _D4uUploadPageState();
+  D4uEditProductPageArgs({this.productId});
 }
 
-class _D4uUploadPageState extends State<D4uUploadPage> {
-  List<String> images = [];
+class D4uEditProductPage extends StatelessWidget {
+  D4uEditProductPage({this.args, super.key});
 
-  final _fbKey = GlobalKey<FormBuilderState>();
+  final D4uEditProductPageArgs? args;
+
+  late GlobalKey<FormBuilderState> _fbKey;
 
   Map<String, dynamic> formValues = {
     UploadServiceConstant.serviceName: '',
@@ -29,55 +31,72 @@ class _D4uUploadPageState extends State<D4uUploadPage> {
     UploadServiceConstant.servicePrice: '',
   };
 
-  List<DropdownMenuItem> items = [];
+  List initialImage = [];
 
   @override
   Widget build(BuildContext context) {
     return D4uScaffold(
       showBackButton: true,
-      pageTitle: 'Upload Your Service',
-      bottomNavigationBarWidget: Padding(
-        padding: D4uPadding.a16,
-        child: D4uDuoButton(
-          primaryText: 'Add Service',
-          primaryCallback: () async {
-            if (_fbKey.currentState?.saveAndValidate() ?? false) {
-              Map<String, dynamic> formValues =
-                  _fbKey.currentState?.value ?? {};
-              showDialog(
-                context: context,
-                builder: (_) => const D4uLoadingDialog(),
-              );
-              await UploadService.uploadProduct(formValues).then((value) {
-                // pop 2 times to close the dialog and the upload page
-                Navigator.pop(context);
-                Navigator.pop(context);
-              });
+      pageTitle: 'Edit your product',
+      bottomNavigationBarWidget: D4uDuoButton(
+        primaryFlex: 1,
+        primaryText: 'UPDATE PRODUCT',
+        primaryCallback: () async {
+          if (_fbKey.currentState!.saveAndValidate()) {
+            Map<String, dynamic> formValue = {..._fbKey.currentState!.value};
+            showDialog(
+              context: context,
+              builder: (_) => const D4uLoadingDialog(),
+            );
+            formValue[UploadServiceConstant.servicePrice] =
+                double.parse(formValue[UploadServiceConstant.servicePrice]);
+            List newImages = formValue[UploadServiceConstant.servicePictures];
+            List xfiles = newImages
+                .where((element) => !initialImage.contains(element))
+                .toList();
+            List<String> images = [];
+            if (xfiles.isNotEmpty) {
+              for (var xfile in xfiles) {
+                String? url = await UploadService.uploadImage(xfile);
+                images.add(url);
+              }
             }
-          },
-          secondaryText: 'Cancel',
-          secondaryCallback: () {
-            Navigator.pop(context);
-          },
-        ),
+            formValue[UploadServiceConstant.servicePictures] = [
+              ...initialImage,
+              ...images
+            ];
+
+            await ProductService.updateProduct(args?.productId, formValue)
+                .then((value) {
+              Navigator.pop(context);
+              Navigator.pop(context);
+            });
+          }
+        },
+        secondaryFlex: 1,
+        secondaryText: 'DELETE PRODUCT',
+        secondaryCallback: () {
+          Navigator.pop(context);
+        },
       ),
       body: ChangeNotifierProvider(
-        create: (context) => SettingProvider(initCat: true),
+        create: (context) => ManageProductsProvider(productId: args?.productId),
         builder: (context, child) {
-          // SettingProvider model = Provider.of<SettingProvider>(context);
+          ManageProductsProvider model =
+              Provider.of<ManageProductsProvider>(context);
 
-          // if (model.isLoading) {
-          //   return const D4uCenteredLoading();
-          // }
+          if (model.isLoading) {
+            return const D4uCenteredLoading();
+          }
 
-          // items = model.categories
-          //     .map(
-          //       (String e) => DropdownMenuItem(
-          //         value: e,
-          //         child: Text(e),
-          //       ),
-          //     )
-          //     .toList();
+          formValues[UploadServiceConstant.serviceName] = model.product?.name;
+          formValues[UploadServiceConstant.serviceDescription] =
+              model.product?.description;
+          formValues[UploadServiceConstant.servicePrice] =
+              model.product?.price?.toStringAsFixed(2);
+          initialImage = model.product?.images ?? [];
+
+          _fbKey = GlobalKey<FormBuilderState>();
 
           return FormBuilder(
             key: _fbKey,
@@ -121,6 +140,7 @@ class _D4uUploadPageState extends State<D4uUploadPage> {
                   child: FormBuilderImagePicker(
                     name: UploadServiceConstant.servicePictures,
                     showDecoration: false,
+                    initialValue: initialImage,
                     previewHeight: 80,
                     previewWidth: 80,
                     maxImages: 3,
@@ -135,5 +155,6 @@ class _D4uUploadPageState extends State<D4uUploadPage> {
         },
       ),
     );
+    ;
   }
 }

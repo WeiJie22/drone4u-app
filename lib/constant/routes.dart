@@ -1,8 +1,10 @@
 import 'package:drone4u/screens/d4u_catalog_filter_page.dart';
 import 'package:drone4u/screens/d4u_catalog_page.dart';
 import 'package:drone4u/screens/d4u_confirm_booking_page.dart';
+import 'package:drone4u/screens/d4u_edit_product_page.dart';
 import 'package:drone4u/screens/d4u_forgot_pass_page.dart';
 import 'package:drone4u/screens/d4u_login_screen.dart';
+import 'package:drone4u/screens/d4u_manage_products_page.dart';
 import 'package:drone4u/screens/d4u_my_profile_page.dart';
 import 'package:drone4u/screens/d4u_navigation_bar.dart';
 import 'package:drone4u/screens/d4u_order_details_page.dart';
@@ -27,6 +29,8 @@ class RouteName {
   static const settingsPage = '/settingsPage';
   static const uploadPage = '/uploadPage';
   static const confirmBookingPage = '/confirmBookingPage';
+  static const manageProductPage = '/manageProductPage';
+  static const editProductPage = '/editProductPage';
 }
 
 class D4uRouter {
@@ -90,7 +94,7 @@ class D4uRouter {
         );
       case RouteName.myProfilePage:
         return MaterialPageRoute(
-          builder: (_) => D4uMyProfilePage(),
+          builder: (_) => const D4uMyProfilePage(),
         );
       case RouteName.settingsPage:
         return MaterialPageRoute(
@@ -105,6 +109,18 @@ class D4uRouter {
             settings.arguments as D4uConfirmBookingPageArgs;
         return MaterialPageRoute(
           builder: (_) => D4uConfirmBookingPage(
+            args: args,
+          ),
+        );
+      case RouteName.manageProductPage:
+        return MaterialPageRoute(
+          builder: (_) => const D4uManageProductsPage(),
+        );
+      case RouteName.editProductPage:
+        D4uEditProductPageArgs args =
+            settings.arguments as D4uEditProductPageArgs;
+        return MaterialPageRoute(
+          builder: (_) => D4uEditProductPage(
             args: args,
           ),
         );

@@ -20,6 +20,7 @@ class D4uTextField extends StatefulWidget {
     this.hideLabelWhenFocused = false,
     this.enabled = true,
     this.alignLabelWithHint = false,
+    this.initialValue,
   }) : super(key: key);
 
   String? placeHolder;
@@ -37,6 +38,7 @@ class D4uTextField extends StatefulWidget {
   bool hideLabelWhenFocused;
   bool enabled;
   bool alignLabelWithHint;
+  String? initialValue;
 
   @override
   State<D4uTextField> createState() => _D4uTextFieldState();
@@ -45,19 +47,19 @@ class D4uTextField extends StatefulWidget {
 class _D4uTextFieldState extends State<D4uTextField> {
   late FocusNode focusNode;
   Color borderColor = d4uGray;
-  late TextEditingController textEditingController;
+  // late TextEditingController textEditingController;
 
   @override
   void initState() {
     focusNode = FocusNode();
-    textEditingController = TextEditingController();
+    // textEditingController = TextEditingController();
     super.initState();
   }
 
   @override
   void dispose() {
     super.dispose();
-    textEditingController.dispose();
+    // textEditingController.dispose();
     focusNode.dispose();
   }
 
@@ -76,9 +78,10 @@ class _D4uTextFieldState extends State<D4uTextField> {
           ],
         ),
         child: FormBuilderTextField(
+          initialValue: widget.initialValue,
           name: widget.name ?? '',
           obscureText: widget.obscureText,
-          controller: textEditingController,
+          // controller: textEditingController,
           onChanged: (value) => widget.onChanged!(value),
           keyboardType: widget.keyboardType,
           enabled: widget.enabled,

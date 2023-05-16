@@ -40,6 +40,7 @@ class UploadServiceConstant {
   static const String serviceDescription = 'description';
   static const String servicePictures = 'images';
   static const String servicePrice = 'price';
+  static const String serviceCategories = 'categories';
 }
 
 class ChangePassConstant {
