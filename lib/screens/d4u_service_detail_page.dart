@@ -11,7 +11,10 @@ import 'package:drone4u/screens/d4u_confirm_booking_page.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 import 'package:form_builder_validators/form_builder_validators.dart';
+import 'package:provider/provider.dart';
 import 'package:uuid/uuid.dart';
+
+import '../providers/products_provider.dart';
 
 class D4uServiceDetailPageArgs {
   D4uServiceDetailPageArgs({this.product});
@@ -183,23 +186,28 @@ class _D4uServiceDetailPageState extends State<D4uServiceDetailPage> {
           },
         ),
       ),
-      body: NestedScrollView(
-        headerSliverBuilder: (context, innerBoxIsScrolled) {
-          return [
-            D4uSliverAppBar(
-              appBarTitle: product.name ?? "Unidentified Product",
-            )
-          ];
-        },
-        body: SingleChildScrollView(
-          physics: const ScrollPhysics(),
-          child: Column(
-            children: [
-              _buildProductInformation(product),
-            ],
-          ),
-        ),
-      ),
+      body: ChangeNotifierProvider(
+          create: (context) => ProductProvider(),
+          builder: (context, child) {
+            ProductProvider model = Provider.of<ProductProvider>(context);
+            return NestedScrollView(
+              headerSliverBuilder: (context, innerBoxIsScrolled) {
+                return [
+                  D4uSliverAppBar(
+                    appBarTitle: product.name ?? "Unidentified Product",
+                  )
+                ];
+              },
+              body: SingleChildScrollView(
+                physics: const ScrollPhysics(),
+                child: Column(
+                  children: [
+                    _buildProductInformation(product, model),
+                  ],
+                ),
+              ),
+            );
+          }),
     );
   }
 
@@ -268,7 +276,7 @@ class _D4uServiceDetailPageState extends State<D4uServiceDetailPage> {
     );
   }
 
-  Widget _buildProductInformation(Product product) {
+  Widget _buildProductInformation(Product product, ProductProvider model) {
     return Column(
       children: [
         D4uCarouselImageList(carouselImageList: product.images ?? []),
@@ -278,6 +286,12 @@ class _D4uServiceDetailPageState extends State<D4uServiceDetailPage> {
           sellerName: product.sellerName,
           sellerImage: 'assets/d4uDrone_road.jpg',
           productDescription: product.description,
+          isFavourite: model.checkFav(product.id!),
+          onPressedCircularIcon: (val) async {
+            val
+                ? await model.setFavourite(product.id!)
+                : await model.removeFavourite(product.id!);
+          },
         ),
         D4uReviewTitle(
           review: 86,

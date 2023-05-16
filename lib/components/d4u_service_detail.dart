@@ -12,8 +12,12 @@ class D4uServiceDetail extends StatelessWidget {
     this.price = 0,
     this.rating = 0,
     this.review = 0,
+    this.favPositionBottom = 60,
+    this.favPositionRight = -6,
+    this.showFavorite = true,
     this.isOfficialStore = true,
-    this.isFavorite = false,
+    this.onPressedCircularIcon,
+    this.isFavourite = false,
   }) : super(key: key);
 
   String? productName;
@@ -22,9 +26,13 @@ class D4uServiceDetail extends StatelessWidget {
   String? productDescription;
   double? price;
   double? rating;
+  double? favPositionBottom;
+  double? favPositionRight;
   int? review;
   bool isOfficialStore;
-  bool isFavorite;
+  bool showFavorite;
+  Function? onPressedCircularIcon;
+  bool isFavourite;
 
   @override
   Widget build(BuildContext context) {
@@ -75,23 +83,31 @@ class D4uServiceDetail extends StatelessWidget {
                 )
               ],
             ),
-            GestureDetector(
-              onTap: () {},
-              child: Container(
-                padding: D4uPadding.a24,
-                child: isFavorite
-                    ? const Icon(
-                        Icons.favorite,
-                        color: d4uPrimaryColor,
-                        size: 34,
-                      )
-                    : const Icon(
-                        Icons.favorite_outline,
-                        color: d4uGray,
-                        size: 34,
-                      ),
-              ),
-            ),
+            showFavorite
+                ? D4uCircularButton(
+                    active: isFavourite,
+                    onPressed: (val) {
+                      showFavorite ? onPressedCircularIcon!(val) : null;
+                    },
+                  )
+                : D4uSizedBox.shrink,
+            // GestureDetector(
+            //   onTap: () {},
+            //   child: Container(
+            //     padding: D4uPadding.a24,
+            //     child: isFavorite
+            //         ? const Icon(
+            //             Icons.favorite,
+            //             color: d4uPrimaryColor,
+            //             size: 34,
+            //           )
+            //         : const Icon(
+            //             Icons.favorite_outline,
+            //             color: d4uGray,
+            //             size: 34,
+            //           ),
+            //   ),
+            // ),
           ],
         ),
         Divider(

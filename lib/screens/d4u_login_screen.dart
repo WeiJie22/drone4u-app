@@ -65,9 +65,9 @@ class _D4uLoginScreenState extends State<D4uLoginScreen> {
   Widget build(BuildContext context) {
     return D4uScaffold(
       showBackButton: true,
-      bottomNavigationBarWidget: D4uBottomSocialMedia(
-        text: "Or login with social account",
-      ),
+      // bottomNavigationBarWidget: D4uBottomSocialMedia(
+      //   text: "Or login with social account",
+      // ),
       pageTitle: 'Login',
       body: FormBuilder(
         key: _formKey,
