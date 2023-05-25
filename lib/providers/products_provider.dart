@@ -43,17 +43,17 @@ class ProductProvider extends ChangeNotifier {
     notifyListeners();
   }
 
-  setFavourite(String productId) async {
+  setFavourite(String productId, {bool showLoading = true}) async {
     favouriteProductIds =
         await UserFavouriteService.setFavouriteProduct(productId);
-    getFavouriteProducts();
+    getFavouriteProducts(showLoading: showLoading);
     notifyListeners();
   }
 
-  removeFavourite(String productId) async {
+  removeFavourite(String productId, {bool showLoading = true}) async {
     favouriteProductIds =
         await UserFavouriteService.removeFavouriteProduct(productId);
-    getFavouriteProducts();
+    getFavouriteProducts(showLoading: showLoading);
     notifyListeners();
   }
 
@@ -61,8 +61,10 @@ class ProductProvider extends ChangeNotifier {
     return favouriteProductIds.contains(productId);
   }
 
-  getFavouriteProducts() async {
-    isLoading = true;
+  getFavouriteProducts({bool showLoading = true}) async {
+    if (showLoading) {
+      isLoading = true;
+    }
     favouriteProducts = await ProductService.retrieveFavouriteProducts();
     isLoading = false;
   }
