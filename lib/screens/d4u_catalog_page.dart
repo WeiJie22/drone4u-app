@@ -144,9 +144,14 @@ class _D4uCatalogPageState extends State<D4uCatalogPage> {
                                   productRating: product.productRating ?? 0,
                                   onPressedCircularIcon: (val) async {
                                     val
-                                        ? await model.setFavourite(product.id!)
-                                        : await model
-                                            .removeFavourite(product.id!);
+                                        ? await model.setFavourite(
+                                            product.id!,
+                                            showLoading: false,
+                                          )
+                                        : await model.removeFavourite(
+                                            product.id!,
+                                            showLoading: false,
+                                          );
                                   },
                                   onPressedProduct: () {
                                     Navigator.pushNamed(
